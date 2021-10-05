@@ -1,1 +1,0 @@
-# sametustaoglu.github.io
