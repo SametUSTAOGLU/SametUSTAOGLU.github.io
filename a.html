@@ -1,0 +1,3024 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Kendime Notlar</title>
+
+  <meta name="author" content="Gökhan Şengün" />
+  
+  
+  <meta name="description" content="docker, sql ve nosql veri tabanları, performans optimizasyonu, ci/cd ve verimlilik artıran geliştirici araçları ile ilgili yazılar">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Gökhan Şengün - .net teknolojileri, docker, sql ve nosql veri tabanları, performans optimizasyonu, ci/cd ve verimlilik artıran geliştirici araçları ile ilgili yazılar" href="/feed.xml" />
+
+  
+    
+      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+    
+      
+  
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+    
+  
+  
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+    
+  
+  
+
+  
+
+  <!-- Facebook OpenGraph tags -->
+  <meta property="og:title" content="Kendime Notlar" />
+  <meta property="og:type" content="website" />
+  
+  
+  <meta property="og:url" content="http://gokhansengun.github.io/" />
+  
+  
+  
+  <meta property="og:image" content="http://gokhansengun.github.io/img/avatar-icon.png" />
+  
+  
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=Q5j1_ed9q_HrPdGvu9xJHuZzesXEfqzjr1kudalUBJw_3Pn0Nh8ki1fYTW2FYw5g" charset="UTF-8"></script><link rel="stylesheet" crossorigin="anonymous" href="https://gc.kis.v2.scr.kaspersky-labs.com/E3E8934C-235A-4B0E-825A-35A08381A191/abn/main.css?attr=aHR0cHM6Ly9nb2toYW5zZW5ndW4uY29tLw"/></head>
+
+
+  <body>
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+      <a class="navbar-brand navbar-lang navbar-inactive-lang" href="/index">TR</a>
+      <a class="navbar-brand navbar-lang" >|</a>
+      <a class="navbar-brand navbar-lang navbar-active-lang" href="/index-en">EN</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+            
+
+
+
+
+
+<a href="/">Blog</a>
+
+          </li>
+        
+      
+        
+          <li>
+            
+            
+
+
+
+
+
+<a href="/aboutme">Hakkımda</a>
+
+          </li>
+        
+      
+      </ul>
+    </div>
+
+	
+	<div class="avatar-container">
+	  <div class="avatar-img-border">
+	    <a href="/">
+	      <img class="avatar-img" src="/img/avatar-icon.png" />
+		</a>
+	  </div>
+	</div>
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-heading">
+          <h1>Kendime Notlar</h1>
+		  
+		    
+            <hr class="small">
+            <span class="page-subheading">docker, sql ve nosql veri tabanları, performans optimizasyonu, ci/cd ve verimlilik artıran geliştirici araçları ile ilgili yazılar</span>
+			
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h2 id="blog" class="blog-type-title">Blog Yazıları (17)</h2>
+      <div class="posts-list container-fluid">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      31
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/kendi-bilgisayarindan-web-sayfasi-sunmak/">
+        <span class="post-title">Kendi Bilgisayarından Web Sayfası Sunmak</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      2
+      Tem
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-ipuclari-soru-ve-cevaplar-bolum-4/">
+        <span class="post-title">Docker İpuçları - Soru / Cevap - Bölüm 4</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      24
+      Şub
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-ipuclari-soru-ve-cevaplar-bolum-3/">
+        <span class="post-title">Docker İpuçları - Soru / Cevap - Bölüm 3</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      16
+      Oca
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-ipuclari-soru-ve-cevaplar-bolum-2/">
+        <span class="post-title">Docker İpuçları - Soru / Cevap - Bölüm 2</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      21
+      Ara
+      
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-ipuclari-soru-ve-cevaplar-bolum-1/">
+        <span class="post-title">Docker İpuçları - Soru / Cevap - Bölüm 1</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      30
+      Eki
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/mvc-web-api-async-sync-action-karsilastirmasi/">
+        <span class="post-title">ASP.NET MVC ve Web API - Async / Sync Karşılaştırması</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      8
+      Eki
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/uzun-database-transactionlar-neden-performansi-etkiler/">
+        <span class="post-title">Uzun Veri Tabanı Transaction'ları Neden Performansı Etkiler?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      30
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/jmeter-performans-testi-hazirlama/">
+        <span class="post-title">JMeter Bölüm 4: Performans Testi Nasıl Hazırlanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      14
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/makefile-ve-make-nedir-ne-ise-yarar/">
+        <span class="post-title">Makefile ve make Nedir, Ne İşe Yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-compose-nasil-kullanilir/">
+        <span class="post-title">Docker Bölüm 3: Docker Compose Hangi Amaçlarla ve Nasıl Kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      7
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-yeni-image-hazirlama/">
+        <span class="post-title">Docker Bölüm 2: Yeni bir Docker Image'ı Nasıl Hazırlanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      1
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/docker-nedir-nasil-calisir-nerede-kullanilir/">
+        <span class="post-title">Docker Bölüm 1: Nedir, Nasıl Çalışır, Nerede Kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Tem
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/jmeter-pratik-test-hazirlama/">
+        <span class="post-title">JMeter Bölüm 3: Pratik Test Senaryosu Kaydı Nasıl Yapılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      24
+      Tem
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/jmeter-fonksiyon-testi-hazirlama/">
+        <span class="post-title">JMeter Bölüm 2: Fonksiyon Testi Nasıl Hazırlanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      22
+      Tem
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/jmeter-nedir-ve-ne-ise-yarar/">
+        <span class="post-title">JMeter Bölüm 1: Nedir ve Ne İşe Yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Tem
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/blogun-teknik-altyapisi/">
+        <span class="post-title">Blog'un Teknik Altyapısı</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      10
+      Tem
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="/merhaba-blog/">
+        <span class="post-title">Merhaba Blog Dünyası!</span>
+      </a>
+    </div>
+  </article>
+  
+  
+</div>
+
+    </div>
+    
+    
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h2 id="talks" class="blog-type-title">Konuşmalar (17)</h2>
+      <div class="posts-list container-fluid">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      20
+      Eyl
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=1qOuK4UwTvc" target="_blank">
+        <span class="post-title">Migrating a Cloud Native App from AWS to k8s</span>
+        <span class="talk-duration">(0:36)</span>
+        <span class="talk-community">- DevOps Days 2018</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      May
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=FgIUq4vStQA" target="_blank">
+        <span class="post-title">Bulut Odaklı Yazılım Geliştirmede Yeni Roller</span>
+        <span class="talk-duration">(0:40)</span>
+        <span class="talk-community">- Devnot - Dev Summit İstanbul 2018</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      8
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=TV00zRu6DEs" target="_blank">
+        <span class="post-title">Kubernetes ile Container Orkestrasyonu</span>
+        <span class="talk-duration">(1:56)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=gdI71QhJ1H0" target="_blank">
+        <span class="post-title">Pratik Kriptografi ve Güvenlik Konseptleri</span>
+        <span class="talk-duration">(2:15)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      22
+      Ara
+      
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=Zs-KppxeL3k" target="_blank">
+        <span class="post-title">Bir Web Uygulaması Uçtan Uca Nasıl Ölçeklenir?</span>
+        <span class="talk-duration">(1:57)</span>
+        <span class="talk-community">- Devnot Yazılımcı Buluşmaları</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Kas
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=xc4eURLCFtw" target="_blank">
+        <span class="post-title">Çapraz Platform Uygulama Geliştirme ve Deployment</span>
+        <span class="talk-duration">(0:39)</span>
+        <span class="talk-community">- Devnot - dotnet core day</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      19
+      Tem
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=Ejb0e3oY-QQ" target="_blank">
+        <span class="post-title">HashiStack Tools Part I - Provisioning (Vagrant, Packer, Terraform)</span>
+        <span class="talk-duration">(2:13)</span>
+        <span class="talk-community">- DevOps Turkey</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      13
+      Tem
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=cNbCG6Nih3Q" target="_blank">
+        <span class="post-title">Docker Swarm Mode ile Konteyner Orkestrasyonu</span>
+        <span class="talk-duration">(2:02)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      May
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=W1WVX7lSPK8&index=8" target="_blank">
+        <span class="post-title">Pratik Kriptografi ve Güvenlik Konseptleri</span>
+        <span class="talk-duration">(2:02)</span>
+        <span class="talk-community">- SC Turkey</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      8
+      Nis
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=4tesBs721eQ" target="_blank">
+        <span class="post-title">Kendi Kendini Ölçekleyen Sistemler Geliştirme</span>
+        <span class="talk-duration">(0:38)</span>
+        <span class="talk-community">- Devnot - Dev Summit İstanbul 2017</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Şub
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=aI61tgbUVkA" target="_blank">
+        <span class="post-title">Docker Eğitimi - Bölüm 2</span>
+        <span class="talk-duration">(1:36)</span>
+        <span class="talk-community">- Devnot Atölye</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Şub
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=ErBIAgwoqY8" target="_blank">
+        <span class="post-title">Docker Eğitimi - Bölüm 1</span>
+        <span class="talk-duration">(1:01)</span>
+        <span class="talk-community">- Devnot Atölye</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Oca
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=eL1EeCBwEwM" target="_blank">
+        <span class="post-title">Linux ile İlgili Bilmemiz Gerekenler - Bölüm 2</span>
+        <span class="talk-duration">(2:13)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Oca
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=qV_k7nPtelE" target="_blank">
+        <span class="post-title">Linux ile İlgili Bilmemiz Gerekenler - Bölüm 1</span>
+        <span class="talk-duration">(2:04)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      24
+      Kas
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=oV_0yuCxiFU" target="_blank">
+        <span class="post-title">HTTP ile İlgili Bilmemiz Gerekenler</span>
+        <span class="talk-duration">(2:04)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      22
+      Eyl
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=bJSqh7fFOUI" target="_blank">
+        <span class="post-title">Uygulamalar ile Docker</span>
+        <span class="talk-duration">(1:53)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Ağu
+        
+      2016
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://www.youtube.com/watch?v=Wyr8_tsjKlE" target="_blank">
+        <span class="post-title">Tüm Yönleriyle Docker</span>
+        <span class="talk-duration">(2:14)</span>
+        <span class="talk-community">- Istanbul Coders</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+</div>
+    </div>
+    
+    
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <h2 id="medium" class="blog-type-title">Medium  Yazıları (92)</h2>
+      <div class="posts-list container-fluid">
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Mar
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/53c0b84be510" target="_blank">
+        <span class="post-title">Komut satırı JSON, YAML, XML ve HTML işleme araçları</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      Mar
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/d82f5307ea6d" target="_blank">
+        <span class="post-title">Base64 Encoding nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Mar
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/2e2377c3e861" target="_blank">
+        <span class="post-title">SSH Tunneling nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Mar
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/2269d0d0bf61" target="_blank">
+        <span class="post-title">Let's Encrypt nedir ve nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Şub
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/fdf3ff5dcac3" target="_blank">
+        <span class="post-title">HTTP doğrulama metodları nelerdir — 1?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      Şub
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c1b8e1473234" target="_blank">
+        <span class="post-title">Mutual Authentication nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Şub
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/f84ee2c36435" target="_blank">
+        <span class="post-title">Template Engine nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Şub
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/59cb78dac75b" target="_blank">
+        <span class="post-title">Proxy Cache nedir ve nasıl kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      28
+      Oca
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/71f6ffce6133" target="_blank">
+        <span class="post-title">CDN nedir ve neden kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      21
+      Oca
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/d53b27ab692b" target="_blank">
+        <span class="post-title">Linux metin işleme araçları - awk, sed ve diğerleri</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      14
+      Oca
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c3eca4727b98" target="_blank">
+        <span class="post-title">CORS pratik kullanım senaryoları</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      7
+      Oca
+        
+      2019
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/27006d85bf54" target="_blank">
+        <span class="post-title">CORS nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      31
+      Ara
+      
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/dfa21d9a730d" target="_blank">
+        <span class="post-title">TCP nasıl çalışır - 2?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      24
+      Ara
+      
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/484612c5264f" target="_blank">
+        <span class="post-title">TCP nasıl çalışır - 1?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      17
+      Ara
+      
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/52db87d74ba" target="_blank">
+        <span class="post-title">sudo nasıl kullanılır ve incelikleri nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      10
+      Ara
+      
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/3bdf2fb20282" target="_blank">
+        <span class="post-title">Garbage Collector nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      3
+      Ara
+      
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/ef9cac73e685" target="_blank">
+        <span class="post-title">dnsmasq nedir ve kullanım alanları nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Kas
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/9b4dd08df6a" target="_blank">
+        <span class="post-title">Bot nedir ve kötü amaçlı botlarla nasıl mücadele edilir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      19
+      Kas
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/5178c5560bb" target="_blank">
+        <span class="post-title">iptables nedir, nasıl ve nerelerde kullanılır - 2?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Kas
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/7c081a9512c0" target="_blank">
+        <span class="post-title">iptables nedir, nasıl ve nerelerde kullanılır - 1?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      5
+      Kas
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/fab01b69a415" target="_blank">
+        <span class="post-title">DDoS nedir ve nasıl yapılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      29
+      Eki
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/55c56eed4ffa" target="_blank">
+        <span class="post-title">Firewall nedir, çeşitleri nelerdir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      22
+      Eki
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/87ebb7c53ecd" target="_blank">
+        <span class="post-title">Birden fazla web sitesi aynı IP'den nasıl sunulur?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      15
+      Eki
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/4ba16fac58af" target="_blank">
+        <span class="post-title">Yük dağıtıcıların yedekliliği nasıl sağlanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      8
+      Eki
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/f5750feaa530" target="_blank">
+        <span class="post-title">Virtual IP nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      1
+      Eki
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/ad7bed1ef468" target="_blank">
+        <span class="post-title">DHCP nedir ve nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      24
+      Eyl
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/b101283ddbeb" target="_blank">
+        <span class="post-title">Linux proseslerin hafıza ihtiyacını nasıl karşılar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      17
+      Eyl
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/7044dbfe70d3" target="_blank">
+        <span class="post-title">Port Exhaustion problemi nasıl oluşur ve nasıl önlenir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      10
+      Eyl
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/6c82a274274f" target="_blank">
+        <span class="post-title">Dosya sistemi dosyaları nasıl saklar  —  2?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      3
+      Eyl
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c33e9a07e971" target="_blank">
+        <span class="post-title">Dosya sistemi dosyaları nasıl saklar  —  1?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      27
+      Ağu
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/71342f2e9fbe" target="_blank">
+        <span class="post-title">Flash disklerin kullanım ömrü ve performansı nasıl artırılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      20
+      Ağu
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/8003d3cfaac2" target="_blank">
+        <span class="post-title">Flash disklerin çalışma prensipleri nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      13
+      Ağu
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/174e9ba3f567" target="_blank">
+        <span class="post-title">Race Condition nedir ve nasıl önlenir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      6
+      Ağu
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/39a5ffeddd8e" target="_blank">
+        <span class="post-title">Bash kabuğunda betik yazmanın incelikleri  —  4</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      30
+      Tem
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/dbeadb91e748" target="_blank">
+        <span class="post-title">Bash kabuğunda betik yazmanın incelikleri  —  3</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      23
+      Tem
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/cb4d1cb85b3e" target="_blank">
+        <span class="post-title">Bash kabuğunda betik yazmanın incelikleri  —  2</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      16
+      Tem
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/6718d7e80698" target="_blank">
+        <span class="post-title">Bash kabuğunda betik yazmanın incelikleri  —  1</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      9
+      Tem
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/b3cd97891b12" target="_blank">
+        <span class="post-title">Komut satırı HTTP araçları  —  HTTPie</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      2
+      Tem
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c958a64388c3" target="_blank">
+        <span class="post-title">Komut satırı HTTP araçları  —  cURL</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Haz
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/45824b166908" target="_blank">
+        <span class="post-title">Bilgisayarlar ağda birbirlerini nasıl bulurlar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      Haz
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c72fe8decb30" target="_blank">
+        <span class="post-title">Unix Domain Socket nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Haz
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/dd9f472e1023" target="_blank">
+        <span class="post-title">Connection Pooling nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Haz
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/a8ab9d6101e6" target="_blank">
+        <span class="post-title">TCP uygulama seviyesinde nasıl kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      28
+      May
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/ec54d78c8da5" target="_blank">
+        <span class="post-title">Bir web isteğinin anatomisi</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      21
+      May
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/510a916c70af" target="_blank">
+        <span class="post-title">Terminalde renkler ve animasyonlar nasıl oluşur?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      14
+      May
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/40399923ebbb" target="_blank">
+        <span class="post-title">HTTPS güvenliği artırma yöntemleri</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      7
+      May
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/27f2a1fc634c" target="_blank">
+        <span class="post-title">Ağ trafiği dinleme araçları  —  3</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      30
+      Nis
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/effe9fa4686e" target="_blank">
+        <span class="post-title">Ağ trafiği dinleme araçları  —  2</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      23
+      Nis
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c7c585bc56a3" target="_blank">
+        <span class="post-title">Ağ trafiği dinleme araçları  —  1</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      16
+      Nis
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/44e58f6bf40d" target="_blank">
+        <span class="post-title">Dosya sistemi ve veri tabanı bildirimleri</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      9
+      Nis
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/b32b20afbcbc" target="_blank">
+        <span class="post-title">RAM tabanlı dosya sistemi nedir ve nerelerde kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      2
+      Nis
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/8827caf2afe" target="_blank">
+        <span class="post-title">Tek thread ile çalışmanın avantaj ve dezavantajları</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Mar
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/65bdd893505d" target="_blank">
+        <span class="post-title">Hata ayıklayıcılar hangi amaçlar için kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      19
+      Mar
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/614c0542459a" target="_blank">
+        <span class="post-title">Linux komut satırında hayatta kalma ipuçları  —  3</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Mar
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/c46036ffa0" target="_blank">
+        <span class="post-title">strace ne işe yarar ve nasıl kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      5
+      Mar
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/a2c8b6291de8" target="_blank">
+        <span class="post-title">NAT — Network Address Translation nedir ve nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Şub
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/b15c7d6a1b39" target="_blank">
+        <span class="post-title">Linux'ta her şey neden birer dosyadır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      19
+      Şub
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/e3b6e2e5cc15" target="_blank">
+        <span class="post-title">Web uygulamaları kullanıcı oturumlarını nasıl yönetir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      12
+      Şub
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/5e9b9141fb7b" target="_blank">
+        <span class="post-title">HTTP cookie nedir, hangi amaçlarla ve nasıl kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      5
+      Şub
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/9d643933c1a1" target="_blank">
+        <span class="post-title">Linux komut satırında hayatta kalma ipuçları  —  2</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      29
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/78ba77c51dd6" target="_blank">
+        <span class="post-title">Linux komut satırında hayatta kalma ipuçları  —  1</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      22
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/7e2a5a8dee00" target="_blank">
+        <span class="post-title">Linux servisleri nasıl yönetir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      15
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/6c3e8fdd778f" target="_blank">
+        <span class="post-title">HTTP cache yöntemleri nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      8
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/linux-prosesleri-nas%C4%B1l-y%C3%B6netir-9b1536dc06f7" target="_blank">
+        <span class="post-title">Linux prosesleri nasıl yönetir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      1
+      Oca
+        
+      2018
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/baz%C4%B1-faydal%C4%B1-tcp-ara%C3%A7lar%C4%B1-73334024768a" target="_blank">
+        <span class="post-title">Bazı faydalı TCP araçları</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Ara
+      
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/pki-nedir-ve-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-6f71db7a609e" target="_blank">
+        <span class="post-title">PKI nedir ve nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      Ara
+      
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/https-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-20e27c9f9668" target="_blank">
+        <span class="post-title">HTTPS nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Ara
+      
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/asymmetric-key-encryption-nedir-ve-nerelerde-kullan%C4%B1l%C4%B1r-e658ff7a9acb" target="_blank">
+        <span class="post-title">Asymmetric-Key Encryption Nedir ve Nerelerde Kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Ara
+      
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/ssl-sertifika-tipleri-nelerdir-3427bcd4a576" target="_blank">
+        <span class="post-title">SSL Sertifika Tipleri Nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      27
+      Kas
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/javascript-i%C5%9Fleri-nas%C4%B1l-paralel-y%C3%BCr%C3%BCt%C3%BCr-24f92f71f9bd" target="_blank">
+        <span class="post-title">JavaScript işleri nasıl paralel yürütür?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      20
+      Kas
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/semaphore-mutex-ve-spinlock-nedir-ve-ne-i%C5%9Fe-yarar-ba552a17c03" target="_blank">
+        <span class="post-title">Semaphore, Mutex ve Spinlock nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      13
+      Kas
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/load-balancer-nedir-ve-ne-i%C5%9Fe-yarar-32d608f98ef9" target="_blank">
+        <span class="post-title">Load Balancer nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      6
+      Kas
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/parolalar-veri-tabanlar%C4%B1nda-g%C3%BCvenli-olarak-nas%C4%B1l-saklan%C4%B1r-70c5df892d3e" target="_blank">
+        <span class="post-title">Parolalar veri tabanlarında güvenli olarak nasıl saklanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      30
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/kriptografik-hash-fonksiyonu-nedir-ve-hangi-ama%C3%A7larla-kullan%C4%B1l%C4%B1r-94bdee56fa93" target="_blank">
+        <span class="post-title">Kriptografik Hash fonksiyonu nedir ve hangi amaçlarla kullanılır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      23
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/linuxta-sinyaller-hangi-i%C5%9Flere-yarar-534a6ff6c581" target="_blank">
+        <span class="post-title">Linux’ta sinyaller hangi işlere yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      16
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/http-redirect-ve-url-rewrite-nedir-ve-ne-i%C5%9Fe-yarar-d17c9f1fe5bd" target="_blank">
+        <span class="post-title">Http Redirect ve Url Rewrite nedir ve ne işe yarar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      9
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/ping-ve-traceroute-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-146e151ff83b" target="_blank">
+        <span class="post-title">ping ve traceroute nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      2
+      Eki
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/dns-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-98c61cf36f0b" target="_blank">
+        <span class="post-title">DNS nasıl çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      25
+      Eyl
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/write-ahead-logging-nedir-ve-rdbmsler-neden-kullan%C4%B1r-56d7956ec93" target="_blank">
+        <span class="post-title">Write-Ahead Logging nedir ve RDBMS’ler neden kullanır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      18
+      Eyl
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/virtual-memory-nedir-ve-kullan%C4%B1m-alanlar%C4%B1-nelerdir-14deec0070a1" target="_blank">
+        <span class="post-title">Virtual Memory nedir ve kullanım alanları nelerdir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      11
+      Eyl
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/git-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-bf405779116b" target="_blank">
+        <span class="post-title">Git Nasıl Çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      4
+      Eyl
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/unix-linuxta-bir-proses-yaratmak-ve-copy-on-write-4413d60571a7" target="_blank">
+        <span class="post-title">Unix/Linux’ta Bir Proses Yaratmak ve Copy on Write</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/utf-8-nedir-ve-nas%C4%B1l-%C3%A7al%C4%B1%C5%9F%C4%B1r-a7cd3a874b1c" target="_blank">
+        <span class="post-title">UTF-8 Nedir ve Nasıl Çalışır?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/snapshot-isolation-nedir-60e9bb68a1a8" target="_blank">
+        <span class="post-title">Snapshot Isolation Nedir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/%C3%B6rnek-%C3%BCzerinden-rdbmslerde-transaction-isolation-seviyeleri-ba684e4e2ce2" target="_blank">
+        <span class="post-title">Örnek Üzerinden RDBMS’lerde Transaction Isolation Seviyeleri</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/rdbmslerde-optimistic-locking-cb68904dce92" target="_blank">
+        <span class="post-title">RDBMS’lerde Optimistic Locking</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/rdbmslerde-deadlock-645be753fadd" target="_blank">
+        <span class="post-title">RDBMS’lerde Deadlock</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/neden-rdbms-ve-acid-nedir-125207a471d2" target="_blank">
+        <span class="post-title">Neden RDBMS ve ACID nedir?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/mars-ke%C5%9Fif-arac%C4%B1-pathfinderdaki-i%CC%87lgin%C3%A7-yaz%C4%B1l%C4%B1m-problemi-5b6ebe771d55" target="_blank">
+        <span class="post-title">Mars Keşif Aracı Pathfinder’daki İlginç Yazılım Problemi</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/bilgisayarlar-zaman%C4%B1-nas%C4%B1l-do%C4%9Fru-tutar-78c1203397f0" target="_blank">
+        <span class="post-title">Bilgisayarlar zamanı nasıl doğru tutar?</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/acid-%C3%B6zelliklerinden-isolation-ve-durability-4b5593e225e9" target="_blank">
+        <span class="post-title">ACID özelliklerinden Isolation ve Durability</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  <article class="row post-preview">
+    <span class="col-sm-2 post-date hidden-xs">
+      
+      26
+      Ağu
+        
+      2017
+    </span>
+    <div class="col-sm-10 col-xs-12">
+      <a href="https://medium.com/@gokhansengun/acidin-isolation-%C4%B1na-yak%C4%B1ndan-bak%C4%B1%C5%9F-a661132d1c9" target="_blank">
+        <span class="post-title">ACID’in Isolation’ına Yakından Bakış</span>
+      </a>
+    </div>
+  </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	    
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+          <li>
+            <a target="_blank" href="https://github.com/gokhansengun" title="GitHub">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+		  
+          <li>
+            <a target="_blank" href="https://twitter.com/gokhansengun" title="Twitter">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+		  
+          <li>
+            <a target="_blank" href="/cdn-cgi/l/email-protection#b2d5ddd9dad3dcc1d7dcd5c7dcf2d5dfd3dbde9cd1dddf" title="Email me">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+		  
+          <li>
+            <a target="_blank" href="https://linkedin.com/in/gökhan-şengün-69786735" title="LinkedIn">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+		  
+          <li>
+            <a target="_blank" href="https://stackoverflow.com/users/1717349/gökhan-Şengün" title="StackOverflow">
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+		  
+		  <li>
+			<a target="_blank" href="/feed.xml" title="RSS">
+			  <span class="fa-stack fa-lg">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+			  </span>
+			</a>
+		  </li>		
+          		  
+        </ul>
+        <p class="copyright text-muted">
+		  Gökhan Şengün
+		  &nbsp;&bull;&nbsp;
+		  2019
+		  
+		  
+		  &nbsp;&bull;&nbsp;
+		  <a href="https://gokhansengun.github.io">www.gokhansengun.com</a>
+		  
+	    </p>
+	        <!-- Please don't remove this, keep my open source work credited :) -->
+		<p class="theme-by text-muted">
+		  Theme by
+		  <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+		</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+	<!-- Google Analytics -->
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-80691314-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+	<!-- End Google Analytics -->
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57fc890cda25d856"></script>
+
+  
+  </body>
+</html>
