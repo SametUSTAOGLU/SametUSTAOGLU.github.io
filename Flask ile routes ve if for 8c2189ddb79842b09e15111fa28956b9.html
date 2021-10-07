@@ -1,0 +1,638 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Flask ile routes ve if/for </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="66654db9-fe90-4073-aa0c-b68b1891e201" class="page sans"><header><h1 class="page-title">Flask ile routes ve if/for </h1></header><div class="page-body"><p id="03ff3089-3467-4615-aff3-6179d1ee369c" class="">Flask bildiğiniz gibi pyton web mikroframwork&#x27;udür. Bir web sunucusu değildir. Kendi içerisinde sadece geliştirme sürecinde kullanacağınız basit bir web sunucusu bulunmaktadır fakat asıl işi bu değildir. Bugün basit kodlar çalışırarak route ile pathler oluşturacağız devamında ise koşul ve döngüleri nasıl kullanacağımızı göreceğiz.</p><hr id="72cdc643-1bef-41c5-a7ce-96f6ce983bf1"/><p id="2e24b307-3004-4b33-a951-e331235adf8f" class="">Öncelikle kurulum aşamasından başlayalım. Python ve flask kurulu olması gerekiyor. Ayrıca editör olarak ben VScode kullancağım.  Linux OS den krulum kodlarını paylaşacağım.<div class="indented"><p id="ecee1201-8472-4170-bf7d-238842e0e4c1" class="">sudo yum update -y       &gt;&gt; paket yöneticimizi güncelledik</p><p id="49b63a8f-91bc-4003-b22d-81b3cf5b1a35" class="">sudo yum install python &gt;&gt; python&#x27;u kurduk</p><p id="fa5202ba-3601-4f6a-be99-e54c55a1bc5a" class="">sudo pip3 install flask     &gt;&gt; flask&#x27;ı kurduk</p><p id="8d4788c5-8213-44d4-bab2-76f2de4cbf29" class="">python3 --version           &gt;&gt; python kurulduğunu kontrol etmek için. Zorunlu değil.</p><p id="bd109b66-13ae-406d-a9fa-8390f1ee7b0a" class="">pip3 list                           &gt;&gt; flask kurulduğunu kotrol etmek için. Zorunlu değil.</p><hr id="9e69128e-64f3-4042-8d84-5756a57924da"/></div></p><p id="dc3e6cf7-25b4-43dc-85f5-d928c695b468" class="">Artık başlıyoruz VScode&#x27;ları açalım ve  dosya hiyerarşimizi aşağıdaki resimde olduğu gibi oluşturalım.</p><figure id="8c2189dd-b798-42b0-9e15-111fa28956b9" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled.png"><img style="width:321px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled.png"/></a></figure><p id="e06f6da4-88ba-48dc-8119-46a9db600922" class="">Çalışacağımız klasörde <a href="http://app.py">app.py</a> isimli bir python dosyası ve templates(isim önemli bu şekilde olmalı) klasörü bulunmakta. Template klasöründe de üç adet html dosyası var içeriklerini yazının en alında kod olarak paylaşacağım. Bizim için önemli olan app.py yi oluşturmak ve html kodlarının içindeki değişkenleri okuyarak python  dosyamızda kullanmak</p><figure id="73f6c63b-a10e-4cb1-ad61-8e62139ba5d0" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%201.png"><img style="width:528px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%201.png"/></a></figure><p id="ea7d5f53-398e-4321-9963-214beb28486b" class="">Flask için olmazsa olmaz komutlar diyebiliriz yukarıdaki resme. İlk satırda flask kütüphanesinden ihiyacımız olan class&#x27;ları import ettik. ikinci satırda app isimli Flask class&#x27;ından bir obje yarattık. En alt ksımda da kodu debug etmemiz için gerekli komutları yazdık. Eğer localinizde değilde farkli bir yerde çalışacaksanız </p><p id="46b05e6a-cbd6-44c8-8e81-3bfb62937dc8" class="">kodunuzda küçük değişiklik yapmanız gerekecek &quot;app.run(host=&#x27;0.0.0.0&#x27;,port=80)&quot; . EC2&#x27;da da 80 portunu açmanız gerekecek. </p><p id="88e094d7-f1af-4a74-92c5-c186c434e3aa" class="">bütün kodumuzu yarattığımız obje ile if arasına yazacağız.</p><hr id="58b02c9c-918b-44ba-aece-d37d5c60dd60"/><figure id="99cda411-1769-4a03-8f4c-bd0d4876b561" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%202.png"><img style="width:253px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%202.png"/></a></figure><p id="55cd28b1-3e72-4551-b748-b8c723c20b4d" class="">Basitten başlayıp örnekleri artıracağız. @ ile decorator oluşturup bir  yol tanımladık &quot;/&quot; bu yol da aslında anasayfamız olarak düşünebilirsiniz. Daha sonra &quot;/&quot; dan sonra diğer sayfaların yollarını burada belirteceğiz.</p><p id="1cdab685-15b5-4e89-b015-5a333a1fe9b9" class="">Bunu yazdık ama sonucunu nerede göreceğiz? Öncelikle kodunuzu kaydedin ve çalıştırın. Terminal ekranı hareketlencek ve en altta bu kodun çıktısını neden göreceğinizin linki mevcut. <a href="http://127.0.0.1:5000/">http://127.0.0.1:5000/</a>   veya <a href="http://localhost:5000">localhost:5000</a> browser&#x27;a yapıştırınca çıktıyı aşağıdaki gibi görebilirsiniz.</p><figure id="60803b77-7952-4b7d-a784-9bcc6c7039fc" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%203.png"><img style="width:393px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%203.png"/></a></figure><hr id="4c0f9265-f08d-4564-ad3e-7215bdc751f9"/><p id="187246d8-fcd3-48a8-b559-647b0a461acb" class="">Anasayfamız hazır🙂 şimdi diğer sayfaları yapalım.</p><figure id="ef114535-8c04-46ea-bb85-b08c3e4e13b1" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%204.png"><img style="width:928px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%204.png"/></a></figure><p id="7301739a-6133-4728-aa51-0fb344001934" class="">Yeni bir path tanımlamış olduk. Farklı olarak dikkat ederseniz h1 etiketi içerisine yazdık. Haliyle çıktı da biraz kalın olacak 🙂 Tekrar etmiş olayım tüm decoratorleri obje ile objeyi çalıştırdığımız if arasına gelecek.</p><figure id="7861b99c-981a-4d7c-b27d-7ddd687b60a7" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%205.png"><img style="width:1735px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%205.png"/></a></figure><hr id="28567c53-d919-44c0-9d29-9b67cec09e9f"/><figure id="2aa61306-a9ac-443d-905e-90ae247c9934" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%206.png"><img style="width:617px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%206.png"/></a></figure><p id="ae2615ef-25f1-4f16-87e9-6dd3fb5d9fc6" class="">İkinci yol da tanımlandı gördüğünüz gibi çok da bir değişiklik yok sadece f-string kullandık. Bu sayfayı ilerde kullancağız.</p><figure id="7c0fb8b1-bd74-49d1-8248-1daadaf530ea" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%207.png"><img style="width:944px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%207.png"/></a></figure><hr id="4ff0251e-f7e3-4447-99a8-10cc4b4a2fcd"/><figure id="636b2b54-0ce6-4801-bc39-9f538d0aa805" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%208.png"><img style="width:394px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%208.png"/></a></figure><p id="5a2c0a44-80ce-4f36-a6f6-cc00f74c3ff6" class="">import ettiğimiz classlardan redirect&#x27;i kullandık. admin sayfasına gelen istekleri hata sayfasına yönlendirdik aynı çıktıyı göreceğiz.</p><hr id="d39032e4-9fac-451a-ad5b-26f9be767a29"/><p id="939d306a-d3e3-4932-97a8-93c485529dd8" class="">Buraya kadar olan kısım statik içerik idi şimdi dinamik içeriklere bakacağız.</p><figure id="02df408f-476c-4376-b306-4a6db1648a50" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%209.png"><img style="width:414px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%209.png"/></a></figure><p id="ada6feab-1350-40b4-bdfa-10293abe8f2b" class="">Burada path değişken ne yazarsanız çıktı ona göre değişecek. Değişken olduğunu belirmek için path kısmı &lt;&gt; içerisinde ve aşağıda o değişkeni  { }  içerisinde kullanıyoruz. çıktımız da aşağıdaki gibi olacak.</p><figure id="6f12447a-d542-4f1f-b4af-4d0973925876" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2010.png"><img style="width:883px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2010.png"/></a></figure><hr id="dbdb2d20-393b-4636-a09d-864272de0519"/><figure id="2b0763bf-1e6c-42c9-b2f8-686c41080f40" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2011.png"><img style="width:605px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2011.png"/></a></figure><p id="516c7d5c-bfa5-4274-9917-4d88aae30248" class="">Peki burada ne yaptık? Yukarıdakinden farklı olarak template kiraladık. Daha önceden hazırlanmış hosgeldiniz.html sayfanın içeriğini aldık. Dinamik içerik yaptık değişken bir yol var &quot;isim&quot; şeklinde yani yola hangi ismi girerseniz html sayfasındaki isim_html değişkenine o değer atanacak. Önce html sayfasını göstereyim daha sonra çıktıyı paylaşacağım. </p><figure id="38d55436-d15f-42c5-9ba8-d2191f563ba9" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2012.png"><img style="width:657px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2012.png"/></a></figure><p id="e9120541-9dbb-4ec2-a656-19957684d21d" class="">Basit bir html sayfası bizi ilgilendiren kısım html içerisinde değişken var ve biz bunu python dosyasında alıyoruz. Çıktıyı da görünce daha da anlaşılır olacak.</p><figure id="5c548ae3-fbfd-4736-a27b-ab6794a1e1ae" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2013.png"><img style="width:597px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2013.png"/></a></figure><hr id="45be7873-3fda-4bfc-bae4-de9622d9c13f"/><figure id="caee848a-6a1e-4d69-b87b-ca983c2dcad3" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2014.png"><img style="width:391px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2014.png"/></a></figure><p id="ddbb4e84-361d-4fe1-b3a8-b4d5b4681964" class="">Burada liste.html dosyasını kiraladık. Kod&#x27;da bir numara yok. Bu örnekte html sayfasında kodumuz. Önce html sayfasındaki kodu sonra çıktıyı göstereceğim.</p><figure id="0f4494cc-ee9f-406a-87c9-f884c519586b" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2015.png"><img style="width:368px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2015.png"/></a></figure><p id="b04755b4-3ea0-4140-a9db-edd3c1248c7a" class="">Karışık gözükmsin diye sadece ilgili kısmı göstermek istedim.  1 den 6 ya kadar rakamları yazdıran bir döngü ama aynı x değişkenini &quot;h&quot; etiketi ile de kullandığımız için yazı boyutu küçülerek gidecek.</p><figure id="d614ef4e-0a12-4718-aa9f-445a622de61c" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2016.png"><img style="width:1095px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2016.png"/></a></figure><hr id="eda9c3e4-ad94-4a1a-adb0-fb0a5d6ecb95"/><p id="ff33c01f-71e1-4481-a2d0-225e948c4759" class="">For döngüsünü de gördük son olarak if koşulunu gösterip bitireceğiz. EC2 kısmına geçeceğiz.</p><figure id="e0465131-d563-4ff1-915f-33982adacb8b" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2017.png"><img style="width:461px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2017.png"/></a></figure><p id="a6e9a6e2-439c-4f91-a146-bc05fb2e893f" class="">kosul.html sayfasında mesaj değişkenine buarada oluşturduğumuz ilk değişkenini atıyoruz. </p><figure id="14871707-03ae-4b97-b60e-38867e8bbd8f" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2018.png"><img style="width:420px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2018.png"/></a></figure><p id="fceb21f0-8337-416f-a072-98b71849be86" class="">html sayfasında da eğer mesaj girildi ise mesajı yazacak girilmesi ise &quot;mesaj girilmedi&quot; yazdıracak şekilde ayarlıyoruz.</p><figure id="fdc5fcc2-568c-4df2-92fa-d7841039e7a3" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2019.png"><img style="width:600px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2019.png"/></a></figure><p id="a5b2e5b5-23c7-4403-a6cb-9aa76b3d6ac9" class="">Çıktımız bu şekilde eğer mesaj boş olmuş olsaydı.</p><figure id="bc9ec645-5a2e-4794-8855-77aaad0fa6d3" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2020.png"><img style="width:470px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2020.png"/></a></figure><figure id="06993034-5cad-44a7-9f34-2900155a523e" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2021.png"><img style="width:735px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2021.png"/></a></figure><p id="a774cfa9-3799-4b80-a3bf-20511b128158" class="">çıktımızda bu şekilde olacaktı.</p><hr id="52607018-322a-48e3-8b51-9e442d4d24bb"/><p id="62145890-e325-4a99-8641-be5c0b024838" class="">Vakit kaybetmeden EC2 dan yazdığımız kodları çalıştıralım. Dosyaları ec2 ya atmak için scp komutunu kullanabilirsiniz. Bu şekilde kolay yöntemle atabilirsiniz.  ec2 da klasörleri yaratıp bu şekilde atabilirsiniz. Klasör olarak atılıyor mu ben bulamadım 🙂</p><figure id="72893835-2b97-4e0b-b20e-fa8dc8f0f9e6" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2022.png"><img style="width:612px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2022.png"/></a></figure><p id="19b096c9-6286-4b5c-ae40-873ff573bce8" class="">Biz farklı bir yöntem izleyeceğiz dosyaları github hesabına atıp ordan wget komutu ile ec2 içerisinden çekeceğiz. Dosyaları github hesabımıza yükleyip diğer taraftan da ec2 ya bağlanalım.  !! githuba yüklemeden önce başlarda bahsettiğim bir konu vardı portla ilgili app.run(host=&#x27;0.0.0.0&#x27;,port=80) bu düzeltmeyi yapalım mutlaka.<div class="indented"><p id="b7378495-08ec-4e34-9559-7665bb9c7566" class="">mkdir flask         &gt;&gt; klasör yarattık.</p><p id="b53e6c9d-6739-4d01-89ba-ef4b34f2c31f" class="">cd flask               &gt;&gt; klasör içine girdik.</p><p id="753ec0cf-d110-4079-a099-3e9a4f15ad69" class="">mkdir templates &gt;&gt; hazırladığımız html sayfalarını koymak için templates klasörü açtık.</p><p id="1999417b-144b-4a63-a8a8-6d020db515f6" class="">Şimdi github ımıza gidelim push ettiğimiz dosyaya girelim. <a href="http://app.py">app.py</a> dosyasına tıklayalım. Açılan sayfada raw butonuna tıklayalım.</p></div></p><figure id="b64ac842-57ba-4b8c-8350-9d0d88e2af46" class="image"><a href="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2023.png"><img style="width:1624px" src="Flask%20ile%20routes%20ve%20if%20for%208c2189ddb79842b09e15111fa28956b9/Untitled%2023.png"/></a></figure><p id="838e4d38-2879-4f08-95d7-ca628fc5d1ce" class="">html sayfası açılacak linki kopyalayalım.</p><p id="2f30d226-51d9-40f8-a99f-7a1b94bb43e7" class="">ec2 terminaline dönelim ve wget komutu yazdıktan sonra arkasına copyaladığımız linki yapıştıralım. Daha sonra template klaörüne girelim ve html sayfalarını da aynı yöntemle ec2 ya alalım.</p><p id="0722b993-479e-4310-b861-0badd182c506" class="">Kurulumları başlangıçta yapmıştık zaten aşağıdaki kodu çalıştırıyoruz.</p><p id="cc31a39f-a1fe-472b-8470-a94331a0a9b5" class="">sudo python3 app.py</p><p id="e09bf44d-c17d-44cb-9abb-5a6e27700f6d" class="">ve ec2 nuzun public ip sini veya dns ini kopyalayıp browserdan giriş yapabilsiniz.</p><p id="f2bd9c7b-c179-4723-9d19-e6b52bdeab60" class="">
+</p><p id="a1855d55-b1e1-4ca4-83c7-6d7220af7de1" class="">
+</p></div></article></body></html>
