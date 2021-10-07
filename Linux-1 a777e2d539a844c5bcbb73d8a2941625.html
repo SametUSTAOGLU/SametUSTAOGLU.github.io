@@ -1,0 +1,644 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Linux-1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a37b16e1-11d0-40f1-8c58-92a9b75ebfaa" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_space_shuttle_columbia.jpg" style="object-position:center 30.000000000000004%"/><h1 class="page-title">Linux-1</h1></header><div class="page-body"><h1 id="a0cf60e1-8d07-4c3b-89a8-995a6af9de71" class="">Linux Environment &amp; Managing Users and Groups</h1><p id="ce09b6c5-3ce6-47dc-b0fd-f133c4db43a4" class="">İki konu başlığımız var her ikisi için de önce kısa bir konu anlatımı takiben hands-on yapacağız.</p><h1 id="b9fa7e00-b817-43e4-9b11-9c46c6a45464" class="block-color-red">Linux Environment</h1><p id="913d25d8-3e61-4e1e-bfe7-cb149a31a972" class="">Ortam değişkenleri, işletim sistemimizde bulunan veya uygulamanın kapsayıcısında çalışan uygulamamızın dışındaki değişkenlerdir. Ortam değişkeni, bir değere eşitlenen bir addır. Normalde kod yazarken programın içinde değişkenlere değer atarız ve bu değerlere ancak programın içinden ulaşabiliriz. Environment variables ile bu program dışından da yapılabilinir. Yani duruma göre çalışan bir programın hali hazırdaki verilerini değiştirebilir ve bunun için tek satır koda dokunmamız gerekmez.</p><p id="a443824a-f2b0-4f6f-9c57-cde932c5f274" class="">Faydaları:<div class="indented"><ul id="3c4a9c9e-3af4-4171-be1e-a561766e6e0a" class="bulleted-list"><li style="list-style-type:disc">Şifre gibi önemli verileri kod içine yazmayıp .env dosyasında tutabiliriz. </li></ul><ul id="414ca2a4-7c97-47e9-ab11-aa76d80cad09" class="bulleted-list"><li style="list-style-type:disc">Pratiklik, örneğin sadece port numarası değişecek kodu değiştirmenize gerek kalmaz.</li></ul></div></p><p id="1630b497-32b8-48be-9adf-7cfa5f715ade" class="">Ortam değişkenleri oluşturulabilir, düzenlenebilir, kaydedilebilir ve silinebilir ve sistem davranışı hakkında bilgi verir. Ortam değişkenleri shell tarafından yönetilir ama herhangi bir program tarafından kullanılabilir. Ayrıca shell değişkenleri vardır bunlar da sadece shell içerisinden kullanılabilir.</p><hr id="d4f39439-e66f-43b6-8dcb-b7b453447007"/><p id="e5e4128d-8eb8-4532-9e32-3abb773fb1df" class="">printenv       &gt;&gt;  Kayıtlı tüm ortam değişkenlerini gösterir. Değişkenler büyük harfle yazılır.</p><figure id="a777e2d5-39a8-44c5-bcbb-73d8a2941625" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled.png"><img style="width:382px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled.png"/></a></figure><p id="7cc5ccde-69f0-4ae1-b998-0180b82b038a" class="">Örneğin   &quot;$LANG&quot; bir ortam değişkenidir. Bu değişken sayesinde Türk kullanıcıya Türkçe arayüz Alman kullanıcıya Almanca arayüz gösterilesini sağlar.</p><hr id="bcd68919-ab70-4b9b-9b0f-2a8fe04581ea"/><h2 id="16cce2ed-8e20-45d7-acac-b5088850eff8" class="">En Fazla Kullanılan Ortam Değişkenleri:</h2><p id="5d853287-778c-4200-a6c2-5ba527be589e" class="">PATH	: Executable dosyaların yollarının belirtildiği değişken. Dosyalar birbirinden &quot;:&quot; ile ayrılır.</p><p id="0d65cda1-95f9-4ce2-bbfd-d9515fece98e" class="">USER	: Kullanıcı adı</p><p id="63fa0534-1ce7-4d3e-a44d-8dbe06396192" class="">LANG	: Geçerli yerel ayarlar.</p><p id="189fcd86-2354-43f4-acbe-755a406c35f8" class="">SHELL	: Kullanılan shell.</p><p id="e2e14ae5-9b88-4637-ac58-c7e7447593f5" class="">HOME	: Default kullanıcı home yolu. Burda daha net anlaşılacak. Normalde ec-2 larımızda home /home/ec2-user bu adrestir. Öncelikle home klasörümde yeni_home adıyla bir klasör oluşturdum. Daha sonra <code>export HOME=/home/ec2-user/yeni_home</code>  komuto ile HOME ortam değişkenini değiştirdim. herhangi bir dosyanın içine girip <code>cd</code> veya<code> cd~</code> komutunu çalıştırdığımda home olarak yeni belirttiğim adrese girmiş olacak. <div class="indented"><figure id="edb3ebdf-c3a3-43e8-bb95-0fae4f02b168" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%201.png"><img style="width:552px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%201.png"/></a></figure><p id="549fb749-7485-4411-864d-87b87a8af97d" class="">flask isimli kalsörün altındaki template klasörüne gittikten sonra cd~ komutunu çalıştırdım pwd ile baktığımda home un değiştiğini gördüm.</p></div></p><hr id="c4f51a51-0fdf-4d80-988f-592cb536462e"/><h2 id="3d838e97-073d-46ac-98c4-d7633cd4a933" class="">En Fazla Kullanılan  Komutlar:</h2><p id="cfdd5875-01bc-432a-a891-91dac0ff7579" class=""><code>printenv </code>                         &gt;&gt; Tüm ortam değişkenlerini yazdırır. Parametre olarak bilinen bir değişkeni verirseniz o değişkenin değerini yazdırır.<div class="indented"><figure id="2418efe5-ec71-4c64-9198-cbefe7c06683" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%202.png"><img style="width:1198px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%202.png"/></a></figure></div></p><p id="484e3181-1d8c-4947-b55a-1cc49d298ebd" class=""><code>env</code>                                 &gt;&gt; printenv ile aynı printenv ile tek bir değişken bilgileri alınabilir.</p><p id="db8bcb1a-b60d-4fe2-8355-4eefaefea9a9" class=""><code>set </code>                                   &gt;&gt; hem env veriable hem de shell variable, fonksiyonlar gelir</p><p id="b3ebb95d-a808-49e4-aab6-4cb9c01950b5" class=""><code>YENIDEGISKEN=yenideger</code> &gt;&gt; Yeni shell değişkeni oluşturma. &quot;=&quot; in sağında solunda boşluk olmamalı. sadece çalışan shell de görülebilir.</p><p id="096abd9b-8df5-4592-bf93-e6e589e58998" class=""><code>export YENIDEGISKEN=yenideger</code> &gt;&gt; Yeni ortam değişkeni oluşturma. &quot;=&quot; in sağında solunda boşluk olmamalı.</p><p id="4f02e70b-4f99-43a1-82d0-cc6c04fb4e34" class=""><code>echo $yeni_degisken</code>        &gt;&gt; Ortam değişkeni değerini yazdırma. Değişkenin önüne  &quot;$&quot; işareti koyarak kullanıyoruz. Büyük/küçük harf duyarlıdır dikkat edelim.</p><p id="675d6440-4eda-493d-9401-5e8672e3d23d" class=""><code>unset  YENIDEGISKEN</code>         &gt;&gt; Ortan değişkenini siler</p><p id="ca23799c-50d4-4601-9bf5-c3534bacc2a5" class=""><code>export HOME=/home/ec2-user/yeni_home</code>  &gt;&gt; Yukarıda örnek verirken kullanmıştık ortam değişkeni değerini değiştirme.</p><p id="edbade77-4a7c-472f-938a-de92568caada" class=""><code>export PATH=$PATH:/games/awesome</code>   &gt;&gt; export komutunu append(ekleme) için de kullanıyoruz. PATH değişkeninde birçok yol kayıtlı, onları bozmadan ilave yapmak için PATH den sonra &quot;:&quot; kullanıp yeni ilave etmek istediğimiz yolu giriyoruz.</p><hr id="b6678e03-047b-4572-849e-914e49034882"/><p id="3c7ae5a4-1883-4553-ba8f-7d8fbd771b82" class="">PATH değişkenini biraz yakından tanıyalım. Bir komut çalıştırmak istediğimizde genelde komutun tam yolu girmeyiz sadece komutu yazarız ve çalışır. Basit bir örnek verelim <code>ls</code> komutu klasör içinde ne varsa listeliyordu ve biz bunu sadece ls yazdığımızda yapıyordu. Aslında bu komut /bin klasörünün içerisinde path değişkeni olmasaydı komutu /bin/ls şeklinde yazmamız gerekirdi.  </p><p id="c303d5bb-be8c-422f-be09-8032cf126e62" class="">Aslınd mantık şu önce ls komutunu arıyor bulamayınca path deki yolları deneyeccek ilk bulduğunda aramayı sonlandıracak. Allahtan bu kısaydı daha uzun olanlar da var 🙂. ls komutu nerede diye merak ederseniz yolunu bulmak için <code>which -a ls</code> komutunu kullanabilirsiniz.</p><hr id="812779cf-341b-4014-ae80-4dc98712b961"/><h2 id="642eb7c7-1ac5-4b4d-acf0-88af3b82b77e" class="block-color-blue">Hands-On</h2><p id="c72855b7-8cf1-433d-87c6-8113e2083507" class="block-color-yellow">Difference between &quot;env&quot; and &quot;printenv&quot; commands.<div class="indented"><p id="bbe4b07b-07a7-4e0f-ae01-1918955b647e" class="block-color-yellow"><code>env</code> &gt;&gt; tüm ortam değişkenlerini gösterir.</p><p id="fc6d7e9b-5d0a-4bf0-8125-85ba9c210674" class="block-color-yellow">printenv &gt;&gt; aynı şekilde tüm ortam değişkenlerini gösterir ayrıca spesifik bir  değişkeni parametre olarak alabilir.</p><figure id="f4e9bd83-ebcb-4a96-a4b8-76eabe158625" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%203.png"><img style="width:592px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%203.png"/></a></figure></div></p><hr id="c32ed37b-4c08-4ae8-910c-f6d0804474ae"/><p id="61329757-2067-4eff-b107-39c54febc44a" class="block-color-blue">shell variable ile environment variable farkı.<div class="indented"><p id="f6f0fb2e-2e78-415b-ae2a-aeea7213ea48" class="">shell variable sadece yaratıldığı shellde kullanılabilir. Kullanıcı değiştirdiğinde yeni kullanıcıda kullanılamaz.</p><p id="f63dd59b-6fdd-4e66-9f6f-d9fa9d243907" class="">
+</p><figure id="bc0f604a-0741-43e6-adc6-c4e5ef930741" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%204.png"><img style="width:417px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%204.png"/></a></figure><p id="cff577e3-8392-42e1-854e-b13b1c2569cd" class="">VAREC2 ismiyle bir değişken oluşturduk. user1 kullanıcısına geçtik değeri göremedik.</p><figure id="edd976dc-a2db-4407-8121-2cd3aac1c121" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%205.png"><img style="width:452px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%205.png"/></a></figure><p id="57023e23-9d98-4983-a583-0441f1cb471a" class="">Bu sefeer VARS3 değişkenini export ile yani environment variable şeklinde oluşturduk. Yine user1 e geçtik ve değerini orda da görebildik.</p><hr id="bb933529-efbf-46d7-9d7e-34bc5fd16cd6"/></div></p><p id="d58a451e-3e4f-409f-b73c-9c5d47817fb0" class="block-color-yellow">Change the environment variable value.<div class="indented"><p id="39a12694-933b-49a8-b157-a068205dd758" class="">environment variable değerini değiştirmek için de yine oluşturma <code>export </code>komutu kullanıyoruz.</p><figure id="5a114465-5149-47a3-996e-abd650b122b6" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%206.png"><img style="width:457px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%206.png"/></a></figure></div></p><hr id="3eb4ebab-165b-4c3c-8e7f-66d1c619ee32"/><p id="9a2613bc-ce82-4143-a404-12552a17cd1b" class="block-color-blue">Remove the environment variable with unset command.<div class="indented"><p id="c07c0de8-6712-4819-9eec-d6a381ee99d2" class="">silmek için <code>unset </code>komutunu kullanacağız.</p><figure id="a47b3740-3312-465b-ae54-76886440eff2" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%207.png"><img style="width:419px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%207.png"/></a></figure></div></p><hr id="24d062c9-8f8d-46cc-84b5-09b813bb30be"/><p id="e39dbf12-136b-4bfb-bc39-299ce472ea88" class="block-color-yellow">PATH variable.<div class="indented"><p id="20e9c58c-49fb-484a-ac08-20f47afadca4" class=""><code>printenv PATH</code>  komutu ile PATH değerlerlerini görebiliriz.</p><figure id="dd574c5d-5113-410a-9540-f17f2d9a95c5" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%208.png"><img style="width:884px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%208.png"/></a></figure><p id="36bed685-6b06-462f-84b2-faa3b101ad77" class="">Örneğin kullandığımız cat komutu metin dosyasının içeriğini yazdırıyor ve bu komutu hangi klasörde olursak olalım çalıştırabiliyoruz. eğer PATH değişkenine uygun değer girilmemiş olsa idi biz her cat çalıştımak istediğimizde /bin/cat şeklinde girmemiz gerekecekti.</p></div></p><hr id="6b60f9e5-51e7-4fde-9c25-4da5d0eb5d11"/><p id="d28a6c98-d018-43b9-9d38-fdafdf390072" class="block-color-blue">Add a path to PATH variable for running a script.<div class="indented"><p id="5f1da8b0-7524-4fb7-bfcf-65bdc3685a67" class="">yukarıda konuyu anlattık aslında şimdi bir sh uzantılı tek komut içeren bir script hazırlayacağız. Script&#x27;e çalıştırma yetkisi vereceğiz ve bunu tüm klasörlerden ulaşılabilir hale getireceğiz.</p><figure id="38875884-6c00-4b31-b4a4-328b96eadd68" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%209.png"><img style="width:511px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%209.png"/></a></figure><p id="2c5c1964-b3a8-42e9-b9b5-f25a75769682" class="">yukarıda gördüğünüz gibi bir üst klasörde komut çalışmadı. peki çalışması için ne yapmamız gerekiyor. bulundğu yolu PATH enviroment değişkenine eklememiz gerekiyor.</p><figure id="21379cd6-8d23-4b4c-9b55-23720d4c92f6" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2010.png"><img style="width:617px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2010.png"/></a></figure><p id="21de3042-8342-42dd-8efb-cca54a8b6db3" class="">artık heryerden ulaşılıyor.</p></div></p><hr id="6c03a32d-fdbf-4a9e-a030-7c11f839c222"/><p id="eb1933f1-b0eb-4ac4-a6f1-4d5741c56405" class="block-color-yellow">-Using the environment variable in the script.<div class="indented"><p id="d6bdfb9a-950e-4c44-976b-21433f8fe8e5" class="">Burada elimizde string bir ifade olacak ve içerisinde iki değişken oalcak birisi shell değişkeni diğeri enviroment değişkeni. Değişkenlere atama yapınca environment değişkeninin değerini string içinde görürken shell değişkeninin kendisini göreceğiz çünkü değerini orada kullanamayacak.</p><p id="ebda4f02-b7ee-4a67-abaf-b47612b4a7a4" class="">stringimiz &quot;normally we should see env. variable $CLARUS but probably we can&#x27;t see the shell variable $WAY &quot;</p><figure id="42105938-9549-4140-b1bf-9f9d895b87a1" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2011.png"><img style="width:730px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2011.png"/></a></figure><p id="001efed7-30b6-4dc2-8f48-ab6d4cb72ca7" class="">Görüldüğü üzere $CLARUS yazan yerde artık env.var yazıyor.  $WAY yazan yer boş çünkü stringin içinde geçerli değil sadece yaratıldığı shell de kullanılır.</p><hr id="be71dabf-5402-424c-81ff-4f73839f2a73"/></div></p><p id="807c84a5-8d9d-48c0-94bf-af510883d3f4" class="block-color-blue">Double Quotes.<div class="indented"><p id="1ea4b051-19ff-49d8-975e-928dd68f5aeb" class="">Burada iki konu var birincisi çift tırnak içinde değişkenlerin değerleri geçerlidir ama tek tırnak içerisinde değişekeni değişken gibi değil normal bir string ifade olarak okur. Diğer konu &quot;\&quot; işareti, bu işaret özel bir karakterin önüne gelirse onun özelliğini görmezden gel anlamında kullanılır. </p><figure id="7567ed48-06be-4cb7-b0ab-d277563be3d2" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2012.png"><img style="width:433px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2012.png"/></a></figure><p id="047ded7e-08cd-4d38-b750-cde588e87949" class="block-color-yellow">hata aldık sebebi eğer boşluk kullanmak istiyorsak stringe çevirmemiz yani tırnak içine almamız gerekiyor. &quot;my value&quot; şeklinde</p><figure id="6ea47a19-eda1-4766-956b-d3b9553c5bbb" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2013.png"><img style="width:432px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2013.png"/></a></figure><p id="f5679bae-c0f0-4229-ac6b-84b7166d16cc" class="">MYVAR değişkenin değerini yazdırdık.</p><figure id="18258986-54e6-4785-ae69-d4c974b44cab" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2014.png"><img style="width:504px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2014.png"/></a></figure><p id="842b077c-ec1c-4bf7-aba8-d118b967dae8" class="">MYVAR değişkenin değerini değiştirdik ve string içinde kullandık yeni değerini yani james i string olarak yazdı.</p><figure id="591e5cae-c0ac-40f2-bd7a-4f8225f3d5d0" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2015.png"><img style="width:492px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2015.png"/></a></figure><p id="ca6fbc98-886d-4e2b-90d5-08b8e874fa86" class="">burası önemli MYNAME adında bir değişken tanımlanıyor ve bu değişken MYVAR değişkeninin içinde kullanılıyor burada sıkıntı yok. ama alttaki örnekte MYNAME değişkeinin önünde &quot;\&quot; var bu işaret $ işaretinin özel anlamını yok ediyor normal string gibi okunuyor.</p><hr id="6831b1e1-7096-40e5-9907-29c806ce35b9"/></div></p><p id="13e5504a-89aa-4f1c-a64b-ea3f4e943da5" class="block-color-yellow">Single Quotes.<div class="indented"><figure id="c7e76920-6e92-44f7-90f0-cae0d4e56b8e" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2016.png"><img style="width:447px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2016.png"/></a></figure><p id="f7f461ca-17fd-4d54-b7ac-346df719cf2c" class="">tek tırnak içerinde özel karekterlerin anlamı olmaz yani $ işareti olması onun değişken olduğunu göstermez ne görülüyorsa çıktı da o olur.</p></div></p><p id="8dfcaada-06d1-43b6-b3f6-d2dd3a99835a" class="">Sudo Command.<div class="indented"><p id="7d894c63-43e4-4bdc-828f-bc5a020668c4" class="">Bu komut normal kullanıcı yetkisi ile çalıştırılamayan komutların çalıştırılması için kullanılır.</p><figure id="45e3d7d3-be2d-4ee1-bb37-b93870bd1d9f" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2017.png"><img style="width:859px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2017.png"/></a></figure><p id="be73a7c6-b5b4-43c8-9109-351a811feb71" class="">yum update komutunu normal kullanıcı yapamaz.</p><figure id="0fd873d5-2fa6-4354-86b4-731a416817af" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2018.png"><img style="width:514px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2018.png"/></a></figure><p id="7ddb02bc-a841-4d60-bd86-7392abd37748" class="">cd / kök dizine gider kök dizinde ancak admin yetkilidir o yüzden hata aldık.</p><hr id="c369ec78-eda0-4ff1-9ebd-2facea321184"/><figure id="5fbc585e-5225-4694-9622-a1f538041250" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2019.png"><img style="width:334px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2019.png"/></a></figure><p id="f82f1372-6932-4c49-8aa9-33fd4a205138" class="">&quot;sudo su&quot; ile &quot;sudo su -&quot; farkını göstereceğim. ilk örnekte ec2-user kullanıcısının home klasöründeyiz ve root user a geçtik. root user yetkiisndeyiz ama şuan yine ec2-user ın home klasöründeyiz.   </p><figure id="87ee0e8f-c570-468f-9a48-2a2953b963a2" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2020.png"><img style="width:441px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2020.png"/></a></figure><p id="534517df-9396-4e47-9d30-7eeebea5dabb" class="">sudo su - kullandığımızda şuan root kök dizinindeyiz.</p><p id="8cbc9103-4347-4708-a220-7398fec2610b" class="">NOT: sudo su ile sudo -s aynı şekilde çalışır.</p><hr id="16a4af36-9570-4825-a2e3-86051cedba22"/><p id="9011e59f-7974-4059-8bc0-57f5edbcbdee" class="">
+</p></div></p><hr id="00f85e33-0b74-4c18-94a6-d0fed6d92ca2"/><h1 id="36be03b5-ac12-4d14-9817-f881facba60e" class="block-color-red">Managing Users and Groups</h1><p id="b9d186f5-37b7-41a8-b2c7-0b5e0c93dc87" class="">Kullanıcı türlerini göreceğiz. sudo ile başlayalım. &quot;Superuser do&quot; nun kısaltmasıdır. Admin kullanıcısı değilsiniz ve admin yetkilerini kullanmak istiyorsunuz kodunuz başına sudo yazabilirsiniz. Size şifre soracak ve komutunuzu uygulayacak. </p><p id="07496688-98cb-4be7-ae6e-33d7b1805bbd" class="">(#) komut satırınızda bu işaret varsa root olarak açmışsınız sudo kullanmanıza gerek yoktur.</p><h2 id="cc8508d7-cc9c-44bb-be36-1ddf016a7e68" class="">sudo komutlar:</h2><p id="7c494f41-9fbd-4108-99b8-10707df47486" class=""><code>sudo -l</code>                                   &gt;&gt; Kullanabileceğiniz sudo komutlarını listeler.</p><p id="f3070009-036f-4528-b9ce-7e216ce14147" class=""><code>sudo &lt;command&gt;</code>                       &gt;&gt; Komutunuzu sudo ile çalıştırırsınız.</p><p id="6fa71aca-007f-4b70-a190-512b591db027" class=""><code>sudo -u &lt;user&gt; &lt; command&gt;</code>    &gt;&gt; farklı bir kullanıcı ile komut çalıştırma</p><p id="5d0f172f-de4e-4661-8d65-2f3012e8bc27" class=""><code>sudo su</code>                                   &gt;&gt; root kullanıcısına geçme komutu</p><p id="d3b2abab-99d8-4015-b0a2-78685095d427" class=""><code>sudo su -</code>                               &gt;&gt; root kullanıcısına geçer ver root kullanısının home klasüne gitmiş olursunuz. Yukarıdakinden farkı şu ki sadece <code>sudo su</code> yaptığınızda admin kullanıcısna geçersiniz ama en son nerede iseniz o klasördesinizdir. </p><p id="123ecd48-fb6b-4300-bf1c-0278a1c67b8b" class=""><code>sudo su - username</code>               &gt;&gt; kullanıcı değiştirme komutu</p><p id="8ed35a9f-b865-4ba7-ab88-5d24e7ffca1a" class=""><code>sudo -s</code>                                  &gt;&gt; sudo ile shell başlatma</p><p id="e9b01158-4a0a-43cf-bbb7-426263fbe438" class=""><code>sudo -u user -s</code>                    &gt;&gt; kullanıcı ile shell başlatma</p><hr id="5adf73a3-4317-4cfe-924c-94a01e1a5062"/><h3 id="7b45ed78-d6ec-4234-93b8-35307c16f175" class="">Basit Kullanıcı komutları:</h3><p id="01d967b1-043b-40e4-841a-0034cb90a752" class=""><code> whoami</code>       &gt;&gt; kullanıcı adı bilgisini verir.</p><figure id="c02be86a-d496-4d6f-8bb4-3ae47c409f55" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2021.png"><img style="width:381px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2021.png"/></a></figure><p id="2b61f055-596c-4402-a5b8-acccbb9a8643" class=""><code>who</code>              &gt;&gt; sistemde kimlerin oturum açtığını gösterir. Zaman ve ip bilgisiyle birlikte detalı gösterir.</p><figure id="ef8f64c1-6570-40c3-8a5d-d6043dfe5bdf" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2022.png"><img style="width:498px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2022.png"/></a></figure><p id="35cbf473-4d10-4446-86e2-47422339c43e" class=""><code>who am i</code>       &gt;&gt; aktif oturum ile ilgili kullanıcı adı, zaman ve ip bilgisi verir.</p><figure id="7c2db065-ef64-4d3d-bf0c-eb5545feab03" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2023.png"><img style="width:543px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2023.png"/></a></figure><p id="7befcb9d-c163-4835-ba70-b64c7bb901ee" class=""><code>w</code>                   &gt;&gt; kimin oturum açtığını ve ne yaptığını size bildirecektir.</p><figure id="4b705b1b-ff04-4a7c-9842-f3d4e3b12d1c" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2024.png"><img style="width:636px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2024.png"/></a></figure><p id="cf08efbe-d695-4a8e-a52a-b07c990b2374" class=""><code>id</code>                 &gt;&gt; id komutu, kullanıcı kimliğinizi, birincil grup kimliğinizi ve ait olduğunuz grupların bir listesini sağlayacaktır.  </p><figure id="f1702eb5-951d-4696-8e44-19d08fcfa269" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2025.png"><img style="width:877px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2025.png"/></a></figure><p id="31a0c17c-f8ea-475d-8a2b-13586d0f74dc" class=""><code>su</code>                 &gt;&gt; Başka bir kullanıcı hesabına geçmek için kullanılır. Aşağıda clarusway hesabından john hesabına geçti.</p><figure id="83a052c0-895d-413e-9010-07f37dae1fab" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2026.png"><img style="width:464px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2026.png"/></a></figure><p id="534062a7-4622-4419-9331-876855f25b81" class=""><code>su -</code>                &gt;&gt; Yukarıdaki komut gibi kullanıcı değiştirmek için kullanılır ama bu sefer hangi kullanıcıya geçti isek o kullanıcının home klasöründen başlarsınız. </p><figure id="23a921cc-34a7-4bb5-ac72-92e7f2185103" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2027.png"><img style="width:455px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2027.png"/></a></figure><p id="95bab186-2832-4690-aa56-0645b65ebb2f" class="">Not: su veya su - komutunun yanına herhangi bi kullanıcı girilmez ise root a geçiş yapar.</p><p id="1b082e9d-7e16-4f1b-8498-ce70f17ae108" class=""><code>sudo su</code>           &gt;&gt; Bu komut ile parola girmeden root kullanıcısına geçebilirsiniz.</p><p id="e4618d94-fcac-4d2d-bb14-838638bd57b4" class=""><code>su -c </code>            &gt;&gt; İstenilen kullanıcının shell oturumuna komut gönderebilmeyi sağlar.</p><p id="4cef218a-2048-45b7-9b41-e051c862af84" class=""> </p><figure id="3285b2e5-5d51-4a3f-ae92-1d88761a97c3" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2028.png"><img style="width:414px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2028.png"/></a></figure><h3 id="af561c45-eada-448e-aad4-7f140fa88e22" class="">User anagement(Kullanıcı Yönetimi)</h3><p id="a7984dfc-4e4b-4b4a-b56f-06aee614d4ac" class="">Linux çok kullanıcı kullanımına müsade eder. BU durumda kullanıcı ekleme değiştirme silme gibi işlemleri yapabilmek gerekir. Erişimi kolaylaştırmak için de gruplar oluşturulur. KOmutları aşağıda görebilirsiniz.</p><p id="907ee2b0-2763-40aa-a81e-a6bf227ce996" class=""><code>/etc/passwd</code>          &gt;&gt; yerel kullanıcı veritabanını gösterir. Aşağıda son 5 kullanıcının bilgilerini görüyorsunuz.</p><figure id="a0f8cac8-802c-4332-adb6-ec218c6c1c21" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2029.png"><img style="width:882px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2029.png"/></a></figure><p id="00fa4305-a71e-48f3-aa1a-9d124d3209a4" class=""><code>useradd</code>                  &gt;&gt;  Yeni kullanıcı yaratmanızı sağlar. <div class="indented"><p id="f883b4e4-36dc-42f5-be45-8bb73203a0c9" class=""><code>useradd -m -d /home/kamil -c &quot;kamilin hesabi&quot; kamil </code></p><p id="1a410112-e37f-405e-b00e-4234efdbbf96" class="">-m &gt;&gt; home klasörü yaratmaya zorlar.</p><p id="553b1929-b6e7-497d-9d74-f45cd2f63748" class="">-d  &gt;&gt; home klaörünün ismi</p><p id="e7e019e3-2a0f-41bd-86f3-c0ba330ac4b0" class="">-c  &gt;&gt; açıklama</p><figure id="9c3bf62a-2732-44e9-a9d3-73e6ca1678a0" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2030.png"><img style="width:1035px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2030.png"/></a></figure></div></p><p id="10b79776-dd53-4511-8ec6-13f952a178d6" class=""><code>adduser kamile</code>                &gt;&gt;  tek tek sziden bilgi isteyrek kullanıcı yaratmanızı sağlar.</p><p id="abaa424c-957d-43c5-b116-595e3672852d" class=""><code>userdel -r kamile</code>&gt;&gt; kullanıcı silmeyi sağlar.</p><p id="c9c7cbed-7bda-4ad6-aed3-b1857a83fd54" class=""><code>usermod -c &quot;kamilin aciklamasi degisti&quot;  kamil</code> &gt;&gt; kullanıcı bilgilerinde modify etmeye yarar.<div class="indented"><figure id="54ede017-ada0-42ca-9fcb-60057332495e" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2031.png"><img style="width:824px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2031.png"/></a></figure></div></p><p id="b912c86b-7029-4db4-b44f-89d910b0195a" class=""><code>passwd</code>  &gt;&gt; herhangir kullanıcıda iken komutu çalıştırdığınızda kullanıcının şuan ki şifresini ister daha sonra değiştirmek istenilen değer girilir. eğer root kullanıcısında iseniz <code>passwd kamil</code> kullanıcı adıyla birlikte girmeniz gerekir. burada önemli bir detay var root kullanıcında olduğunuz için şuan ki şifreyi istemez direk yeni şifre oluşturur. oldu da şifreyi unutursanız bu şekilde değiştirebilrsiniz.</p><p id="ba2ebf0d-1f85-4d4b-aae7-72bb8968b6cf" class=""><code>shadow file</code>  &gt;&gt; kullanıcı paraloları şifreli bir şekilde /etc/shadow dosyasında bulunur. sadece root yetkisi ile okunabilir.<div class="indented"><figure id="0e4900d4-c1bc-4b23-8b15-48fde55d4ecc" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2032.png"><img style="width:863px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2032.png"/></a></figure></div></p><p id="bfd96c2f-4955-4d53-973d-65ed7be0ccf2" class=""><code>/etc/login.defs</code>  &gt;&gt; paralo ile ilgili uzunluk maksimum kullanım minimum kullanım gibi değerleri gösterir.<div class="indented"><figure id="0caf50e9-ff0b-45c6-bc0e-935ecd3a4e0f" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2033.png"><img style="width:750px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2033.png"/></a></figure></div></p><p id="dfcbdd24-0a39-4bb8-beb8-1274e7c5665d" class=""><code>groupadd birinci_grup </code>&gt;&gt; yeni grup oluşturma kodu.</p><p id="ed779410-856a-45ec-b9d3-beaf26b850f1" class=""><code>usermod -a -G birinci_grup kamil </code>  &gt;&gt; usermod komutunu görmüştük değiştirme demiştik burada da aslında grubunu değitirmiş olduk. Bu komutu kullanırken dikkatli olmak gerekiyor  eğer grup adı girilmez ise kullanıcı herhangi bir gruba dahil olmayacaktır.</p><p id="5e37963e-35ef-43d9-a351-edfa0c7e5e3f" class=""><code>Group File</code>        &gt;&gt;  bir kullanıcı birden fazla gruba dahil olabilir. kullanıcının dahil olduğu grupları görmek için  <code>tail -3 /etc/group</code>  komutu kullanılır. 3 degişebilir.<div class="indented"><figure id="acac91e8-7805-4573-8de7-6ffbdb19e6b4" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2034.png"><img style="width:608px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2034.png"/></a></figure></div></p><p id="6e3dfe0b-40bf-4262-98a1-b8cb33443fbe" class=""><code>groups  </code>&gt;&gt; hangi kullanıcıda bu komutu verdiyseniz o kullanıcının dahil olduğu grubu gösterir. <div class="indented"><figure id="7ae8286b-936b-48f1-908a-97546cf6a2b9" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2035.png"><img style="width:385px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2035.png"/></a></figure></div></p><p id="36e9d67e-1902-4698-b127-2af3e74b14b2" class=""><code>groupmod  </code>&gt;&gt; grup adını değiştirmek için kullanılır.<div class="indented"><p id="e01c1ad8-ef99-416b-add2-3e2916ebaa6f" class=""><code>groupmod -n yeni_grup eski_grup</code></p><figure id="a744beb4-893a-418a-a074-0b2572c6a2cb" class="image"><a href="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2036.png"><img style="width:529px" src="Linux-1%20a777e2d539a844c5bcbb73d8a2941625/Untitled%2036.png"/></a></figure></div></p><p id="8970bc02-1bd0-4036-968f-828c4cf8bde4" class=""><code>groupdel</code>  &gt;&gt; grubu siler<div class="indented"><p id="ead630e2-d86e-4e35-8ac4-239913c73f0f" class=""><code>groupdel birinci_grup</code>  önemli uyarı: eğer silmek istediğiniz grup birincil ise silemezsiniz</p></div></p><p id="0679e052-fe6d-4ec9-a082-7147ae442186" class="">
+</p><p id="e0dbff05-eedb-43f5-babd-534dfd304f35" class=""><code>gpasswd</code>  &gt;&gt; bir gruba kullanıcı ekleyebilir veya silebilirsiniz<div class="indented"><p id="4630772c-d647-468a-830e-551ca2e6cf10" class=""><code>gpasswd -a john aws  &gt;&gt; ekleme</code></p><p id="f39b3f8d-be22-4366-bf7c-119a8fe0cbc5" class=""><code>gpasswd -d walter aws &gt;&gt; silme</code></p></div></p><hr id="72022dcf-caf7-4fe4-872d-d0814419f4c4"/><h2 id="a111b110-95e1-4a9a-9c24-a9f74d44d863" class="">Hands-On</h2><p id="87b0b0b9-d979-48f7-8e6b-2f01e2e7163a" class="">
+</p><p id="a388b32f-cdea-40c2-bf41-c093137b864d" class="">
+</p><p id="2f6189a0-84cb-49e0-bf1f-4e8c2600da3f" class="">
+</p><p id="276aedeb-9238-4ba5-9e5b-3615f5a7ec95" class="">
+</p><p id="62e20ad1-81a2-43a2-8b07-556a08566e31" class="">
+</p></div></article></body></html>
