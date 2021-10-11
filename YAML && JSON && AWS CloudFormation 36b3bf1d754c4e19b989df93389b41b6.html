@@ -1,0 +1,773 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>YAML &amp;&amp; JSON &amp;&amp; AWS CloudFormation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5d9adcfc-2909-40a2-83bd-b4d3aedbf8d5" class="page sans"><header><h1 class="page-title">YAML &amp;&amp; JSON &amp;&amp; AWS CloudFormation</h1></header><div class="page-body"><p id="260ffaa8-ce81-4369-b04b-9f444f10f2ff" class="">
+</p><p id="39482d7e-82e9-43ef-aeab-6f815511044b" class="">YAML nedir JSON nedir şimdi ne alaka yanına bir AWS servisi diyebilirsiniz. Neden öğreniyoruz aralarındaki bağlantı nedir hepsini anlatacağım. YAML ve  JSON bir programlama dili değildir. Bunlar farklı syntax&#x27;lere sahip bir dosya formatıdır. Peki biz neden bilmek zorundayız YAML ve  JSON&#x27;u. CloudFormation servisinin çalışması için template dosya hazırlamamız gerekiyor ve bu dosyanın formayı YAML ve  JSON olması gererkiyor. Peki bu dosya ne işe yarıyor?  Kabaca ifade edeyim siz bu dosyanın içine bişeyler yazıyorsunuz ve yazdığınız bilgilere göre makina ayağa kaldırıyorsunuz veya database oluşturuyorsunuz gibi birçok şey yapabiliyorsunuz. Şöyle diyebiliriz siz kağıt üstünde mimariyi oluşturuyorsunuz aws cloudformation servisine veriyorsunuz o sizin girdilerinize uygun ortamı hazırlıyor.</p><p id="fb096dd2-a787-4b6a-bb7c-cc6e3d7b45d7" class="">Neden öğrendiğimizin farkına vardıktan sonra şimdi YAML&#x27;dan başlayalım. Aslında sadece AWS için de değil DEVOPS tool&#x27;larında da bu formatı kullanıyor olacağız. YAML için kofigurasyon oluşturma formatı diyebiliriz. </p><p id="2674208c-d769-4b9b-a0ae-f61909050bf6" class="">YAML case sensitive&#x27;dir. Yani büyük küçük harf duyarlıdır. Uzantısı .yaml veya .yml olabilir.  Key-Value çifti temel yapısıdır. Key ler her zaman string olmak zorundadır, value ler herhangi tipte olabilir. </p><p id="60b63de9-5ae8-4087-a663-6a3cd4db3cf5" class="">Liste tanımlaması yaparken her item&#x27;dan önce (- ve boşluk) kullanılmalıdır.  Ayrıca liste tanımlamasını [  ,  ,   ] şeklinde deyapabilirsiniz.</p><p id="5865d0df-7b72-4c37-9f0e-6e5be4519578" class="">Key Value arasına &quot;:&quot; işareti konulur.</p><pre id="05d59589-b141-4c04-9882-711cc550a552" class="code code-wrap"><code>Araba:
+    -   marka: BMW
+        model: 2012
+    -   marka: Audi
+        model: 2020</code></pre><p id="12ab3759-50f5-4d96-9855-002b74cae935" class="">Dictionary yapısını da çeşitli şekilllerde kurabilirsiniz. 3 farklı yöntemi aşağıda belirteceğim.</p><pre id="2dbf2528-d0dd-461d-bc7a-e29ebdb30bd1" class="code"><code>friends:
+    -   name: yaşar
+        age: 20
+    -   {name: beşir, age: 25}
+	  -   
+				name: &quot;sakıp&quot;
+				age:23
+        </code></pre><p id="108580a4-18f8-4c2c-9963-e0ec9ca7a5a3" class="">&quot;#&quot; işareti yorum satırı için kullanılır. </p><p id="72457a1b-be74-471d-a981-01fe63c15bd0" class="">Liste içindeki itemları yazarke &quot;,&quot; ve boşluk kullanılır.</p><pre id="e66c59b9-7051-4cc7-95f0-02826915ec97" class="code code-wrap"><code>--- # Course List
+   [Aws/DevOps,  Web Developer, QA Tester]</code></pre><p id="8105c61d-05b2-456f-b475-3ccee64cb907" class="">Girinti kullanmak için tab&#x27;den ziyade boşluk kullanılır.</p><p id="76a59b21-58b4-4d51-bd69-42228bbfbc46" class="">Bölümler ayırmak için 3 tire( --- ) kullanılır</p><p id="1f821ae8-0554-40ae-90f5-c416765b6af5" class="">Ayrıca yaml dosyası 3 tire( --- ) ile başlar 3 nokta(...) ile biter.  Zorunlu değildir bu uygulama.</p><pre id="cc8a882f-a239-45b8-b266-dca7c523dc12" class="code code-wrap"><code>---
+# A list of courses
+- AWS
+- DevOps
+- Web Developer
+...</code></pre><p id="155f85b6-7e0a-420a-861e-837a6b42c194" class="">indentation yani girintiler önemlidir. Burada önemli olan husus şu boşluk olmalı ama ne kadar olduğu önemsizdir. eğer alt satıra yazılan ifade üsttekinin value sü ise en az bir boşluk olmalı, eğer onunda value&#x27;sü varsa bu sefer 2 boşluk bırakabilrsiniz. önemli onal parent child ilişkisi gibi düşünürseniz chil parent arasında en az bir boşluk olmalı. Aşağıdaki örnek gibi. </p><pre id="73543500-af22-42a7-87a7-a032d8617877" class="code code-wrap"><code>a:
+   b:
+      - c
+      -  d
+      - e
+f:
+      &quot;ghi&quot;</code></pre><p id="fb639694-661d-43bd-96d6-bd22c02928d6" class="">Yukardaki yapı aslında YAML&#x27;ın Block tipidir. İlla bu şekilde yazmak zorunda değilsiniz. Aşağıdaki gibi JSON şeklinde de yazılabilir. Ama yukarıdaki tip daha anlaşılırdır.</p><pre id="006866fc-6f68-4a4f-b299-b03a6b5d3dc1" class="code code-wrap"><code>John MC {hr: 65, avg: 0.278}
+James Oliver: {
+    hr: 63,
+    avg: 0.288
+  }</code></pre><p id="96e3d572-6e91-4775-a595-9e5d4c62494f" class="">( | ) işaretinden sonra gelen her satır ayrı değerlendirilir.</p><p id="240a976f-be07-4f34-855f-906fe706c04c" class="">( &gt; ) işaretinden sonra gelen tüm satırlar tek satır gibi değerlendirilir. Uzun text leri okunabilir olsun diye kullanılabilir.</p><pre id="e294846d-264d-4311-92cb-af8c745710f4" class="code code-wrap"><code>data: |
+   Her
+   satır
+   degerlendirilir
+
+data: &gt;
+   tüm
+   satır
+   tek bir
+   satır gibidir.</code></pre><p id="55ecba1e-5d20-475b-8722-f73a4d8ce63d" class="">Çift tırnak ( &quot; &quot; ) veya tek tırnak( &#x27; &#x27; ) kullanılabilir.</p><p id="ce849629-3660-4437-823b-770362b5a331" class="">Sayılar integer, octal, hexadecimal, float veya infinity(.inf) olabilir.</p><p id="493c66c2-76ef-4763-9da3-8a72e85f0645" class="">tarih formatı 2020-03-15 şeklindedir.</p><p id="62b2679f-d4a2-4a20-91a3-5d7a8f6ce633" class="">(!!) işareti format değiştirmek için kullanılır.<div class="indented"><p id="481b2e39-60d5-4b59-8fcb-3702732fd05e" class="">age: !!float 23            # 23.0 olur</p></div></p><hr id="6182397e-5aa9-4479-ae87-619f27fbccfc"/><hr id="d44ddad2-065a-4d0a-a551-88437890e4da"/><p id="9599bf3a-0c3f-4c1c-a07e-3bed4a3e6593" class="">Sıra geldi JSON&#x27;a. JSON özellikle verilerin transferinde kullanılan bir formattır.  Çok az yer kaplar, Konfigurasyon dosyalarında ve API&#x27;lerde kullanılır. Örneğin siz form doldurdunuz ve gönderdiniz bilgiler JSON&#x27;a döüştürülüp bir yerden diğer yere iletilir. YAML&#x27;a bnezerdir ama onun kadar esnek değildir. </p><p id="0b0977c8-e32d-434b-98ba-08a73e26ada8" class="">Veriler key: value çifti olarak tutulur. Datalar (,) ile ayrılır. { } veya [ ] verileri oluşturmak için her ikisi de kullanılabilir.</p><pre id="96f622bc-1814-454d-938f-f77b093b380a" class="code code-wrap"><code>{
+&quot;employees&quot;:[ &quot;John&quot;, &quot;Aaron&quot;, &quot;James&quot; , &quot;Oliver&quot; , &quot;Walter&quot; ]
+}</code></pre><p id="6ca870b5-75d5-4192-a756-df372e2837ce" class="">Function ve date  kullanılamaz. Sayı olarak sadece number kullanılabilir. </p><p id="9a056ff0-82d4-429c-a136-600c2d1a7be1" class="">Stringlerde (&quot; &quot;) kullanmak zorunludur. YAML da kullanbiliyorduk.</p><p id="fca9034c-745c-4bc7-be83-deb44e2e9133" class="">Yorum satırı girilemez. Dikkat edelim eğer yaml dosyasını json a dönüştürmek istersek ve json desteklemediği bir husus olursa hata alırız.</p><figure id="36b3bf1d-754c-4e19-b989-df93389b41b6" class="image"><a href="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled.png"><img style="width:571px" src="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled.png"/></a></figure><hr id="e67ccbb1-687d-47e3-8fce-6373ec70e5d8"/><hr id="c98d0b3e-5129-4e72-b363-77cff7b345ac"/><p id="8ea62caf-88ca-4708-a380-70c9d5715422" class="">YAML ve JSON hakkında temel bilgiyi aldıktan sonra bunu kullanacağımız AWS sevisi CloudFormation&#x27;a geçebiliriz. Öncelikle bu servisi kullanmak ücretsiz hazırladığınız template sonrası çalışan kaynakların ücreti olacaktır.  Peki neden bu servise ihtiyacımız var? Biz arayüz kullanarak instance ayağa kaldırabiliyoruz. Ancak birden fazla ilişkili servisin birden fazla kaynağını kullanacak bir senaryoya ihitacınız varsa ve bu formatı başka müşterilerde de kullanacaksanız mimarisini önceden hazırlarsanız her seferin de tek tek uğraşmadan tek adımda oluştuabilirsiniz.</p><figure id="97c99a64-5ccf-463b-90e0-3fc656e81c56" class="image"><a href="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled%201.png"><img style="width:1190px" src="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled%201.png"/></a></figure><p id="de167558-3e3b-49ac-8ad9-d36361865d75" class="">Cloudformation infrastructer as a code tool udur. Bunun karşılığı diğer sistemlerde de kullanılan Terraform tool udur. Bu servis sadece AWS özelinde kullanılabilir.</p><p id="4207efd4-d722-42e2-a4b6-524bd37ff7c7" class="">yaml veya json olarak template hazırlanır. Template hazırlamak için vscode programını kullanabilirsiniz.  Aşağıdaki extention ları kurmanız yaml dosyası hazırlarken işinizi kolaylaştıracaktır.</p><p id="9ce98c57-0ee7-4408-81e1-467bd58acbea" class="">Name: YAML</p><p id="abffd8ce-e012-4ca4-ae40-70b799e35c54" class="">Id: redhat.vscode-yaml</p><p id="efd9dfd8-873f-49e8-a473-3e82ba3c967c" class="">Name: YAML JSON</p><p id="3ab002f1-00c6-4d35-b2c9-22ff9fde58bc" class="">Id: hilleer.yaml-plus-json</p><p id="9d371503-fe62-452c-8ee4-30074914d1b2" class="">Name: CloudFormation Linter</p><p id="be55ed43-82e9-4963-841a-05e983244cd2" class="">Id: kddejong.vscode-cfn-lint</p><p id="36ab8984-1c34-42f5-a4be-c6cbb36e357d" class="">Name: CloudFormation Snippets</p><p id="d6dd3ef2-a6cc-4025-b51d-b750bdb08f0d" class="">Id: dsteenman.cloudformation-yaml-snippets</p><hr id="2626983e-ac47-4e17-8df2-a2cd63483d8f"/><hr id="9e937f24-bed7-43ec-819f-66273ea90fd7"/><p id="61f04036-3a37-462a-8e50-d2d26d1d07b6" class="">Template hazırlamaya başlıyoruz. Basit bir uygulama yapacağız bir instance ayağa kaldıracak dosyayı hazırlayacağız.</p><p id="cced1865-ecd1-40cf-9818-6f89434c3140" class="">ilk satıra cfn yazdığınızda Cloudformation görülecek tıkladığınızda aşağıdaki formatı göreceksiniz.</p><pre id="be81b744-d5e0-45fd-837a-e2b962599214" class="code"><code>AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  
+Parameters:
+  
+Metadata:
+  
+Mappings:
+  
+Conditions:
+  
+Resources:
+  
+Transform:
+  
+Outputs:</code></pre><p id="ec0eb033-68c4-45e7-a624-b0d35176abbc" class="">Gördüğünüz gibi YAML formatı. ( bölümden Resources hariç diğer 7 si optionaldır zorunlu değildir.</p><p id="0034d8e4-9687-41c6-a3d6-d63446318f61" class="">Resourse kısmına ec2-instance yazıldığında;</p><pre id="19ccf888-6373-4b67-b10a-389252698c02" class="code"><code>Type: AWS::EC2::Instance
+  Properties:
+    AdditionalInfo: &quot;String&quot;
+    Affinity: &quot;String&quot;
+    AvailabilityZone: &quot;String&quot;
+    BlockDeviceMappings:
+      BlockDeviceMappings
+    CpuOptions:
+      CoreCount: Number
+      ThreadsPerCore: Number
+    CreditSpecification:
+      CPUCredits: &quot;Number&quot;
+    DisableApiTermination: false
+    EbsOptimized: false
+    ElasticGpuSpecifications:
+      ElasticGpuSpecifications
+    ElasticInferenceAccelerators:
+      ElasticInferenceAccelerators
+    EnclaveOptions:
+      Enabled: false
+    HibernationOptions:
+      Configured: false
+    HostId: &quot;String&quot;
+    HostResourceGroupArn: &quot;String&quot;
+    IamInstanceProfile: &quot;String&quot;
+    ImageId: &quot;String&quot;
+    InstanceInitiatedShutdownBehavior: &quot;String&quot;
+    InstanceType: &quot;String&quot;
+    Ipv6AddressCount: Number
+    Ipv6Addresses:
+      Ipv6Addresses
+    KernelId: &quot;String&quot;
+    KeyName: &quot;String&quot;
+    LaunchTemplate:
+      LaunchTemplateId: &quot;String&quot;
+      LaunchTemplateName: &quot;String&quot;
+      Version: &quot;String&quot;
+    LicenseSpecifications:
+      LicenseSpecifications
+    Monitoring: String
+    NetworkInterfaces:
+      NetworkInterfaces
+    PlacementGroupName: &quot;String&quot;
+    PrivateIpAddress: &quot;String&quot;
+    RamdiskId: &quot;String&quot;
+    SecurityGroupIds:
+      SecurityGroupIds
+    SecurityGroups:
+      SecurityGroups
+    SourceDestCheck: false
+    SsmAssociations:
+      SsmAssociations
+    SubnetId: &quot;String&quot;
+    Tags:
+      Tags
+    Tenancy: &quot;String&quot;
+    UserData: &quot;String&quot;
+    Volumes:
+      Volumes</code></pre><p id="53a1ccd4-21c3-42b7-bf99-9b68a5b2ecb2" class="">Görüldüğü gibi uzun bir format geldi.  Bu alanlardan hepsini doldurmak zorunda değilsiniz ihtiyacınız olan alalar haricindeki diğer alanları silerseniz default değerler atanacaktır.</p><p id="5755efed-1589-4bb0-94f6-f611092da64c" class="">logical_id kısmına istediğiniz ismi verebilirsiniz.</p><p id="71cd739f-c4ef-4b77-9046-1057a5d81e3f" class="">imageid kısmına seçmek istediğiniz image id yi girmeniz gerekiyor. Ben Amazon Ami seçtim.</p><p id="36cae3d4-7435-45aa-8d8c-a17da14cf014" class="">instanceType olarak t2.micro giriyorum</p><p id="5fda6173-1b76-452f-a4f3-7dd2f45c29c1" class="">security grup kısmına daha önce hazırladığınız uygun birinin ismini yazabilirsiniz. Ancak burada önemli bir husus var tiplerini doğru girmeliyiz. sg formatı dokümanında list of string olduğu için alt satıra geçip - işareti ile değeri girmeliyiz. İncelemek için Dokümantasyon linkini bırakıyorum.</p><pre id="796bad07-f847-4ef3-91ce-4c5d6ffe8c55" class="code"><code>SecurityGroups:
+      - launch-wizard-3</code></pre><p id="a4766dcc-c0a7-4f65-8652-970719699e6a" class=""><a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html#cfn-ec2-instance-securitygroups">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html#cfn-ec2-instance-securitygroups</a></p><p id="b0d717f5-cabb-4d2d-ae15-f00a17cef368" class="">tags kısmı da list of string ve key value kullanamak gerekir.</p><pre id="e592cfbc-be1c-4dbe-a854-409ea9196b45" class="code"><code>Tags:
+      - Key: Name
+        Value: CFNicin
+      - Key: Department
+        Value: ik</code></pre><p id="7bc2ecd3-74eb-4b3f-bb29-49f0673ee7ce" class="">key için pem uzantılı dosyanın adını giriyoruz .pem yazılamayacak.</p><pre id="e7b71dcc-32e9-4158-a57d-eaaa8f520d82" class="code"><code>AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  sametcfn:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-02e136e904f3da870
+      InstanceType: t2.micro
+      KeyName: key
+      SecurityGroups:
+        - launch-wizard-3
+      Tags:
+        - Key: Name
+          Value: CFNicin
+        - Key: Department
+          Value: ik</code></pre><p id="f823cfbe-7cee-4298-aaa2-70ea84b66202" class="">Basitçe yukarıdaki gibi gerekli olanları hazırladık yml olarak kaydediyoruz. Birazdan kullanacağız. Uzantı farklı olsada template içi yaml veya json formatında olmalı. CloudFormation servisine gidip &quot;create stack&quot; kısmına gidelim. Karşımıza aşağıdaki gibi bir sayfa çıkacak.</p><figure id="516a303a-6853-4d67-b8d4-0a7346471fe1" class="image"><a href="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled%202.png"><img style="width:816px" src="YAML%20&amp;&amp;%20JSON%20&amp;&amp;%20AWS%20CloudFormation%2036b3bf1d754c4e19b989df93389b41b6/Untitled%202.png"/></a></figure><p id="ba3cad57-e8cb-471f-a4b7-902df6d66403" class="">3 seçenek var biz template hazırladığımız için birincisini kullanacağız. İkincisi hazır templatelerden seçim üçüncüsü ise arayüzü olan bir designer ile yapılan tip.</p><p id="a578e66c-fbf4-49c9-8aa3-f283c5098f3b" class="">s3 depodan veya localinizden yükleyeceksiniz. Localden yüklediğinizde otomatik s3 e atacak. Next diyoruz.</p><p id="4a6e858f-2acb-47b9-91a2-8d47c78b549d" class="">Stack&#x27;e bir isim girelim ve next diyelim. Dilerseniz tag girebilirsiniz. Diğer kısımları default bırakıp create stack ile stack yaratılıyor. Event kısmını takip edelim. Bir süre sonra hazır olacak ve &quot;CREATE_COMPLETE&quot; gördüğünüzde artık hazır olmuş olacak. ec2 sayfasına gidip ec2 muzun ayağa kalktığını görebiliriz 🙂</p><p id="c0f4c338-e059-4006-863e-38569738b20f" class="">Yarattığınız stack&#x27;i silmeyi unutmayın ec2 free tier hakkınız yoksa para yazacak 😂</p><p id="525ad9b5-46f1-4875-a045-b7c8bb778f34" class="">
+</p><p id="a11f0a17-8bf1-488f-80e7-3ca30d710747" class=""><strong>𝒟𝒜𝐻𝒜 Ö𝒵𝒢Ü𝑅 𝐵İ𝑅 𝒟Ü𝒩𝒴𝒜’𝒟𝒜 𝒢Ö𝑅ÜŞ𝑀𝐸𝒦 Ü𝒵𝐸𝑅𝐸</strong></p><p id="838dc187-ee74-4ae4-997f-f948f158f690" class=""><strong>𝒮𝒜Ğ𝐿𝐼𝒞𝒜𝒦𝐿𝒜 𝒦𝒜𝐿𝐼𝒩</strong></p><p id="1398d789-efd7-4466-836e-851fd296ea24" class="">
+</p><p id="8f0817da-e165-4872-bc1f-f18a2add305a" class="">
+</p><p id="d117904c-f8a6-4b6b-96fc-c5f5b537c744" class="">
+</p><p id="d6865734-15ee-4cf4-90c9-862ae47ff046" class="">
+</p><p id="0654cffa-aee9-40dc-a25f-47de8c3eb9c1" class="">
+</p></div></article></body></html>
