@@ -1,0 +1,646 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Pipes &amp; Filter</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(96, 96, 98, 0.93);
+	fill: rgba(96, 96, 98, 0.93);
+}
+.highlight-brown {
+	color: rgba(174, 102, 29, 1);
+	fill: rgba(174, 102, 29, 1);
+}
+.highlight-orange {
+	color: rgba(210, 82, 22, 1);
+	fill: rgba(210, 82, 22, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(62, 143, 53, 1);
+	fill: rgba(62, 143, 53, 1);
+}
+.highlight-blue {
+	color: rgba(33, 131, 190, 1);
+	fill: rgba(33, 131, 190, 1);
+}
+.highlight-purple {
+	color: rgba(151, 93, 190, 1);
+	fill: rgba(151, 93, 190, 1);
+}
+.highlight-pink {
+	color: rgba(203, 62, 132, 1);
+	fill: rgba(203, 62, 132, 1);
+}
+.highlight-red {
+	color: rgba(208, 60, 60, 1);
+	fill: rgba(208, 60, 60, 1);
+}
+.highlight-gray_background {
+	background: rgba(234, 234, 235, 0.93);
+}
+.highlight-brown_background {
+	background: rgba(213, 130, 38, 0.13);
+}
+.highlight-orange_background {
+	background: rgba(252, 103, 27, 0.13);
+}
+.highlight-yellow_background {
+	background: rgba(253, 183, 63, 0.13);
+}
+.highlight-teal_background {
+	background: rgba(76, 169, 66, 0.13);
+}
+.highlight-blue_background {
+	background: rgba(45, 159, 226, 0.13);
+}
+.highlight-purple_background {
+	background: rgba(187, 123, 230, 0.13);
+}
+.highlight-pink_background {
+	background: rgba(255, 85, 163, 0.13);
+}
+.highlight-red_background {
+	background: rgba(255, 82, 71, 0.13);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(96, 96, 98, 0.93);
+	fill: rgba(96, 96, 98, 0.93);
+}
+.block-color-brown {
+	color: rgba(174, 102, 29, 1);
+	fill: rgba(174, 102, 29, 1);
+}
+.block-color-orange {
+	color: rgba(210, 82, 22, 1);
+	fill: rgba(210, 82, 22, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(62, 143, 53, 1);
+	fill: rgba(62, 143, 53, 1);
+}
+.block-color-blue {
+	color: rgba(33, 131, 190, 1);
+	fill: rgba(33, 131, 190, 1);
+}
+.block-color-purple {
+	color: rgba(151, 93, 190, 1);
+	fill: rgba(151, 93, 190, 1);
+}
+.block-color-pink {
+	color: rgba(203, 62, 132, 1);
+	fill: rgba(203, 62, 132, 1);
+}
+.block-color-red {
+	color: rgba(208, 60, 60, 1);
+	fill: rgba(208, 60, 60, 1);
+}
+.block-color-gray_background {
+	background: rgba(234, 234, 235, 0.93);
+}
+.block-color-brown_background {
+	background: rgba(213, 130, 38, 0.13);
+}
+.block-color-orange_background {
+	background: rgba(252, 103, 27, 0.13);
+}
+.block-color-yellow_background {
+	background: rgba(253, 183, 63, 0.13);
+}
+.block-color-teal_background {
+	background: rgba(76, 169, 66, 0.13);
+}
+.block-color-blue_background {
+	background: rgba(45, 159, 226, 0.13);
+}
+.block-color-purple_background {
+	background: rgba(187, 123, 230, 0.13);
+}
+.block-color-pink_background {
+	background: rgba(255, 85, 163, 0.13);
+}
+.block-color-red_background {
+	background: rgba(255, 82, 71, 0.13);
+}
+.select-value-color-gray { background-color: rgba(234, 234, 235, 0.93); }
+.select-value-color-brown { background-color: rgba(213, 130, 38, 0.13); }
+.select-value-color-orange { background-color: rgba(252, 103, 27, 0.13); }
+.select-value-color-yellow { background-color: rgba(253, 183, 63, 0.13); }
+.select-value-color-green { background-color: rgba(76, 169, 66, 0.13); }
+.select-value-color-blue { background-color: rgba(45, 159, 226, 0.13); }
+.select-value-color-purple { background-color: rgba(187, 123, 230, 0.13); }
+.select-value-color-pink { background-color: rgba(255, 85, 163, 0.13); }
+.select-value-color-red { background-color: rgba(255, 82, 71, 0.13); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4d9880d2-c0e5-4454-a830-b75f6e93ac62" class="page sans"><header><h1 class="page-title">Pipes &amp; Filter</h1></header><div class="page-body"><p id="b5ebf743-45b3-4af8-a609-cc117b154e64" class="">Sıklıkla ihtiyaç duyulan bir komut dizisine göz atacağız. Filter komutların kullanımı aşağıdaki gibi yazılmaktadır.<div class="indented"><p id="1f32efdb-45e1-4a84-91d9-9b9b81d9f0af" class="">komut |  komut  &gt;&gt; ilk komutun çıktısı sonraki komuta iletilir. Pipe işareti birinci komutun çıktısını ikinci komuta girdi olarak verir.</p></div></p><p id="157d210f-352e-4433-b6fc-10afa09d029b" class="">Sırayla komutların kullanımına bakalım.</p><h2 id="0283e4b9-a41d-433e-9b83-ea84a2d20387" class="block-color-blue">tail/head</h2><p id="9b42a589-be01-46cb-b77a-6fa2f680b5d2" class="">tail ile textin sondan seçilen kadar head ile de textin baştan seçilen kadar satırı listelenir özellikle çok uzun texlerde içeriğe özet olarak bakmak için çok kullanışlıdır.</p><figure id="388ecc66-080c-42bc-b7d7-bb1b54679bc1" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled.png"><img style="width:788px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled.png"/></a></figure><p id="3a1803ec-f440-416b-9b22-38778c01f9ca" class="">tail veya head sonrasında parametre verilmez ise varsayılan değer 10 dur.</p><hr id="8d6fd1e3-dbfb-448c-9007-51d401c52c27"/><hr id="6dee669e-2626-4980-b70f-5b05a4cd9b74"/><h2 id="294f0a02-d470-4a7b-b245-fdf4f2d2f06b" class="block-color-blue">grep</h2><p id="2ec2cc43-6ce7-48e1-9dac-e848f7f61d01" class="">kendisinden sonra yazılan kelimeyi içerik olarak arar ve geçtiği satırları filtreler.</p><figure id="21e61b17-2efb-48b1-a4f5-70e112d7ae09" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%201.png"><img style="width:729px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%201.png"/></a></figure><p id="b90277ea-9bd7-456d-a9aa-fd994e99779d" class="">deneme txt 4 satırdan oluşmakta ve ben içerisinde &quot;çok&quot; ifadesi geçen cümlerleri yazdırmak istiyorum. cat komutu ile deneme.txt içerisini göster diyorum ama pipe işareti ile de grep komutu ile filtreleme yaptırıyorum.</p><p id="27b6d3eb-a562-4795-a739-9689927092d8" class="">Aldığı parametreler:<div class="indented"><p id="659e7787-82ad-4df1-8fbc-0d0962b78fff" class="">-v &gt; eşleşmeyen tüm satırları yazdırır. cat deneme.txt | grep -v  çok  &gt;&gt;&quot;çok&quot; içermeyen satırlar.</p><p id="2e23ba1f-2b7b-485b-931e-063e4d803b3b" class="">-n &gt; eşleşen satırları satır numaralarıyla yazdırır.  cat deneme.txt | grep -n  çok</p><figure id="c469a0f8-3292-47e8-98f6-7e474393f71a" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%202.png"><img style="width:511px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%202.png"/></a></figure><p id="4c1455c8-528a-4975-8cf2-c7befbc4add6" class="">-c &gt; sadece eşleşen satır sayısını yazdırır. </p><figure id="f817de92-241c-423e-930d-4ca9f1364a06" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%203.png"><img style="width:502px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%203.png"/></a></figure><p id="19fa5352-79d1-457d-a298-4bc8462d412e" class="">-i &gt; büyük/küçük harf duyarsız yani insensitive yazdırır.</p><figure id="e3059ed4-f334-49f4-b6dd-8942b1d94136" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%204.png"><img style="width:535px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%204.png"/></a></figure><p id="35ffa075-ec06-4a7d-af69-f142d44fc9ca" class="">-A1 &gt; eşleşen satırı ve bir sonraki satırı yazdırır. </p><p id="b271aa0d-e957-41e3-b26c-4cdec4c78712" class="">-B1 &gt; eşleşen satırı ve bir önceki satırı yazdırır.</p><p id="18f38b11-6606-4201-92c5-138216c9ac87" class="">-C1 &gt; eşleşen satır, bir alt ve bir üst satırı yazdırır.</p><p id="9539aeef-6eb6-4e99-a17d-f162b3047865" class="">-w &gt; parametresi ile tamamen eşleşmesi durmunda yazdırır.</p></div></p><hr id="91890298-c4f9-45bf-bef9-2015e1c72573"/><hr id="1422b16c-5708-4995-b528-9ca140068272"/><h2 id="4ed3f5b6-8a42-441d-96d7-09c4818a4c4d" class="block-color-blue">cut</h2><p id="ddd74d0f-8e6c-4a51-a9e6-cc6d65e746d6" class="">Bu komutu anlatmadan önce parametrelerini bilmek gerekiyor. bir text den arzu attiğiniz yeri alıyorsunuz.cut <div class="indented"><p id="725f9f8a-f876-45d6-82b9-fc2f7249f6ff" class="">b, --bytes=LIST: byte olarak kesmek için</p><p id="bde7455b-7389-4615-949e-2f0534829e1a" class="">c, --characters=LIST: karakterleri seçmek için</p><p id="e2bafc20-277f-4b08-8e50-8dd4b914a9a6" class="">d, --delimiter=DELIM: sınırlayıcı belirtme için(ayraç)</p><p id="be6152b3-9d1d-4f24-85c6-87335fa2fda3" class="">f, --fields=LIST: belirli bir alanı seçmek için(sütun)</p><p id="99c8f9f6-a3b0-41b2-84f6-60dea5cc472e" class="">n: Herhangi bir seçeneği yok saymak için kullanılır.</p><p id="b99bb68a-6f93-4ed8-8cfa-cca0967f6a0c" class="">-complement: Seçilen bayt, karakter veya alan kümesini tamamlamak için kullanılır.</p><figure id="46392eff-d9b5-47d1-87c3-1ba198bd25a1" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%205.png"><img style="width:765px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%205.png"/></a></figure><p id="77c42124-dd22-4e04-94ac-ed9e1c772e0c" class="">delimeter olarak &quot;:&quot; karakteri verildi. sutün olarak da f ile 1-3 arası süütunlar seçildi.</p><figure id="8534b735-113a-435d-85dd-2c3fbca95560" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%206.png"><img style="width:686px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%206.png"/></a></figure><p id="fb40bb88-022f-4a75-abaf-c9f8c252f1c4" class="">-c ile karakter alıyoruz demiştik. c1-3 ile <a href="http://1.ve">1.ve</a> 3. karakter arasını al demek istiyoruz.</p><hr id="cb7e130e-467a-4c81-971a-5dd9554c56d1"/><hr id="79ec784a-1399-4b59-a11c-481d10c98c1c"/></div></p><h2 id="73351890-32cb-4a1d-bc70-2cc7de52f728" class="block-color-blue">tr</h2><p id="d774321d-5ddf-49a2-9591-21d33b7244ab" class="">komut | tr &lt;&#x27;eski&#x27;&gt; &lt;&#x27;yeni&#x27;&gt;</p><figure id="ec7fcafc-541a-444e-9878-ec19560b7be7" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%207.png"><img style="width:696px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%207.png"/></a></figure><p id="9e2b198b-cada-4733-8a2b-5b6f7a42b752" class="">text&#x27;de istediğiniz değeri yine istediğiniz farklı bir değerle değiştirmek için kullanabilirsiniz.</p><figure id="684e01e8-60d2-4549-abe6-ae5c709e6e68" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%208.png"><img style="width:773px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%208.png"/></a></figure><p id="c5b66717-3cbb-4d65-9258-022fd0d239ef" class="">Yukarıdaki örnek te de satır atlama yerine boşluk kullandık.</p><p id="0bc2ecc5-0a2e-46ee-af4c-918b0f28e70b" class="">-d parametresi ile verilen kısmı siler</p><figure id="44c78b36-ed1a-44c7-8c81-9275f13ca42c" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%209.png"><img style="width:631px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%209.png"/></a></figure><p id="131baccb-a8fa-4d90-a216-8728bdd3018f" class="">değiştime işlemini aralık verip de yapabiliriz aşağıdaki gibi.</p><figure id="b975cbd1-eb60-45c1-a669-1c5b28a473c8" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2010.png"><img style="width:671px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2010.png"/></a></figure><p id="c4b13db7-3873-46ac-840c-508856f99779" class="">Türkçe karakterleri beceremedi 😂</p><hr id="b29bf393-5cb9-4201-85ee-c87407801213"/><hr id="3cd4fec1-6d60-4078-ae71-5a4f25ed05b3"/><h2 id="89c2d3cd-298f-430b-9aae-ebddd3ebd77f" class="block-color-blue">wc (Word Count)</h2><figure id="6f4a222e-fb37-449b-bd33-02f42a0a8d97" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2011.png"><img style="width:509px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2011.png"/></a></figure><p id="07d19e3a-304e-44a1-a55e-5811bde80620" class="">Parametresiz kullanıldığında text&#x27;te kaç satır kaç kelime kaç karakter yazdırır.</p><p id="6f97365f-5517-4d1e-8e9a-4c0316f205d4" class="">-l parametresiyle sadece satır sayısını.</p><p id="6d97575c-8d58-4c6a-9bd7-1dee1e5c8148" class="">-w parametresiyle sadece kelime sayısını.</p><p id="dc3a93a0-0d55-4ebc-8ab9-27af3cc0cd87" class="">-m parametresiyle sadece karakter sayısını.</p><p id="aa54858f-893a-469b-870c-a2c37f46f816" class="">-c   parametresiyle sadece byte sayısını(boşluklar dahil) gösterir.</p><hr id="10d74ca0-7457-4802-8be3-581fe425e33b"/><hr id="6baa8402-d070-4b19-876a-29ead4ae6320"/><h2 id="d125c766-6335-4d1e-b3a7-b53291466c78" class=""><mark class="highlight-blue">sed (Stream Editor)</mark></h2><p id="eb74cf9d-d315-47b6-8428-642858762295" class="">sed &lt;&quot;s/aranacakifade/yeniifade/g&quot;&gt;  dosya</p><figure id="e0e82084-220a-4508-897d-87f13ecfdf49" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2012.png"><img style="width:688px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2012.png"/></a></figure><p id="2a7322c6-b27a-4772-895a-de8c2a365a3c" class="">ELMA&#x27;yı VİŞNE ile değiştirdi.  Aynı  işlemi tr komutu ile de yapabilirdik. &quot;(tırnak) önemli. ifade tırnak içinde olmalı.</p><hr id="d5269dab-6927-48b0-9a08-edd160648123"/><hr id="5f2d2d6f-1eb7-438d-9835-e67ee16f1d56"/><h2 id="8a754fc7-c3fe-4783-91c8-e5363f29a110" class=""><mark class="highlight-blue">tac</mark></h2><p id="fdd8f40c-6723-477f-b11b-e0f71bcd55b5" class="">tac komutu cat komutunun tersi işlem yapar. En alt satırı en üste getirir. tail komutu ile aynı değildir dikkat edelim.</p><figure id="946450d9-51a6-48c8-8a38-afdbfb0a8515" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2013.png"><img style="width:483px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2013.png"/></a></figure><hr id="d9003413-4573-4bbc-afc3-75f3a57e0653"/><hr id="8f1c8654-8c5a-47cd-8113-4cdebe935a0e"/><h2 id="eb74c948-0274-4338-8c4b-af7951304219" class=""><mark class="highlight-blue">nl (number lines)</mark></h2><p id="87b1d04d-539b-408e-83c0-708791d4a886" class="">satırları numaralandırmış şekilde gösterir.</p><figure id="fa296a93-6de4-41fd-8aa1-c721a72bb116" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2014.png"><img style="width:491px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2014.png"/></a></figure><p id="9ecfe7e7-1bec-4c1c-8894-1794a95917da" class="">satır numarasından sonra &quot;.&quot; veya &quot;-&quot; koymak için parametre kullanmak gerekir.</p><p id="b90a97c6-a8ab-4d91-bc10-e94b708ed808" class="">-s ile sayıdan sonra eklenecek karakter</p><p id="8b93b64a-a5d9-4c3b-919b-31115680cf04" class="">-w ile satır numarası öncesinde boşluk bırakma.</p><figure id="6e1ffeb7-0dcf-45de-8eee-e3b9cf0ce6e4" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2015.png"><img style="width:630px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2015.png"/></a></figure><hr id="b3df4801-bc05-4255-aaf0-01b30349b673"/><hr id="fe1f0575-762f-41e1-8ced-f77db96307d5"/><h2 id="0bd2eafa-da0a-4ac1-b115-2096a8f3b07a" class=""><mark class="highlight-blue">uniq</mark></h2><p id="70f8fdd5-b02d-470d-a1ac-c69022887103" class="">Tekrar eden satırlardan sadece birini almaya yarar. yanlışlıkla birden fazla girilen veriyi temizlemede kullanılabilir.</p><figure id="66185de8-f808-4570-8d9e-911d01f33ca5" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2016.png"><img style="width:480px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2016.png"/></a></figure><p id="f4bab653-9da0-4804-a3ae-8d1dabe4e0db" class="">Dikkat ederseniz tekrar için sadece kendinden sonraki satıra bakıyor. Diyelim 2 alt satırda aynısı var silmiyor. Bunun önüne geçmek için sort komutu ile sıralayıp tekrarlar peşpeşe getirilir ve tüm tekrarlar gider.</p><p id="faa557dc-43df-441f-a080-ae0a8354d231" class="">-D parametresi ile sadece tekrar eden satırları getirir.</p><figure id="7278fb3f-7f10-45a1-bdfb-a8e931ad99ea" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2017.png"><img style="width:505px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2017.png"/></a></figure><p id="562b9539-cb37-4fda-b4bd-f49bf76ce8c6" class="">-c parametresi ile hangi satır kaç kez tekrar etmiş bulunabilir.</p><figure id="c3b97cc6-acec-43ff-9019-84dcc42d4b56" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2018.png"><img style="width:513px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2018.png"/></a></figure><hr id="062dd641-d381-4587-9c38-9f7c3dae61d3"/><hr id="3c69cb24-94fa-4299-a7c9-4846b540ed35"/><h2 id="f3d9edb5-acdc-4f44-88c6-1570b9c1361a" class=""><mark class="highlight-blue">sort</mark></h2><figure id="1ee8b4ca-b37d-4d13-8169-7f0f779f2d38" class="image"><a href="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2019.png"><img style="width:585px" src="Pipes%20&amp;%20Filter%20388ecc66080c42bcb7d7bb1b54679bc1/Untitled%2019.png"/></a></figure><hr id="ccb0863c-6f50-43b7-acbf-20de6c11c1b3"/><hr id="c106b4e9-934c-4d99-9195-4f01f8b2ce19"/><p id="e71aa737-3f16-4f88-afe2-290d312fedb8" class="">
+</p></div></article></body></html>
