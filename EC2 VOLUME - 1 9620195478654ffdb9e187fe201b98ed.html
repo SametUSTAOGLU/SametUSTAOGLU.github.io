@@ -1,0 +1,650 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EC2 VOLUME - 1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.highlight-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.block-color-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(244, 231, 202, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ba14e07a-ec7d-4332-aa36-0745db14a872" class="page sans"><header><h1 class="page-title"><code>EC2 VOLUME - 1</code></h1></header><div class="page-body"><figure id="96201954-7865-4ffd-b9e1-87fe201b98ed" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled.png"><img style="width:998px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled.png"/></a></figure><p id="bea19cf7-b084-466b-9839-823282c12138" class="">Büyük resmi görmek açısından konuya girmeden bir açıklama yapayım. Öncelikle iki çeşit volume tipinden bahsedeceğim takiben esas konumuz EBS üzerinde EBS nedir? Ne işe yarar? Çeşitleri nelerdir? gibi temel bilgiler vereceğim daha sonra konsol üzerinde işlemleri anlatacağım , son kısımda da konu ile alakalı snapshot ve AMI kavramlarından da bahsedeceğim. Bu yazının ikinci serisinde de teminalden EBS işlemlerini anlatmış olacağım. </p><p id="91671639-3fbb-4207-8b3b-8aba44ef9d88" class="">AWS de Volume&#x27;ler blok tabanlıdır S3 de ise obje tabanlı bir depolama göreceğiz. Blok tabanlı demek sizin veriniz 4kb lık küçük hacimlere bölünmüş halde saklanıyor demektir. İki çeşit volume tipimiz var karşılaştırarak anlatacağım. Birincisi instance store(Ephemeral) diğeri EBS(Elastic Block Store).</p><figure id="7f300132-5457-4a91-945c-c51d6e75a791" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%201.png"><img style="width:672px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%201.png"/></a></figure><p id="5c13f793-7fa0-4061-a554-f47938ab59f8" class=""><code>Instance store</code>, fiziksel olarak servera bağlıdır. Kalıcı değildir yani instance terminate edildiğinde veriler kaybolur. Verilerin muhafazasından kullanıcı sorumludur. Snapshot desteği yoktur. Farklı yöntemlerle alınabilir ilerde bahseteceğiz. EBS&#x27;e nazaran veriye erişim hızlıdır çünkü direk bağlı olduğu için düşük gecikme olacaktır. Ne kadar perfomanslı olduğunu aşağıdaki resimden görebilirsiniz. SSD veya HHD seçilebilir.</p><figure id="2159d51a-e001-4004-a44f-fa94fc1e2806" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%202.png"><img style="width:417px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%202.png"/></a></figure><p id="ce055a24-f705-4522-8c9d-a77a9f82cd9f" class=""><code>EBS</code>&#x27; e gelirsek kalıcıdır diyebiliriz çünkü Instance&#x27;dan bağımsızdır instance terminate edilirse EBS deki verilere muhafaza edilir. AWS tarafından  % 99.999 erişilebilirlik garantisi verilir. Snapshot desteği vardır. SSD ve HDD seçenekleri vardır.</p><p id="828733cf-9f0e-4583-a006-6429e8cf081b" class="">Toparlayacak olursak cihazınıza bağlı oluşan volume Instance store&#x27;dur. Bilgisayarınızdaki C gibi düşünebilirsiniz. EBS ise network üzerinde yaratılan volumlerdir ve siz bunları instance&#x27;larınıza bağlayabilirsiniz.</p><h2 id="c4f251ba-efe4-4c4e-9cb8-8e42b2bddcf5" class="block-color-blue">EBS (Elastic Block Store)</h2><p id="aed5162d-6cfd-4e4c-8989-6910ac6a97c9" class="">EBS bizlere instance&#x27;larımız kapansa dahi verilerimize erişebilme imkanı veren bir depolama birimidir. Bir EBS aynı anda tek bir instance ile ilişkilendirilebilir nitro EBS&#x27;ler bu kuralın istisnasıdır. Fakat bir instance&#x27;a birden fazla EBS ilişkilendirebiliriz. Ayrıca oluşturduğunuz EBS ler yalnızca aynı AZ(Avalibility Zone) içerisindeki instance&#x27;lar ile ilişkilendirilebilir. EBS&#x27;i kullandığımız usb stick lere benzetebiliriz. Birinden çıkartıp farklı bir bilgisayara takabiliriz. EBS leri fiziksel değil de network drive  gibi düşünmeliyiz.  </p><figure id="5586972f-fdce-4ce9-9e16-ea9a478f8513" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%203.png"><img style="width:826px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%203.png"/></a></figure><p id="50eb3fbf-8c91-4f58-bcff-dbdcbc8e144b" class="">Farklı AZ ler de kullanamayız demiştik kullanmak istersek snapshot alıp diğer AZ lerde kullanmak için çözüm üretebiliriz. Yazının devamında bu çözümü göreceksiniz.</p><p id="2594e163-7b9b-4747-87c3-62b801d0fa60" class="">EBS seçimi yaparken iki seçim yapacağız ilk olarak hacmini yani kaç GB olacağını takiben IOPS değerini yani kabaca performansını seçeceğiz.</p><p id="2a9c8820-2a12-4b1e-9a99-2f83d1ca671a" class="">Depolama birimi demiştik ileride S3 servisini anlatırken de depolama birimi diyeceğiz aralarındaki en temel fark şudur. EBS hangi instance&#x27;a bağlı ise onun tarafından çağrılabilir.  Fakat S3&#x27;e her yerden erişebiliriz.</p><hr id="86bc98b0-b94c-4b09-9de8-798f8d14ab71"/><p id="028b326f-1092-41b9-b6cf-61e71338fdcf" class="">Biraz çeşitlerinden bahsedelim daha sonra menüye gireceğiz konsol üzerinden anlatıma devam edeceğim.</p><figure id="05c8a209-0d55-46d7-881a-7a0c9d2f514b" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%204.png"><img style="width:1269px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%204.png"/></a></figure><p id="ff7078df-226c-41eb-a162-67f9cb0c0049" class="">Yukarıdaki şekle göre SSD ve HDD şeklinde ikiye ayırabiliriz. SSD bölümündeki seçekleri de daha sonra ayıracağı ve toplam 6 çeşit EBS tipimiz olacak.</p><p id="1ae5cfa6-84a2-4604-a0a3-d01e3ca980ba" class="">SC1 (HDD): Daha az sıklıkla erişilen veriler için en düşük maaliyetli çözümdür.<div class="indented"><p id="46cb284f-11e2-401d-9074-6df9dc9e1962" class="">Max throughput 250 MiB/s – max IOPS 250 (Max IOPS per volume (1 MiB I/O))</p></div></p><p id="d981010a-0ae3-4021-8d4a-8401d06a003b" class="">ST1 (HDD):  Sık erişilen yoğun iş hacmi için tasarlanmış düşük maaliyetli bir çözümdür.<div class="indented"><p id="9c2d413c-9d24-415b-b57e-b4575e7953e6" class="">Max throughput 500 MiB/s – max IOPS 500 (Max IOPS per volume (1 MiB I/O))</p></div></p><p id="6df1791a-8d5f-4bba-9db1-05a83f420f52" class="">gp2 / gp3 (SSD): Genel amaçlı fiyat performans açısından dengeli SSD çözümüdür.<div class="indented"><p id="f65e4f4e-eec4-40b2-a937-f87269f35a9b" class="">gp2 için Max throughput 250 MiB/s – max IOPS 16,000 (Max IOPS per volume (16 KiB I/O))<div class="indented"><p id="374807a5-be58-468a-851c-79f477c05814" class="">AWS in default EBS tipidir. Diğerlerini seçmeniz durmunda free tier&#x27;dan çıkacak extra ücrete tabi olacaksınız bu kısım önemli.</p></div></p><p id="5c5cbb36-836f-40b8-a8cd-f6661e2a8ba7" class="">gp3 için Max throughput 1000 MiB/s – max IOPS 16,000 (Max IOPS per volume (16 KiB I/O))<div class="indented"><p id="7bd7e61a-63cd-4f1a-907d-afbef4a5718d" class="">Yeni nesildir ama fiyat olarak gp2 den daha uygundur.</p></div></p></div></p><p id="578d3d0c-a2a8-463f-821d-37a0bd3f6aa4" class="">io1 / io2 / io2 Block Express:  Düşşük gecikme süresi ve yüksek verim gerektiren iş yükleri için en performanslı ve en pahalı AWS çözümüdür.<div class="indented"><p id="aa9ed6b1-788c-4542-9368-e46e9381db89" class="">io1 / io2: Max throughput 1,000 MiB/s – max IOPS 64,000 (Max IOPS per volume (16 KiB I/O))</p><p id="9a04b36e-9f9c-41db-8793-e9d21afe65fc" class="">io2 Block Express: Max throughput 4,000 MiB/s – max IOPS 256,000 (Max IOPS per volume (16 KiB I/O)). io1/2 ile karşılaştırıldığında 4 kata kadar daha verimlidir.</p></div></p><p id="a44bd1e0-8571-47bd-be87-a7e6977f06ac" class="">Tam burada bir istisnaya göz atalım daha önce bir EBS aynı anda yalnızca bir instance&#x27;a bağlanabilir demiştik. io1 ve i02 için aynı AZ de olmak koşuluyla birden fazla instance&#x27;a bağlanabilme özelliği vardır. Her insatance okuma ve yazma yapabilir ama aynı anda yazma olmaması için yönetilmesi gerekmektedir.</p><figure id="e0ea08e8-13e2-404c-8ce4-832e2f03b62b" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%205.png"><img style="width:293px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%205.png"/></a></figure><p id="b217a1ab-4df8-4943-94ed-37af3df20ee0" class="">IOPS derenin hızı gibi düşünülürse, throughput için de derenin genişliği diyebiliriz. Aslında throughput  değeri iops değerinden de etkileniyor aşağıda formülünü görebilirisiniz.</p><figure id="8d5625bb-4614-457a-8a45-351c91526818" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%206.png"><img style="width:637px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%206.png"/></a></figure><p id="2497314a-1af9-472a-ae45-59fe5ed9f091" class="">Minimum IOPS değerlerini bilelim sınavda bir senayo verilip minimum iops değerine göre hangisini seçersiniz şeklinde soru gelebilir.</p><p id="ad5f785e-701c-45ea-9cdb-d6c9e5d34bb7" class="">Daha detaylı bilgiye aşağıdaki linkten ulaşabilirsiniz. <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html</a></p><hr id="e236d34d-83e7-4ff5-8bd8-6dbdda443f22"/><p id="ee37dd9b-f0c8-4a30-91fa-d62244f3448f" class="">Şimdi konsoldan devam edelim. Öncelikle İnstance oluşturulurken ilgili sayfayı daha sonra sıfırdan EBS yaratmak için kullandığımız menüyü anlatacağım. Yeni bir instance oluşturmaya çalışalım ve 4.bölümü yani storage kısmını inceleyelim.</p><figure id="5b8a453e-7eab-4007-8b37-df6042f531ec" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%207.png"><img style="width:1899px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%207.png"/></a></figure><ul id="a14e6ac6-f70a-429e-b952-f23e8b633a80" class="bulleted-list"><li style="list-style-type:disc"><code>Volume type</code> kısmında iki seçenek görüyoruz birincisi bilgisayara direk bağlı instance store, ikincisi bizim extra ilave ettiğimiz EBS kısmı boyutlarını buradan seçebiliriz. Bu menüde EBS ilave etmedi isek daha sonra da ilave edebileceğiz. </li></ul><ul id="20a64362-eae5-487b-b5fc-ea9f19aa308e" class="bulleted-list"><li style="list-style-type:disc"><code>Device</code> fiziksel olarak kasaya verilen isim. </li></ul><ul id="230ae637-cb51-4c35-a081-eac8921a9bd0" class="bulleted-list"><li style="list-style-type:disc"><code>Snapshot </code>kısmında, Root volumün hangi snaphot üzerinden oluşturulduğu burada belirtiliyor root için biz seçemiyoruz aynı AZ de aynı tip cihazlar için bu değer aynı çıkacaktır. EBS için ise varsa snopshot&#x27;larınızdan veya hazır olanlardan seçebilirsiniz veya boş bırakabilirsiniz.</li></ul><ul id="620e8049-86e3-4f26-b3d6-b11a72a91d1f" class="bulleted-list"><li style="list-style-type:disc"><code>Volume tipi</code> kısını yukarıda uzunca anlatmıştık gp2, gp3, io1, io2 ve magnetic seçeneklerini görebilirsiniz. karşısında da seçtiğiniz tiper göre IOPS ve Throughput değerlerini göreceksiniz.</li></ul><ul id="9b1d725d-2f77-4f7e-99f0-b4355eb0851a" class="bulleted-list"><li style="list-style-type:disc"><code>Delete on Termination</code> kısmını seçtiğinizde şu anlama gelir, Makinamı terminate ettiğimde volumü de terminate et yani makine kapanırsa verileriniz de gidecek tamamen. Şöyle bir sıkıntı yaşanabilir eğer siz sürekli makine olulturup kaldırıyor ve bu seçenekte tikli değilse yaratılan EBS lerde kapanmayacak ücretlendirme olarak gol yiyebilrsiniz 😂</li></ul><ul id="5615fd5c-2e4e-4c5c-8ece-f51c13008654" class="bulleted-list"><li style="list-style-type:disc">Son kısım <code>Encryption</code>, kriptolamayı baştan seçmeniz gerekir. root device oluşturulduktan sonra şifrelenemez ama bunun için de taklalı yöntemler mevcut. EBS in snapshotını alıp yeni EBS i o snapshot üzerinden kriptolu oluşturabilirisiniz.</li></ul><p id="b3d90ad9-6136-408a-b347-08c6fa6c27ce" class="">Sıfırdan EBS oluşturma sayfasına geçelim. Soldaki menüden Elastic Block Store kısmından Volume seçeneğine tıklayalım. Bu sayfada hali hazırda mevcut tüm EBS ler görülecek. </p><figure id="7387ab25-4923-45e0-8ac5-7152f5f394e2" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%208.png"><img style="width:1908px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%208.png"/></a></figure><ul id="3726a663-fca5-488d-9fe0-7b6195095556" class="bulleted-list"><li style="list-style-type:disc"><code>Create Volume</code> kısmını yeni EBS oluşturmak için kullanacağız. </li></ul><ul id="32617604-61f7-424d-9359-59898b92f7c8" class="bulleted-list"><li style="list-style-type:disc"><code>Action</code> kısımında ise hali hazırdaki EBS ler için bazı işlemler yapabileceğiz. <ul id="c188daa8-9504-4715-8fdf-35e5c466b7bc" class="bulleted-list"><li style="list-style-type:circle"><code>Modify Volume</code> kısmından volume tipini ve size&#x27;ını değiştirebiliriz. Size kısmı için artırma yapılabilir küçültme yapılamaz.</li></ul><ul id="fafdbde3-a004-4b71-b1fc-ff4afcc58e63" class="bulleted-list"><li style="list-style-type:circle"><code>Create Snapshot</code> kısmından seçtiğimiz EBS&#x27;i aynı özellikleriyle kullanmak için snapshot oluşturabiliriz. Açıklama ve Tag girilebilir zorunlu değildir. Hemen altındaki <code>Create Snapshot Lifecycle Policy</code> seçeneği ile belirli kurallar belirleyip otomatik isteiğiniz aralıklarda snapshot alınmasını sağlayabilirisiniz.</li></ul><ul id="6ce8dcc8-475e-456d-85b1-5d37085a4f89" class="bulleted-list"><li style="list-style-type:circle"><code>Delete </code>volume ile boşta olan yani bir instance&#x27;a bağlı olmayan volumleri silebilirsiniz.</li></ul><ul id="80cdb9f2-41ea-4e45-a634-44596f238bb3" class="bulleted-list"><li style="list-style-type:circle"><code>Attach volume</code> ile boşta olan bir EBS volumünüzü herhangi bir instance ınıza bağlayabilirsiniz.</li></ul><ul id="7383333b-ea6d-4d68-887d-a5cfbb55c501" class="bulleted-list"><li style="list-style-type:circle"><code>Detach volume</code> ile bir instance ınaza bağlı olan volumünüzü ayırabilirsiniz.</li></ul><ul id="d7cd4a6a-2286-4c76-a594-4a7960dddf8e" class="bulleted-list"><li style="list-style-type:circle"><code>Force Detach volume</code> ile zorla ayırma yapabilirsiniz. Kullanımda olan volumleri ayrımada hata alınırsa bu seçenek ile ayırabilirsiniz.</li></ul></li></ul><figure id="723969f5-baac-4b61-b9f0-2aef4b8a2831" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%209.png"><img style="width:1608px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%209.png"/></a></figure><p id="e050a287-6ea5-4183-8562-d613c9182a5e" class="">Alt menüde EBS ler ile ilgili detaylı bilgiyi bulabilrisiniz. </p><ul id="e1bfffc3-9391-489e-a6b7-56f0e993a179" class="bulleted-list"><li style="list-style-type:disc"><code>Description </code>kısmında yukarıdaki verileri görebilrisiniz AZ, Encription durumu, Size&#x27;ı, volume tipi, oluşturma zamanı, hangi instance&#x27;a bağlı olduğu vs.</li></ul><ul id="a0fde6e5-a410-4c36-8725-556984452325" class="bulleted-list"><li style="list-style-type:disc"><code>Status Checks</code> kısmında çalışıp çalışmadığı bilgisini bulacaksınız.</li></ul><ul id="e9f4b36d-9be3-4e6a-ac0e-40ee3a136e77" class="bulleted-list"><li style="list-style-type:disc"><code>Monitoring</code> kısmında birçok grafik ile okuma yazma bant genişiliği verimliliği gibi değerleri gözlemleyebilirsiniz.</li></ul><ul id="9bc762ba-fa0e-4c14-a17c-2749e55a0527" class="bulleted-list"><li style="list-style-type:disc"><code>Tag</code> kısmında yeni tag verebilir veya düzeltme yapabilirsiniz.</li></ul><p id="7dd4eb80-b9e5-4bdc-b197-019a5120bb5a" class="">Şimdi yeni bir volume oluşturalım <code>Create Volume</code> kısmını tıklayalım.</p><figure id="74fcbaab-fd4a-4bb2-9ab5-20372b7656d6" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2010.png"><img style="width:1588px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2010.png"/></a></figure><p id="aeb5c20b-dff4-4389-94e5-58fe86affb33" class="">Tipini, boyutunu, girdiğinizde IOPS değerini şaağıda görebileceksiniz. Availability Zone kısmı önemli oluşturduğunuz <code><strong>EBS volume&#x27;ler ancak aynı AZ deki instance&#x27;lar tarafından kullanılabilir</strong></code><code>.</code> Hemen altında snapsotID seçeneği ile daha önce oluşturduğunuz veya hazır snapshotlardan birini seçip veya boş bırakıp devam edebilirsiniz. Encryption seçeneği ile de oluşturulan volumü kriptolu veya kriptosuz oluşturma kararı veriyorsunuz. Bu karar daha sonra değiştirilemez. En alt kısımda da Tag verebilirsiniz.</p><p id="9fc6ae64-ec2b-4485-8869-f1a97efe19fe" class="">Yeni volume oluşturduğunuzda ana menüde <code>State </code>kısmı <code>available </code>olarak göreceksiniz eğer bir instance&#x27;a attach ederseniz <code>state in-use</code> olacak. EBS volume attach ettiğiniz instance&#x27;ınızı terminate ettiğinizde volume hala açık kalacak dikkat edelim. Attach edilen EBS&#x27;lerin nasıl kullanılacağı ayrı bir başlık olarak gelecek.</p><p id="280b5e52-d791-43cc-84d5-c16c7e86c130" class="">Saniyeler içinde oluşturup silebilyorsunuz bu da cloud&#x27;un en güzel özelliklerinden bir tanesi 😂</p><hr id="9b660f0e-4b94-4629-940b-e92439bcfbae"/><h2 id="a5c3fb84-def6-4781-9490-54be49cd8999" class="block-color-blue">EBS Snapshots</h2><figure id="ca52f1ce-4d79-473a-9947-522cd551f203" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2011.png"><img style="width:300px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2011.png"/></a></figure><p id="edb0c920-4798-45ed-b6cc-3c73178fab71" class="">Öncelikle neden böyle bir özellik var onu açıklamaya çalışalım. Veri önemli ve kullanıcı kaynaklı veya cihaz kaynaklı sebeplerle veriyi kaybetme durumu her zaman mümkün bu sebeple önemli olan verilerimizin kopyasını alma ihtiyacı duyarız. Snapshot özelliği ile bu ihtiyacımız görülmüş olacak. Snapshot için herhangi bir zamanda yaratılan backup diyebiliriz.</p><p id="a09a4b10-7d1c-41b3-9236-c2211223daeb" class="">Snapshot almadan önce EBS&#x27;i insatance&#x27;dan detach etme zorunluluğu olmamakla birlikte detach ettikten sonra snapshot almak tavsiye edilir.</p><p id="2d0b1da1-a3a9-43c2-9c6e-74c4c4533c91" class="">Snapshot&#x27;lar AWS S3 üzerinde saklanır. Biz konsol üzerinden erişebiliriz.</p><p id="4c3f3044-5671-4df3-918b-a5fd285e947e" class="">Oluşturulan Snapshotlar 3 farklı amaç için kullanılabilir.  Birincisi backup yani o anın kopyası olarak, ikincisi Volume oluşturmak için, üçüncüsü aynı özellikli makina ayağa kaldırmak isteğinizde image oluşturmak için kullanılabilir.</p><p id="a90d391c-d731-4a56-977b-ae484e956f6e" class="">Aldığınız snapshotları farklı AZ veya region&#x27;lara kopya edebilirsiniz. </p><figure id="ef286b00-ddeb-48e5-8c93-f219ba17d5a7" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2012.png"><img style="width:693px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2012.png"/></a></figure><p id="fb5c5f28-4990-4422-b8ed-dd348bc9cbec" class="">Şimdi konsola gidelim.</p><p id="bcfa3352-2878-499b-b71d-e6480469679d" class="">EC2 sayfasında sol menüde EBS başlığı altında Snapshot kısmına tıklayalım.</p><figure id="98d3f31f-87f1-446d-843c-5684cecf1bb1" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2013.png"><img style="width:1922px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2013.png"/></a></figure><p id="2b25f890-0cf2-41d8-80f1-d6d593851a46" class="">Create Snapshot seçeneği ile önce halihazırda kullanımda olan bir EBS in snapshotunu alalım.</p><figure id="ae17a916-8133-40f4-9c45-1dbc46d25694" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2014.png"><img style="width:1654px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2014.png"/></a></figure><ul id="d1ffded1-1adc-47ca-98c4-3fa803bea197" class="bulleted-list"><li style="list-style-type:disc"><code>Select resource type</code> ile bir <code>volume </code>veya <code>instance </code>seçebiliriz. Seçilen değere göre aşağıdaki kısımlar değişecektir. <ul id="e453f99b-5e9c-4d14-9248-f4e5dcd26e4a" class="bulleted-list"><li style="list-style-type:circle">Volume seçerseniz yukarıdaki resimde görüldüğü gibi kullanımda olan EBS lerden birini seçebilirisiniz.<figure id="fc57d5c9-4f9f-4d78-875a-8ac5110e1f4b" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2015.png"><img style="width:1903px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2015.png"/></a></figure></li></ul><ul id="69be19e0-b57f-40af-add7-bed3b7e4561f" class="bulleted-list"><li style="list-style-type:circle">Instance seçerseniz mevcut instance&#x27;ları göreceksiniz. Exclude root volume seçeneğini tiklerseniz de snapshot alırken seçtiğiniz instance&#x27;ın root valumü hariç tutulur. Snapshot almadan mutlaka makinayı kapatmanız tavsiye edilir.</li></ul></li></ul><hr id="93982e5e-d73a-440e-913c-2533653691d9"/><figure id="be39d705-bb21-41f3-ac7f-856a762452b1" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2016.png"><img style="width:1910px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2016.png"/></a></figure><p id="0474cb1e-491d-41d6-99f3-d46f454d498f" class=""><code>Actions</code> menüsünden,<div class="indented"><ul id="7f19ec2e-619c-4fe8-acfc-051f02e77578" class="bulleted-list"><li style="list-style-type:disc"><code>Delete </code>ile Snapshotu silebilir, </li></ul><ul id="2afbd86d-fb2f-4480-97e0-a9aba0098fea" class="bulleted-list"><li style="list-style-type:disc"><code>Create Volume</code> ile aynı özellikte yeni bir EBS Volume oluşturabilir, Farklı AZ leri burada seçebililirsiniz. Boyutunu değiştirebilirsiniz. EBS volumü farklı AZ ye taşımanın yolu bu menüden yapılabilir.</li></ul><ul id="08673e20-6a7b-4bfc-8314-726ad6d53414" class="bulleted-list"><li style="list-style-type:disc"><code>Fast Snapshot Restore</code> ile hızlı bir şekilde volume oluşturabilirsiniz. Her AZ için ayrı etkinleştirilmesi gerekir, ücretlidir.</li></ul><ul id="e2bc37fa-188f-4da1-9467-ad8fab66e3e0" class="bulleted-list"><li style="list-style-type:disc"><code>Create Image</code> ile imaj oluşturabilir bu imajla yeni instance&#x27;lar oluşturabilirsiniz. Diyelim onlarca program yüklediniz instance&#x27;ınıza aynısından oluşturmak istiyorsunuz bu seçenek size göre. Oluşturulan AMI&#x27;ler EC2 sayfasında IMAGES başlığı altında AMIs bölümüne kaydedilecek.<figure id="8b09120a-2a97-4c94-a425-b1819b5d8a26" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2017.png"><img style="width:540px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2017.png"/></a></figure></li></ul><ul id="2cb94b6a-56ca-4863-934f-9cbe2bac3aae" class="bulleted-list"><li style="list-style-type:disc"><code>Copy </code>ile snapshot&#x27;ı farklı Region&#x27;lara kopyalayabilir ve istediğiniz yerde tekrar kullanabilirsiniz. Burada önemli bir ayrıntı var eğer oluşturacağımız volumü şifrelemek istiyorsak burada <code>encrypt this snapshot</code> seçeneğini tiklememiz gerekmektedir.</li></ul><ul id="b320decc-85c2-4c65-ae12-c835594fe40a" class="bulleted-list"><li style="list-style-type:disc"><code>Modify Permission</code> ile ilk başta private olan snapshot&#x27;ınızı public yapıp herkesin erişimine açabilir veya AWS account numarası girip sadece belirli kişilerin erişimine açabilirsiniz.</li></ul><figure id="66d5e299-c213-4276-8944-ea5b5c1cb4c0" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2018.png"><img style="width:326px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2018.png"/></a></figure><p id="3ff896ed-e6a7-48c6-9bbe-df107ea747f3" class="">Yeni gelen bir özellik <code>Lifecycle Manger</code> sayesinde biz istediğimiz kaynaklar için belirlediğimiz aralıklarla otomatik snapshot yani backup almasını sağlayabiliyoruz. Menüye girelim.</p><p id="9bdb5960-fbc0-4bff-b5d7-1ebc941811aa" class=""><code>Create new lifecycle policy</code> kısmında <code>EBS snapshot policy</code> seçili iken <code>next </code>diyelim. </p><figure id="e4a38c5e-9877-4e11-a350-7bb42d9805d8" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2019.png"><img style="width:1868px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2019.png"/></a></figure><p id="686a28d8-753f-4009-afb0-292d8f9abbee" class="">İstediğimiz kaynakları seçip next diyelim.</p><figure id="d7dd1943-dc65-49f2-b32e-77f09dcaba1e" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2020.png"><img style="width:991px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2020.png"/></a></figure><p id="60ebf620-4d1e-44a5-946d-256eada8ac02" class="">Burada günlük, haftalık, aylık gibi alternatifler ve başlangıç saati seçebilirsiniz.</p><hr id="43b77209-c05e-4cc4-a2ea-1955a2770e59"/><h2 id="c62ad185-54e3-4227-b38a-213db3ada7ac" class="block-color-blue">AMI</h2><figure id="0d16490f-438f-4485-ad87-602fbdef09cc" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2021.png"><img style="width:653px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2021.png"/></a></figure><p id="58041d3f-0734-47ae-896f-1285eab81eb1" class="">Amazon Machine Image in kısaltılmasıdır. Snapshot kısmında biraz anlatmıştık neden böyle bir hizmete ihtiyacımız olabilir? Siz bir instance ayağa kaldırdınız istediğiniz işletim sistemini seçtiniz istediğiniz konfigurasyonları yaptınız ve programlarınızı yüklediniz. Aynı makineye daha sonra da ihtiyacınız olabilecekse siz bunun kopyasını alabiliyor ve yeni oluşturacağınız makinelerde bu imajı kullanabiliyorsunuz.</p><p id="235fd6ec-e391-4459-8289-e36183b04fc1" class="">Launch instance sayfasını hatırlayalım. ilk aşamada AMI seçiyorduk. Seçenek olarak da My AMI , AWS Marketplace(ücretli AMI&#x27;ler) ve Community AMIs seçenekleri vardı. Artık biz bu aşamada My AMIS kısmından kendi oluşturduğumuz AMI&#x27;yi seçeceğiz.</p><p id="d96ef9ba-74f0-4f6c-b77a-734fcbb497e3" class="">AMI oluşturmadan önce mutlaka instance&#x27;ınızı stop etmeniz gerekiyor.</p><p id="81433429-1632-4e3f-bd25-a8b64bd60807" class="">Oluşturduğumuz AMI&#x27;leri diğer AZ&#x27;lerde kullanmak için kopyalayabiliriz.</p><p id="12651cb5-59e5-4a73-a4d2-345221225a50" class="">Şimdi konsola geçelim.</p><p id="7f0b6503-3425-44a2-badd-fa0200d04840" class="">Yeni bir instance oluşturalım Amazon Linux 2 AMI sini seçelim ve 3. aşamada en altta user data kısmına aşağıdaki kodu yapıştıralım. Security grup olarak da http 80 portunu açalım.</p><pre id="bd99651f-70ec-4c80-b1dd-281e0059a358" class="code"><code>#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd</code></pre><p id="be5a6066-53b3-43fd-962b-c2023d94b68e" class="">Bu kod ile instance oluşturulurken cihaza apache web server yüklemiş ve programı çalıştırmış olacağız. Oluşturduğumuz insatance&#x27;ın public ip sini kopyalayıp browser&#x27;a yapıştırdığımızda aşağıdaki şekilde gözükecek.</p><figure id="896e1a3b-d7b7-41a6-8d64-79ceab46c5ed" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2022.png"><img style="width:1925px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2022.png"/></a></figure><p id="064eb0bd-ec38-4f79-b910-d7e5cb077a21" class="">Biz burada aslında basit bir işlem yaptık cihazınıza onlarca program yüklemiş ve içerisinde verileriniz olabilir. İşte böyle surumda AMI hayat kurtarır. Aynı özellikli makinayı kısa sürede ayağa kaldırabilrisiniz.</p><p id="d83c20d1-6b7e-4f34-9f36-8a985ae1c3f1" class="">Image oluşturmak için çeşitli yöntemler var ilkini aşağıda göstereceğim ikincisi ise snapshot başlığında değinmiştik aldığımız snapshot ile de image oluşturabiliriz.</p><p id="2b8a3f9b-8971-4046-8576-cb3eedb72321" class="">İlk olarak instance sayfasında imajını almak istediğiniz instance&#x27;a sağ tıklayıp aşağıdaki resimde gözüken <code>create image</code>&#x27;i seçin.<div class="indented"><figure id="0ac2e5da-7869-40d3-9a0f-d9a8032e70be" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2023.png"><img style="width:1587px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2023.png"/></a></figure><p id="a7e51cc7-7473-4ac1-9d27-b785cba20f15" class="">Image adı için bir değer girin, isterseniz alt kısımdan volume ekleyebilirisiniz ve create image&#x27;e tıklayın. Sol menüde Images başlığı altında AMIs bölümünde göreceksiniz.</p><figure id="658a7f6a-7ff6-4332-9d75-10444befbcf2" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2024.png"><img style="width:1904px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2024.png"/></a></figure><p id="67a4e886-6547-4861-a94a-31315c1e33e9" class="">image hazır olduğunda aynı sayfada Launch menüsüyle yeni instance oluşturma sayfasına yönlendirilir ve image seçildiği için direk 2. aşamadan devam edersiniz. Bunun da 80 portunu açalım ve public ip&#x27;sini browser&#x27;a kopyalayalım. </p><figure id="893d37c0-d422-4114-879b-45a6751870d2" class="image"><a href="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2025.png"><img style="width:1914px" src="EC2%20VOLUME%20-%201%209620195478654ffdb9e187fe201b98ed/Untitled%2025.png"/></a></figure><p id="0d31d86c-0dbd-4af0-9527-e026fcc35aba" class="">Image kullanarak aynı özellikli bir instance ayağa kaldırdınız.</p><p id="d1f39849-7740-4c6e-b1c8-377161e3d28b" class="">Aynı sayfada EC2 Image Builder seçeneği ile bir pipline oluşturup image oluşturabilirsiniz.</p><p id="e8ded127-39ba-4236-96ab-e77a36f1c2e2" class=""><code>Action</code> kısmında;<div class="indented"><ul id="637417e8-fcb3-4c60-874a-0272e4a568bb" class="bulleted-list"><li style="list-style-type:disc"><code>Modify Image Permissions</code> seçeneği ile image&#x27;inize kimlerin erişebileceğini belirleyebilirsiniz.</li></ul><ul id="fd7b60c1-a2fe-41f9-ad20-9c087ee50906" class="bulleted-list"><li style="list-style-type:disc"><code>Deregister</code> ile image&#x27;inizi silebilirsiniz.</li></ul><ul id="dbd10c2d-568e-43e8-95c6-af46bda24add" class="bulleted-list"><li style="list-style-type:disc"><code>Copy</code> seçeneğiyle farklı regionlarda kullanabilrisiniz.</li></ul></div></p><hr id="b345c9e8-eb18-4ad4-ade0-86aeb8f8eb1e"/><p id="97303c83-71c6-4ac4-8eb8-eba8a0a73933" class=""><code>Önemli Not:</code> Eğitim amaçlı adımları takip etti iseniz çalışmanızı bitirdikten sonra snapshotları ve image leri siliniz extra ücret ödememek için.</p><p id="ad50e12f-91b1-4264-9afb-e81869f8e72e" class="">
+</p></div></p></div></p></div></article></body></html>
