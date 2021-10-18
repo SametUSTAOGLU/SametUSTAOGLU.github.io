@@ -1,0 +1,816 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Linux Shell Scripting</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.highlight-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.block-color-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(244, 231, 202, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e7f9a314-ec62-4ca1-912e-7f70e3be9904" class="page sans"><header><h1 class="page-title">Linux Shell Scripting</h1></header><div class="page-body"><figure id="dc2781c4-1059-4899-8a25-c426978c113c" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled.png"><img style="width:442px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled.png"/></a></figure><p id="a01b8c9d-f1f4-40d8-911b-6b57c06c5b82" class="">Bu yazıda script yazarken kullancağımız değişken tanımlama, kullanıcıdan girdi alma, diziler, aritmetik işlemler, koşul yapıları ve döngü yapılarını inceleyeceğiz. Biraz uzun olacak sabrınız için şimdiden teşekkürler.</p><p id="6e260bb0-f685-4984-916c-8613d954d057" class="">Nedir bu shell script ne amaçla kullanılır önce büyük resmi görmek amacıyla bunu açıklamaya çalışalım. Biz komutları shell&#x27;e iletebilmek için BASH, Zshell, C shell  gibi komut yorumlayıcısı terminaller kullanıyoruz. Burdan girdiğimiz komutlarla dosya işlemleri, ağ işlemleri, vb tüm işlemleri yapabiliyoruz. Bazen uzun, arka arkaya kodlar yazmamız gerekebiliyor ve içeride döngü kurmamız icap edebiliyor. Bu durumda biz kodları tek tek değil de bir dosyaya hepsini yazıyoruz .sh formatında kaydediyoruz işte bu script dosyası olmuş oluyor. Bu şekilde çalıştığımızda kodumuz da daha anlaşılır olmuş olur. Terminal olarak bir çok çeşit mevcut olmakla birlikte bir çok distro ile default gelen BASH üzerinden devam edeceğiz. </p><hr id="aa5f8425-cd2b-4d51-9b10-a4a91f24332d"/><p id="f802037b-87d6-48e4-87ba-89a0a08bab65" class="">Ayrıca komut girdiğimiz bu arayüzü programlama dili olarak da kullanabiliriz. İnterpretted bir dil diyebiliriz. Girilen kodu satır satır okur. Diğer dillerde olduğu gibi yazdığınız kodlarla kernel&#x27;a talimat vermiş olursunuz.  Yazılan kodun bütününe script denir ve bu kaydettiğiniz dosyayı chmod komutu ile execute yetkisi vermeniz yani çalıştırılabilir yapmanız gerekmektedir.</p><p id="6a4b63fc-3bb4-4252-a978-90e96a0b7ec4" class=""><code>chmod +x  dosya_adı.sh</code>  &gt;&gt; execute yetkisi verdik</p><p id="32c8ea53-e402-4e00-ba0e-e0a3752e45c9" class=""><code>./dosya_adi.sh</code>  &gt;&gt; yazdığımız scripti çalıştırdık.</p><hr id="459cad2a-bf2e-4d29-aafc-fb4889e5e194"/><p id="46f552fd-2e6c-4303-8744-6f62bbede4f4" class="">Hangi komut yorumlayıcısını kullandığınızı öğrenmek için <code>echo $SHELL</code> komutunu kullanabilirsiniz veya bilgisayarınızda yüklü tüm shelleri görmek için <code>cat /etc/shells</code> komutunu kullanabilirsiniz.</p><p id="f18b7e16-a9b7-4d9c-a5dd-fa8b026abb86" class="">Genellikle yazılan scriptler &gt;&gt; <code>#!/bin/bash</code> il başlar.      &quot;#!&quot;(shebang) ifadesinden sonra kullanılan komut yorumlayıcısının yolu yazılır.  Farklı yorumlayıcılar için örnekler : #!/bin/sh  —  #!/bin/php</p><p id="0afccbb5-3643-4633-a6af-034e6f7ecb60" class="">#! /bin/bash  &gt;&gt; bunu al bash tipi olan terminalde çalıştır demek istiyoruz.</p><p id="51ee9514-e984-491d-9ee1-77bf0821d257" class="">Komut dosyasında yorum satırları için &quot;#&quot; işareti kullanılır.</p><pre id="1e02d94e-36a3-41a1-b99e-43d0252e1787" class="code code-wrap"><code>#!/bin/bash
+# Burası yorum alanı</code></pre><h2 id="e5848992-b8f1-440a-b699-ca96723ddf9b" class="">Değişkenler</h2><p id="cb8fb0f0-312f-4f5b-9229-e17ad0470ff8" class="">Verileri geçici olarak tutmak için değişkenler kullanılır. Değişken tanımlarken büyük/küçük harf rakam ve &quot;_&quot; kullanılabilir ayrıca sayı ile başlayamaz.  Değişkenin değerleri için tek tırnak veya çift tırnak kullanılabilir. Değişkeni çağırırken başında &quot;$&quot; işareti ile çağırırız.  değişkeni silmek için unset komutu kullanılır. Atama işlemi &quot;=&quot; karakteri ile olur sağında ve solunda boşluk kullanılmaz.</p><pre id="0bdc2f77-f9fd-48ee-9013-3b978552e8aa" class="code"><code>#!/bin/bash
+MESLEK=&quot;devops engineer&quot;
+echo $MESLEK
+unset MESLEK</code></pre><p id="d13b1f16-5dec-46f9-a378-ed551a7e00ae" class="">Değişikenleri readonly tanımlayabiliriz. bazen değişkenlerin değerini değiştirmek istemezseniz yanlışlıkla veya başkası tarafından değiştirilebilme durumu varsa bu yöntemi kullanabilirisiniz.</p><figure id="a1bf6cf7-a2d7-4d33-b61e-7b344e2b1d3e" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%201.png"><img style="width:368px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%201.png"/></a></figure><p id="6b517390-98e7-4795-b069-1da0a8f85cdb" class="">Değişken kullanmayı öğrendik şimdi kullanıcıdan değer alalım. Bunun için read komutu kullanıyoruz.</p><pre id="d01ce585-364e-4d75-9f97-00735d6c4848" class="code"><code>#!/bin/bash
+read name
+echo Hello $name</code></pre><figure id="a5ec2e1c-5df2-40eb-8742-e7e54400b974" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%202.png"><img style="width:732px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%202.png"/></a></figure><p id="f1960f81-bb01-4bca-8b5c-f81c17c162ac" class="">read komutunu -p parametresi ile kullanarak tek satırda hem adını sorup hem de girdi alabiliriz. Ayrıca -s parametresi ile şifre gibi özel girdilerin gözükmesini engelleyebilirisiniz. Dikkat -s parametresi -p parametresinden önce gelmeli. -s -p veya -sp şeklinde kullanılabilir.</p><pre id="5be1e8f1-59da-4e94-a701-74ae9bd40ea2" class="code"><code>#!/bin/bash
+read -s -p &quot;lütfen şifre giriniz:&quot; sifre
+echo $sifre</code></pre><p id="def8583b-4709-471b-8dd0-ba9ccd7e5c44" class="">
+</p><figure id="2de7f141-5d60-4366-86da-49a1331b241c" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%203.png"><img style="width:480px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%203.png"/></a></figure><p id="3099d0fc-84d9-4a95-b828-83ee338777db" class="">Çıktı da gözüktü tabi göstermemiz lazım 😂 ama giriş esnasında yani yazarken görülemiyor.</p><p id="8c0d6e2d-2197-4866-bfa0-d005a9349638" class="">Ayrıca bir komutun çıktısını da değişkene atayabiliriz. Bunun iki yöntemi var. <div class="indented"><p id="2bb43cb0-bb60-4998-8ae3-e32c51006168" class="">Birincisi: degisken=$(pwd)  &gt;&gt; parantez ile</p><p id="036df5d5-f2e9-4455-9835-bd23117e7bbe" class="">İkincisi  : degisken=`pwd`  &gt;&gt; ters tick ile.  Bu işaret ile scriptin içerisinde komutların değerlerini görebiliriz.</p></div></p><figure id="c5cdf2c9-20e8-4a81-9b19-3a000f837078" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%204.png"><img style="width:344px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%204.png"/></a></figure><p id="3c156107-a6fc-417d-b9ff-ab6e3d8b293a" class="">     `` Bu işaret ile scriptin içerisinde komutların değerlerini görebiliriz.<div class="indented"><pre id="5e085046-75df-444c-82b1-5334db60b4ca" class="code"><code>#!/bin/bash
+echo &quot;çalıştığın dizin: `pwd`&quot;</code></pre></div></p><figure id="5cacddad-596b-4b97-89d0-dab612839eef" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%205.png"><img style="width:331px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%205.png"/></a></figure><p id="b49eceab-31ad-483f-8a5e-d110e17c1b1b" class="">Scriptin içerisindeki değişkenlere değerleri scripti çalıştırırken parametre olarak verebiliriz. Nasıl yani derseniz şu şekilde örnek vereyim. İlk parametre dosya adıdır.<div class="indented"><p id="e9e2d442-47b8-4f99-90e1-8127cde5d990" class="">Önce Scriptin içini hazırlayalım.</p><pre id="b6aa6bf0-6eae-4ff9-9f8f-22d6497da8e5" class="code"><code>#!/bin/bash
+echo &quot;DOSYA_ADI:  $0&quot;
+echo &quot;ADI: $1&quot;
+echo &quot;YAŞI: $2&quot;
+echo &quot;Tüm parametreler: $@&quot;
+echo &quot;Toplam parametre sayısı : $#&quot;</code></pre></div></p><figure id="3b136c41-02bd-448a-bb82-e362eb176ba0" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%206.png"><img style="width:393px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%206.png"/></a></figure><p id="95fd9d7d-3bd4-44b4-bc4e-090d7fb67d29" class="">Değişken 0 dan başlayarak  numaralandırılır. @ karakteri tüm değişkenleri yazdırır. # karakteri değişken sayısını yazdırır.</p><hr id="4656950f-ddd2-4d15-88e5-60b73f8314ca"/><h2 id="2baf58bf-4563-4f80-a0ba-ca86072bc8b5" class="">Diziler</h2><p id="44736ca8-bd1f-41a4-98dc-dfd8e5aad850" class="">İki türlü dizi oluşturabiliriz. <div class="indented"><p id="aeeccdbb-428f-48dd-ac3d-971e3dc5f517" class="">Birincisi: Köşeli parantez ile index belirterek.<div class="indented"><pre id="63cecb4f-ffbd-46c1-91ba-0a160b891b7a" class="code"><code>AWS_SERVICES[0]=&quot;ec2&quot;
+AWS_SERVICES[1]=&quot;s3&quot;</code></pre><p id="fa5c80a0-4dbf-4590-b45c-dde327d78a8c" class="">Dizi elemanlarına erişirken ise :<div class="indented"><pre id="6876625c-1e71-460b-91d6-91f68f90fe7a" class="code"><code>echo ${AWS_SERVICES[0]}
+echo ${AWS_SERVICES[1]}
+echo ${AWS_SERVICES[2]}</code></pre></div></p></div></p><p id="4ca5542f-4ee5-4ea5-ab26-333201343145" class="">İkincisi: Normal parantez ile.<div class="indented"><p id="416712b0-ee93-4811-a734-a95bab9983c5" class="">AWS_SERVICES=(&quot;ec2&quot;,&quot;s3&quot;,&quot;cloudformation&quot;)</p><p id="5c3e0718-6217-4b23-9fd4-e48526394081" class="">çağırırken hepsini getirtmek için</p><p id="e5c6400e-59fe-4e3d-b7ab-9012380ce7c0" class="">echo ${AWS_SERVICES[@]}  &gt;&gt; @ işareti kullandık </p></div></p></div></p><figure id="640c67c4-cd06-4ecd-8c58-02747d2856c1" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%207.png"><img style="width:580px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%207.png"/></a></figure><hr id="e2d03f3a-af98-4688-a4eb-1d6b3a2160cd"/><h2 id="74e87013-fc30-4f9e-b2b8-c50c15c6a1cd" class="">Aritmetik İşlemler</h2><p id="ca14ae74-4c57-4fa9-8334-15f84f8b0d5f" class="">Aritmetik işlemlerle ilgili de üç yöntem göstereceğim. Birincisi <code>expr </code>komutu, ikincisi<code>let </code>komutu sonucusu ise çift parantez.</p><figure id="0a628d4c-e54f-471c-9621-e61422d85047" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%208.png"><img style="width:298px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%208.png"/></a></figure><p id="d626300a-2dbe-4896-8490-bf66f270788a" class=""><code>expr </code>komutunda iki kuralımız var. Birincisi değerler arasında boşluk olmalı diğeri tırnak içinde olmamalı.</p><figure id="c390f04f-7550-4749-828e-d4be97eb2432" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%209.png"><img style="width:314px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%209.png"/></a></figure><p id="e68bad00-1e5f-436e-94de-3ef4d6d06ec1" class="">Basit bir örnek yapalım aşağıda gördüğünüz script üzerinden konuşalım.<div class="indented"><pre id="de3e6b4d-dcac-4869-ae61-b25b519f26d1" class="code"><code>#!/bin/bash
+read -p &quot;birinci sayıyı giriniz: &quot; ilk_sayi
+read -p &quot;ikinci sayıyı giriniz: &quot; ikinci_sayi
+read -p &quot;aritmetik işlemi giriniz: &quot; art_islem
+
+if [[ art_islem = &quot;+&quot; ]]
+        toplam=$(expr $ilk_sayi + $ikinci_sayi)
+then
+        echo $toplam
+fi</code></pre><p id="889e9ceb-9c16-4f6f-8d60-1d1885d1d3ff" class="">Basit bir hesap makinası yaptığımızı farzedelim. if yapısını henüz anlatmadım o kısmı görmezden gelelim. <code>read </code>komutunu -p parametresiyle kullanıcıdan iki sayı ve aritmetik operatoru aldık. aritmetik işlem için <code>expr </code>komutunu kullandık.</p></div></p><p id="705a361b-6b13-4dfc-87a4-0899f0b5c97d" class="">Aritmetik işlemler için kullancağımız ikinci komutumuz <code>let </code> . let komutu bash içerisinde built-in fonksiyondur. expr komutundan farklı olarak tırnakları kullanırız. Tırnak kullanmaz isek arada boşluk kullanmamamız gerekir.<div class="indented"><p id="7af19f2f-4775-4f5d-b9bb-77d1992f4315" class=""><code>let &quot;toplam = 10 +5&quot;</code></p><p id="f06ba587-5e1b-411e-8eba-39433b30f250" class=""><code>let toplam=10+5</code></p><p id="ed4ea059-6f0b-406b-8b45-58c1db0c64a8" class=""><code>echo $toplam</code></p></div></p><p id="c76f1c80-fd62-4a97-bf09-f7baf10a8d6e" class="">Üçüncü yöntem olan çift parantaze geçelim. Burda let veya expr komutu kullanmamıza gerek yok yapacağımız işlemi çift parantez içine alacağız.<div class="indented"><p id="fc70616c-a49a-4392-b328-536aebcdb70a" class=""><code>toplam=$(($ilk_sayi + $ikinci_sayi))</code></p></div></p><p id="b5806e48-aeea-4779-b523-dfb3fc54e241" class="">Son olarak artırma ve azaltma operatorlerinden bahsedip aritmetik işlemleri bitireceğiz.<div class="indented"><p id="31ba0973-677e-4540-91ac-acd5454e4015" class=""><code>deger=5</code></p><p id="accdb7d1-4890-4347-9057-e155f608c603" class=""><code>let yeni_deger=deger++</code></p><p id="a5a94a8f-14ed-44b2-8e17-5a7c691aeb13" class=""><code>echo $yeni_deger</code><div class="indented"><p id="8d2190e0-b616-4dca-9335-89ee6fbe7636" class="">Yukarıdaki durumda yeni_deger degişkenine deger değişkenini atadıktan sonra artırma gerçekleşir yani burumda yeni_deger 5 olarak kalır.</p></div></p><p id="6c1d3324-a9ea-4950-bc80-b86738c3df9e" class=""><code>deger=5</code></p><p id="c7f4356d-f621-4fb4-b1c4-2ade1d2e349f" class=""><code>let yeni_deger=++deger</code></p><p id="f0cf64a9-75b7-416c-8bd5-6d76ed087f9c" class=""><code>echo $yeni_deger</code><div class="indented"><p id="3ea592b7-df8c-4be0-873f-7a8abf306442" class="">Bu yeni_deger degişkenine deger değişkenini artırıldıktan sonra atma gerçeklerşir.B urumda yeni_deger 6 olur.</p></div></p></div></p><h1 id="5d7bb538-12ca-411d-8a5c-0ec7cfaf14be" class="">Koşullar</h1><p id="3bfa9720-4aa3-40bf-8b79-885a93e184d5" class="">Herhangi bir programlama diliyle aynı mantıkta çalışır sadece syntax&#x27;ı biraz farklıdır. Bu başlıkta <code>if </code>ve <code>case </code>yapısını göreceğiz. Girintiler(indentation) önemli değildir Bu yapıyı görmeden önce karşılaştırma operatorlerini görelim.<div class="indented"><h2 id="6e2d63ab-7894-4cc0-bea8-f786a6020727" class="">Karşılaştırma Operatorleri</h2><h3 id="cc531b29-986b-4fe2-9266-15f5c96c8e71" class="">Sayısal değerler için:</h3><p id="61693fe2-ddde-4f68-81ef-998d9a6c9f62" class="">-eq   &gt;&gt;   equal                  </p><p id="1ca65299-b1c7-480d-85aa-14abbefe0fd6" class="">-ne   &gt;&gt;   not equal              </p><p id="35e352e6-fde5-4ccf-a942-ea5cabfe5e2b" class="">-gt    &gt;&gt;   greater than           </p><p id="30361e3a-b712-4f1e-99a3-120fc47e60e0" class="">-lt     &gt;&gt;   less than              </p><p id="7123bc16-b373-469f-af65-777f0873bde0" class="">-ge   &gt;&gt;   greater than or equal  </p><p id="509afb02-fd35-4a5f-abe4-e78da06f9df0" class="">-le     &gt;&gt;   less than or equal</p><h3 id="4c467409-8360-4283-9ea9-ed2af5e21c49" class="">String değerler için:</h3><p id="02bcbef3-50c1-4429-b92e-5fee346b97df" class="">=    &gt;&gt;   equal            </p><p id="15c9479e-56ab-4a65-ad4e-0c926bf11f3d" class="">!=   &gt;&gt;  not equal        </p><p id="0b57beb1-342e-4ca5-bd51-b675dca3c154" class="">-z    &gt;&gt;  Empty string     </p><p id="c478e654-cde3-4d6d-b5f0-0d379414bfa2" class="">-n    &gt;&gt;  Not empty string</p><h3 id="be438273-130c-4ff9-b5d4-1bf413a08718" class="">Dosya işlemleri için:</h3><p id="5ae5cc3e-adf7-4bad-94f1-aa453b8d0127" class="">-d file    &gt;&gt;  directory </p><p id="a0026101-d62d-456e-a2f6-ba1e20465452" class="">-e file     &gt;&gt;  exists     </p><p id="3b214113-0af7-48ca-baca-4431525d5949" class="">-f file      &gt;&gt;  ordinary file     </p><p id="1b48ff86-33b8-484f-a4c9-2c3e87939e56" class="">-r file      &gt;&gt;  readable          </p><p id="d8c098b7-4194-44aa-9f2f-af322c9e9e94" class="">-s file      &gt;&gt;  size is &gt; 0 bytes </p><p id="bf11e5eb-1249-4374-93f4-b63449f8cb1d" class="">-w file     &gt;&gt;  writable          </p><p id="23334419-b464-4cf6-a178-c222d9c3d85b" class="">-x file     &gt;&gt;  executable</p></div></p><h2 id="aa06789e-8889-4df2-ac55-98c976f3cba6" class="">if Yapısı</h2><p id="852e6e18-8439-4581-bf0b-4a07007f0aac" class="">Şimdi yapısını inceleyelim;</p><pre id="0e249472-7df0-41d5-a66b-4d6235657874" class="code code-wrap"><code>if [[ &lt;koşul&gt; ]]
+then
+  &lt;komutlar&gt;
+elif [[ &lt;koşul&gt; ][
+then
+	&lt;komutlar&gt;
+else
+	&lt;komutlar&gt;
+fi</code></pre><p id="a9d76399-0bef-4701-bf58-99cfcf3e0970" class="">Şimdi de basitten zora küçük örmekler yapalım. aklimda değişkenine bir değer atayıp kullanıcıdan da bir değer girmesini bekleyeceğiz öncelikle eşit mi? daha sonra eşit mi değil mi? en sonunda da büyük küçük gibi ilaveler yapacağız.</p><pre id="95b7781b-6033-46df-9c38-d848c4cde48b" class="code"><code>#!/bin/bash
+aklimda=10
+read -p &quot;haydi tahmin yap: &quot; tahmin
+if [[ $aklimda = $tahmin ]]
+then
+        echo &quot;TEBRİKLER&quot;
+fi</code></pre><figure id="9181492c-6349-4599-928e-f63afecc4b97" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2010.png"><img style="width:288px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2010.png"/></a></figure><p id="635da0b0-377e-40bb-a6ed-23cc3409496b" class="">Yukarıdaki scriptte sadece if koşulu var doğru ise sonuç alırız yanlış ise herhengi bir dönüş olmaz.</p><pre id="d55acc9b-817b-4d5c-80e7-114f1e2057f0" class="code"><code>#!/bin/bash
+aklimda=10
+read -p &quot;haydi tahmin yap: &quot; tahmin
+if [[ $aklimda = $tahmin ]]
+then
+        echo &quot;TEBRİKLER&quot;
+else
+        echo &quot;YANLIŞ CEVAP DOĞRUSU $aklimda OLACAKTI&quot;
+fi</code></pre><figure id="2bb76d21-5c6d-45c0-8f97-2760954b4ba9" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2011.png"><img style="width:316px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2011.png"/></a></figure><p id="b4c6d1c3-cf7b-4375-a405-5b672d508dcf" class="">Yukarıdaki scriptte else yapısı örneğini gördük if koşulu gerçekleşmez ise else komutu çalışacak</p><pre id="03c826b5-f082-429f-8106-ba9e16927102" class="code"><code>#!/bin/bash
+aklimda=10
+read -p &quot;haydi tahmin yap: &quot; tahmin
+if [[ $aklimda = $tahmin ]]
+then
+        echo &quot;TEBRİKLER&quot;
+elif [[ $aklimda -gt $tahmin ]]
+then
+        echo &quot;AKLIMDAKİ SAYI $aklimda TAHMİNİNDEN $tahmin &#x27;den büyük&quot;
+else
+        echo &quot;AKLIMDAKİ SAYI $aklimda TAHMİNİNDEN $tahmin &#x27;den küçük&quot;
+fi</code></pre><figure id="e3e5db0e-be73-4986-b7b5-61c24cfb1f4b" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2012.png"><img style="width:418px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2012.png"/></a></figure><h2 id="3f70857f-2c9d-4691-bfce-320038a6f92a" class="">case Yapısı</h2><p id="cb27735d-e07f-4750-afe1-2e3e39bfced2" class="">Yukarıda tam set yapıyı gördük elif ler ile koşul sayısını istediğimiz kadar artırırız. Fakat koşullar çok fazla olduğunda kodun okunurluluğunu zorlaşırtırır. Tam burada farklı bir yapı imdadımıza koşuyor.</p><p id="bdbc7048-8e21-47f9-b0c9-ab17fa311d32" class="">Koşullar konusunda son yapımız case yapısı. Her seçenek için bir komut yazıyoruz. Yapı aşağıdaki gibi.</p><pre id="5bc5b7c0-d27c-4731-8251-e83eb47c9433" class="code code-wrap"><code>case $secenek in
+	&quot;ilk_durum&quot;)
+		  &lt;komutlar&gt;
+	;;
+	&quot;ikinci_durum&quot;)
+		  &lt;komutlar&gt;
+	;;
+	&quot;üçüncü_durum&quot;)
+		  &lt;komutlar&gt;
+	;;
+	*) # diğer tüm durumlar için.
+		  &lt;komutlar&gt;
+	;;
+esac
+</code></pre><p id="f9e7ce26-2165-4842-af6b-7e4103315fc8" class="">Bir örnekle inceleyelim hesap makinasını case ile yapalım her operator durumu için yeni bir case oluşturalım.</p><pre id="bffcdb18-1b98-4563-83f6-5b3beea2fdbb" class="code"><code>#!/bin/bash
+read -p &quot;ilk sayıyı giriniz: &quot; ilk_sayi
+read -p &quot;ikinci sayıyı giriniz: &quot; ikinci_sayi
+read -p &quot;operator giriniz (+-*/ şeklinde) :&quot; operator
+case $operator in
+        &quot;+&quot;)
+                echo &quot;sonuc= $(( $ilk_sayi + ikinci_sayi))&quot;
+        ;;
+        &quot;-&quot;)
+                echo &quot;sonuc= $(( $ilk_sayi - ikinci_sayi))&quot;
+        ;;
+        &quot;*&quot;)
+                echo &quot;sonuc= $(( $ilk_sayi * ikinci_sayi))&quot;
+        ;;
+        &quot;/&quot;)
+                echo &quot;sonuc= $(( $ilk_sayi / ikinci_sayi))&quot;
+        ;;
+        *)
+                echo &quot;hatalı değer girdiniz&quot;
+        ;;
+esac</code></pre><figure id="8cf8ad7b-cedf-4aa0-bd0d-c5147d6660af" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2013.png"><img style="width:346px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2013.png"/></a></figure><p id="34ed895f-72a1-47b5-95e6-c141983cadaf" class="">Bir örnek yapalım. Kullanıcıdan bir dosya ismi girmesini isteyelim. <div class="indented"><p id="791037fe-8d46-47c7-af5b-c9622d94540a" class="">1- Dosyanın okuma ve yazma izni varsa evet yazıp çıksın. </p><p id="b62c033c-906b-4cb4-a195-6e185deb86b6" class="">2- Yoksa dosyaya okuma yazma izni vereyim mi diye sorsun.</p><p id="57a6d5a7-f062-4fdb-bb81-da22b200737e" class="">3- Evet ise işlemi yapsın okuma yazma izni versin</p><p id="351cfde9-975e-4c07-98d2-9c434f2d09ca" class="">4- Hayır ise direk çıkış  bye yazıp çıksın.</p><p id="a8aab7ac-9b55-4604-bb9b-56c1a84341fa" class="">5- Yanlış kullanımlar için bye yazıp çıksın.</p><p id="082aa650-adb3-4e23-b26b-677ab7619a09" class="">Not: Klasörde  olan dosya olduğunu varsayıyoruz.</p><pre id="7b10033f-e333-4cb2-8c0a-1d238257aba0" class="code"><code>#!/bin/bash
+  
+read -p &quot;file isimi girin: &quot; file
+
+if [[ -r $file ]] &amp;&amp; [[ -w $file ]]
+then
+        echo &quot;evet&quot;
+else
+        read -p &quot;readable writable yapayım mı evet or hayır gir: &quot; evethayir
+        if [[ $evethayir = &quot;hayır&quot; ]]
+        then
+                echo &quot;bye&quot;
+        elif [[ $evethayir = &quot;evet&quot; ]]
+        then
+                chmod +wr $file
+        else
+                echo &quot;bye&quot;
+        fi
+fi</code></pre></div></p><h2 id="f0269d49-6054-4ba9-85be-d256c9df31d7" class="">Döngüler</h2><p id="3bd9c1f9-a9fa-4967-8dd7-f808ced58311" class="">3 çeşit döngü yapısı mevcut. For, While ve Until. For ile başlayalım önce yapıyı görelim.<div class="indented"><h3 id="5b20fc4e-0e4e-440b-b626-985e80caf25e" class="">For döngüsü</h3><pre id="b0cd064d-72bc-4d9e-a6f3-e10ceda80618" class="code code-wrap"><code>for degisken in &lt;liste&gt;
+do
+ &lt;komutlar&gt;
+done</code></pre><p id="43d70c5c-a800-491d-9dc1-339d8df9755d" class="">Bir liste oluşturalım ve for döngüsü ile içindekileri yazdıralım.</p><pre id="e7fd20de-89e2-46d5-a7e2-442bcc9ebbd1" class="code"><code>#!/bin/bash
+dizi=(&quot;bir&quot; &quot;iki&quot; &quot;üç&quot; &quot;dört&quot;)
+for i in ${dizi[@]}
+do
+        echo &quot; $i&quot;
+        echo &quot;---&quot;
+done</code></pre></div></p><figure id="5f261a8d-92e8-4d2e-80c8-49e5216e4c46" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2014.png"><img style="width:298px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2014.png"/></a></figure><p id="087e00f9-b104-42ab-9922-d705fec4e973" class="">Dizinin elamalarını tek tek yazdırmak için for döngüsü kullandık.<div class="indented"><h3 id="eec3a215-7fef-4997-ab7c-14638280a937" class="">While Döngüsü</h3><p id="9d1fbe6d-bd2f-4fec-a8d4-8996442b4155" class="">Önce formatı görelim</p><pre id="d5bbe7bf-700b-45f6-9b3a-6ef363f55ef1" class="code code-wrap"><code>while [ &lt;koşul&gt; ]
+do
+  &lt;komutlar&gt;
+done</code></pre><p id="7451949c-7709-4922-9dbc-0f7f31ce70b4" class="">Örnekle açıklayalım. Başlangıç için bir değeri değişkene atayalım her döngüde değişkenin değerini bir azaltalım ve komut olarak da iki katını yazdıralım.</p><pre id="32112b2b-bb2d-49f6-8cbd-5a1dfe0b4b06" class="code"><code>#!/bin/bash
+degisken=10
+
+while [ $degisken -gt 0 ]
+do
+        echo $(( $degisken * 2 ))
+        degisken=$(($degisken - 1))
+
+done</code></pre></div></p><figure id="970ae432-f8f6-44b7-99e7-1a4ee96caf28" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2015.png"><img style="width:419px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2015.png"/></a></figure><h2 id="1f128b82-79a1-4ba7-9635-af9bb8753229" class="">Until</h2><p id="938af5a9-799a-4797-a083-b7fa0e28c1ee" class="">Önce yapıyı görelim. Daha sonra örnek yapalım. While&#x27;dan farkı şudur koşul yanlış olduğu sürece komutlar çalışır.</p><pre id="4221707d-d800-4019-be13-e2c071157c66" class="code code-wrap"><code>until [ &lt;koşul&gt; ]
+do
+  &lt;komutlar&gt;
+done</code></pre><p id="56a7a3fc-04d3-4e81-8b48-d7707d1ccd31" class="">Yine bir değişkene değer atayalım.  Değişkenin modunu alalım ve her döngüde değerini 1 azaltalım.</p><p id="5c456942-3fff-4a61-8a0f-a95ebe9c623d" class="">Döngü değişken değeri 0 dan büyük olduğu sürece dönsün.</p><pre id="f88117a0-ea11-4f10-b7c2-d9b25f3ae1fa" class="code"><code>#!/bin/bash
+degisken=5
+
+until [  $degisken -lt 0 ]
+do
+        echo $(( $degisken % 2 ))
+        degisken=$(($degisken - 1))
+
+done</code></pre><figure id="9cadbc81-32f0-4b87-bd17-da73f8192ca2" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2016.png"><img style="width:484px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2016.png"/></a></figure><h2 id="7b6e65cd-f80e-4de9-8437-83569f495756" class="">Döngülerde continue ve break komutları</h2><p id="4e4fb16a-d0e7-465c-9529-6444eec010d9" class="">continue komutu görüldüğünde koşul sağlanmış ise o adımı atla devam et demektir.</p><pre id="ce18a8fb-a531-4227-9599-9dd7a24e7668" class="code"><code>#!/bin/bash
+for i in {0..10}
+do
+        if [[ $i -lt 3 ]]
+        then
+                continue
+        else
+                echo $i
+        fi
+done</code></pre><p id="e1e59417-5c36-44d5-8e97-00e78434e57a" class="">0-10 arası sayıları yazdırmak istedik ama 3&#x27;ten küçükse yazdırma devam et şeklinde continue komutunu kullandık.</p><figure id="1b56c7c9-b722-4d11-a42b-ef657ebf961b" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2017.png"><img style="width:621px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2017.png"/></a></figure><p id="b7b9b072-f801-400f-bf0b-9935672b4d28" class="">break ise koşul sağlanmışsa döngüyü orada kes devam etme anlamı vardır.</p><pre id="4e2c6135-79a6-410e-b926-92c37ccf9943" class="code"><code>#!/bin/bash
+for i in {0..10}
+do
+        if [[ $i -gt 5 ]]
+        then
+                break
+        else
+                echo $i
+        fi
+done</code></pre><p id="6545bb56-da58-4e3a-9a01-1a0b8d0ee54d" class="">Burada da eğer sayı 5 ten büyükse dögüyü kır dedik.</p><figure id="abf3110e-2644-40b5-bc28-75edb6f60b5c" class="image"><a href="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2018.png"><img style="width:599px" src="Linux%20Shell%20Scripting%20dc2781c4105948998a25c426978c113c/Untitled%2018.png"/></a></figure><p id="f99e3088-10f9-4c9c-ad5a-e7647cad1abd" class="">
+</p><p id="bbcf448c-a112-4235-a179-0196146dee77" class="">
+</p><p id="a5a7490b-8f04-40ff-b4b2-0bde5c07d3f0" class="">
+</p><p id="14a3295d-379f-40e7-9a20-47a7e3eb5c39" class="">
+</p><p id="9796c332-7f0c-49ec-ba0e-04a71146c0ea" class="">
+</p><p id="78ff4869-7741-459a-8a0f-28f886d5e3d1" class="">
+</p><p id="98df5021-e5b8-4204-b04e-2bfc0cb9c281" class="">
+</p><p id="6f00e925-3402-4630-9b4c-4c2c92835252" class="">
+</p><p id="25863362-e8b6-4748-bb8e-0bb0e80b0596" class="">
+</p><p id="04bc0ad7-93d9-4d98-b597-a050a1ac675e" class="">
+</p></div></article></body></html>
