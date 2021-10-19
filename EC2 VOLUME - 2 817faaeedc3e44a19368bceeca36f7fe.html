@@ -1,0 +1,650 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EC2 VOLUME - 2</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.highlight-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(200, 112, 34, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(181, 126, 51, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(252, 237, 231, 1);
+}
+.block-color-yellow_background {
+	background: rgba(245, 241, 229, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 1);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(244, 231, 202, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="fb5caa4b-7b6e-4823-9213-f9673a012d5a" class="page sans"><header><h1 class="page-title"><code>EC2 VOLUME - 2</code></h1></header><div class="page-body"><figure id="817faaee-dc3e-44a1-9368-bceeca36f7fe" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled.png"><img style="width:998px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled.png"/></a></figure><p id="2a8323ef-618a-4df2-b7b4-b60d7fc234ca" class="">Volume&#x27;ler ile alakalı konsoldan yapabileceğimiz adımları bu yazının birinci bölününde anlatmıştım. Şimdi bu bölümde terminal ağırlıklı gideceğiz ve yeni oluşturduğumuz EBS volume&#x27;leri kullanılabilir hale getireceğiz. Neler yapacağız tüm işlemleri maddeleyeceğim takiben tüm maddeleri kullanılan komutlarla açacağım. Toplam 4 bölüm halinde inceleyeceğiz.</p><p id="c0902613-06d3-4827-a457-1a2216e7c41f" class="">A. İlk bölümde yeni eklediğimiz diskin formatlama ve mountlama işlemleri olacak.</p><p id="bd691d26-58c4-417d-8ae4-44dca94237fb" class="">B. İkinci bölümde ilk oluşturduğumuz diski büyütüp gerekli işlemleri yapacağız.</p><p id="80475c26-70de-4a30-919c-429f080a1318" class="">C. Üçüncü bölümde yeni bir volume oluşturup o diskte bölme işlemleri ve hazır hale getirmek için işlemler yapacağız.</p><p id="be587922-2bf5-4b18-ba4a-8d8d3ebef0e7" class="">D. Dördüncü bölümde parçaladığımız diskte modify işlemi yapacağız. reboot sonrası mount işlemleri yapmamak için gerekli işlemleri yapacağı</p><ol type="1" id="a63776f6-09e9-41c1-ab2b-08040d4ad4a2" class="numbered-list" start="1"><li>Konsoldan yeni bir volume oluşturalım ve bu ec2  ile ilişkilendirelim. Bu adım ilk yazıda oluğu için geçiyorum.</li></ol><ol type="1" id="b4a0ffe4-9cac-4d7d-9813-94da11eb100e" class="numbered-list" start="2"><li>Terminale geçip ec2 instance&#x27;ımıza bağlanıp <code>lsblk </code>komutu ile mevcut tüm blokları listeleyeceğiz.</li></ol><ol type="1" id="9c9647d1-dbfa-4d56-81be-f79794378a5d" class="numbered-list" start="3"><li> Disk durumunu görmek için <code>df -h</code> komutunu çalıştıracağız lsblk ile farkı göreceğiz.</li></ol><ol type="1" id="5435764f-fb86-487a-934d-817e06462e7a" class="numbered-list" start="4"><li><code>sudo file -s /dev/xvdf</code> komutu ile yeni bloğumuzda dosya sistemi var mı kontrol edeceğiz.</li></ol><ol type="1" id="8673e334-faf3-4d70-9a5a-0376c6f1e683" class="numbered-list" start="5"><li>Eğer dosya sistemi yoksa ki olamayacak  <code>sudo mkfs -t ext4 /dev/xvdf</code> komutu ile formatlayacağız.</li></ol><ol type="1" id="4f871043-2e38-441b-89cd-a7b5c5d04213" class="numbered-list" start="6"><li><code>df -h</code> komutu ile son durumu kontrol edeceğiz.</li></ol><ol type="1" id="56422b8b-31f8-46be-97c8-9352c649dec8" class="numbered-list" start="7"><li>Daha sonra yeni bir klasör oluşturup Yeni volume&#x27;mümüzün mount işlemini yapacağız. Mount işlemi bittikten sonra burada daha sonra kontrol etmek için bir dosya oluşturacağız. <code>df -h</code> komutu ile son durumu kontrol edeceğiz.</li></ol><p id="535f45df-97e4-4615-b481-59ce9dfe4249" class="">Burada birinci bölümü bitirdik. Şimdi Modify işlemlerine geçip diski büyüteceğiz ve tekrar kullanılabilir olması için bir dizi adımlar atacağız.</p><hr id="3ca78dd1-d77f-4bc3-a164-00de80f258ca"/><p id="f4067868-d21a-4119-b0cb-a867e834423f" class="">  Bundan sonra modify işlemlerine geçeceğiz ve konsoldan volume&#x27;müzü artıracağız.</p><ol type="1" id="137f476a-b04a-452c-a41f-f2d0b3de6c0c" class="numbered-list" start="8"><li><code>lsblk </code>ve <code>df  -h</code> komutlarıyla kontrol edeceğiz.</li></ol><ol type="1" id="6b1d84da-7683-4c9d-a9b0-d8bb1727aafc" class="numbered-list" start="9"><li>File sistemi yeni oluşan alan için de uygulamak için <code> sudo resize2fs /dev/xvdf</code> komutunu uygulayacağız. Farklı distrolarda <code>resize2fs</code> yerine <code>xfs_growfs</code> kullanmanız gerekebilir.</li></ol><ol type="1" id="776f44d1-4e89-4f2b-9137-49b00bdab812" class="numbered-list" start="10"><li> <code>df -h</code> ile volume&#x27;ün tamamının hazır olduğunu görüp 6. adımda kontrol için oluşturduğumuz dosya duruyor mu diye kontrol edeceğiz.</li></ol><ol type="1" id="d9ee2c46-fa88-4120-b31a-f00a666958ea" class="numbered-list" start="11"><li><code>sudo reboot now</code>  komutu ile instance&#x27;ı  reboot edeceğiz ve yeni birimin takılı ama bağlı olmadığını göreceğiz.</li></ol><ol type="1" id="e5454d8f-f070-457e-bf91-be566f58b117" class="numbered-list" start="12"><li><code>sudo file -s /dev/xvdf</code> komutu ile daha önce yaptığımız formatlama işleminin geçerli olup olmadığını kontrol edeceğiz.</li></ol><ol type="1" id="d949c471-575a-4a88-ad5e-c66c16e7b95e" class="numbered-list" start="13"><li>Yeni Volume&#x27;ü tekrar  mount&#x27;lama işlemine tabi tutacağız. <code>df  -h</code> komutlarıyla hazır olup olmadığını kontrol edeceğiz.</li></ol><hr id="8d2b0ad6-eda3-4ed7-a418-a5bb59795a24"/><p id="cffe63cb-e137-4c89-8805-2f9ea88854b7" class="">Bu bölümden sonra yeni bir volume konsoldan yeni bir volume ilişkilendirip önce disk bölme takiben bölünmüş modify işlemi yapacağız.</p><ol type="1" id="93cd4d24-1a31-4d37-a273-14b3d2be3500" class="numbered-list" start="14"><li><code>sudo fdisk -l</code> komutu ile şuan ki partittonları kontrol edeceğiz</li></ol><ol type="1" id="06f5ac3a-917b-4661-a7d8-3f8806b6de33" class="numbered-list" start="15"><li><code>sudo fdisk /dev/xvdf</code> komutu ile disk bölme işlemini adım adım konsol yardımı ile yapacağız.</li></ol><ol type="1" id="72d088d6-2553-4972-90b7-f1b90932eacf" class="numbered-list" start="16"><li>Yeni oluşturduğumuz partition lar için <code>sudo mkfs -t ext4 /dev/xvdg*</code>  ile formatlayacağız. </li></ol><ol type="1" id="0b3ca54a-0d7e-4c26-b114-18e1c909b3e5" class="numbered-list" start="17"><li>Takiben <code>sudo mkdir /mnt/mp*</code> ile mount&#x27;lama için klasör oluşturacağız.</li></ol><ol type="1" id="a46eddf0-3c9c-42e3-8052-d0657e5aee57" class="numbered-list" start="18"><li><code>sudo mount /dev/xvdg1 /mnt/mp*/</code> ile mount&#x27;lama yapacağız.</li></ol><ol type="1" id="3b30de0c-95e2-4982-9ed8-e4f5fef6f0aa" class="numbered-list" start="19"><li>Herhangi bir dosya içerinde kontrol için bir klasör oluşturacağız.</li></ol><hr id="6975c1e2-fa39-4db7-8959-9058561129cb"/><p id="ea7e2049-d8e4-4c91-a33a-a70d5a6a0289" class=""> Sonraki bölümde konsoldan modify ile kapasiteyi artıracağız.</p><ol type="1" id="1ca50f84-8ef0-41b4-be38-40f8e212a19a" class="numbered-list" start="20"><li><code>lsblk </code>ve <code>df  -h</code> komutlarıyla  kontrol edeceğiz.</li></ol><ol type="1" id="ad82e82c-6e85-48db-b8a2-10f2796ca50d" class="numbered-list" start="21"><li>sudo <code>growpart /dev/xvdg 2</code> ikinci oluşturduğumuz volume&#x27;ü genişleteceğiz.</li></ol><ol type="1" id="ac09499d-7a9d-44af-b500-e8d92cde5941" class="numbered-list" start="22"><li><code>sudo resize2fs /dev/xvdg2</code>  komutuyla dosya sistemini genişletilen alan için de uygulanmasını sağlayacağız.</li></ol><ol type="1" id="add31984-15d2-4b6e-a4cb-d852a78a8373" class="numbered-list" start="23"><li>Kontrol amaçlı oluşturduğumuz dosyaya bakacağız.</li></ol><ol type="1" id="0354d603-ca2e-47b1-8fd0-1204e49bca25" class="numbered-list" start="24"><li><code>sudo reboot now</code> komutu ile reboot yapacağız. Mountun koptuğunu görelim.</li></ol><ol type="1" id="fdd3a418-03f0-496a-8c62-8fd80fd36744" class="numbered-list" start="25"><li>Tekrar mountlama işlemini kısa yoldan yapalım.</li></ol><hr id="8ae8564e-5a2c-45d4-89b8-95787f0040ac"/><p id="80e42531-e52d-4bb8-807d-012a0ce1cda2" class="">
+</p><p id="805eeaaf-cc5e-4a7a-81b9-487f879f6f8e" class="">Şimdi adım adım başlayalım.</p><ol type="1" id="0e591a2a-e2ff-4929-b80c-7e37155ae130" class="numbered-list" start="1"><li>Konsolda EC2 sayfasına gelelim sol konsolda Elastic Block Store başlığı altında volume kısmına girelim. <p id="41c38fe8-1688-4387-b01e-68b385a42316" class="">Create Volume diyelim. Açılan sayfada gp2 tipinde 10 GB lık, EC2 ile aynı AZ de bir volume oluşturalım. Benim ec2 us-east-1d&#x27;de olduğu için orada oluşturacağım.</p><figure id="47837fa1-e281-4629-9247-dc0f746a7958" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%201.png"><img style="width:1500px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%201.png"/></a></figure><p id="60a15360-8018-4b5f-be57-7cc0bf45e0e7" class="">Volume kısmında mavi yani available olarak göreceksiniz. Volume oluştuktan sonra volume tıklayın action kısmından attach deyin. in-use yani kullanımda yeşil renge dönecek. Açılan sayfada kendi instance&#x27;ınızı seçin.</p><figure id="718f26a1-c60a-4bfc-817e-49a3d08b0935" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%202.png"><img style="width:1519px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%202.png"/></a></figure></li></ol><ol type="1" id="e9623cd5-5194-4277-b5d1-b255e7b657ef" class="numbered-list" start="2"><li>SSH bağlantısı ile terminalde bağlanıp lsblk komutunu çalıştıralım.<figure id="a007d279-40c6-499e-8273-c2c93c790b52" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%203.png"><img style="width:542px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%203.png"/></a></figure><p id="e0ec63a8-2824-4104-a1b8-e4d0021d6f13" class="">xvdf adıyla yeni diskimi görebiliyorum. Bu diskin kullanılabilir olup olmadığını göremek için bir sonraki adıma geçiyoruz.</p></li></ol><ol type="1" id="298dedff-23be-4527-aad9-2b875c1500ce" class="numbered-list" start="3"><li>df -h komutunu çalıştırdığımızda aşağıdaki resimde görüldüğü gibi diski kullanamıyoruz. Bu komut human-readable olarak file sistemi sorguluyor.<figure id="0e44fba9-99bd-4270-8f9c-a16ab756c60f" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%204.png"><img style="width:660px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%204.png"/></a></figure><p id="8a1aa7d1-6f0a-4ca6-8755-f037b5464f2b" class="">Aslında şuan bir tane disk aldık bilgisayarın yanına koyduk. File sistemimize bağlı değil. Bu diski kullanabilmemiz için önce formatlamalı sonra mount etmeliyiz. Yani volume de bir dosyalama sistemi kurmamız gerekiyor. Bu işleme formatlama diyoruz. Daha sonra da formatlanan diski volume olarak bağlama işlemi var bir kapı ile ilişkilendirme diyebilirsiniz. onu da mnt klasöründe bir klasör oluşturup yapacağız. </p></li></ol><ol type="1" id="7b7be10a-a753-4b21-8246-02095dc79c10" class="numbered-list" start="4"><li>Formatlayacağız ama hani gerek var mı yani diskte bir file sistemi kurulmuş mu onu öğrenmek için <code>sudo file -s /dev/xvdf</code> komutunu çalıştıralım. dev yani device klasöründe xvdf diskini sorguluyoruz bu ismi aws kendisi verdi. NTFS windows için, HFS+mac için, FAT32 eski bir dosya sistemidir. exFAT NTFS ve FAT32 karışımı bir sistemdir. ext4 ise genişletilmiş linux sistemidir.<figure id="f1799726-6db5-48e7-98c9-340a4a4b1e0a" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%205.png"><img style="width:569px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%205.png"/></a></figure><p id="40215b96-d594-49c2-88b7-a93b35a86749" class="">Sonuçun data çıkması diskin formatlanmadığını gösterir.</p></li></ol><ol type="1" id="fe70a3c0-ecea-47fc-88c5-f6ee5b5bef0d" class="numbered-list" start="5"><li><code>sudo mkfs -t ext4 /dev/xvdf</code> komutu ile linux için formatlama komutu veriyoruz. Biraz uzun çıktısı var buraya koymadım done ile biterse olmuş demektir. Bu komutla xvdf diskine ext4 tipinde bir file sistem kurmuş oluyoruz.</li></ol><ol type="1" id="f8d16de4-b3f8-46a6-92b0-13486fe10cbc" class="numbered-list" start="6"><li><code>df -h</code> ile tekrar kontrol edelim. <figure id="764e20b2-0140-4bc9-9900-8158dcfc9a10" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%206.png"><img style="width:675px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%206.png"/></a></figure><p id="ebe814ac-e730-4b24-8682-bd0c5c5c18a6" class="">Hala yok zaten beklediğimiz bişeydi. Bunu ana sistemize bağlama yani mountlama işlemine sıra geldi.</p></li></ol><ol type="1" id="433f4225-b5a1-4c68-84b1-478c4b0ec6f2" class="numbered-list" start="7"><li><code>sudo mkdir /mnt/mp1</code> komutu ile mount klasöründe yeni bir klasör oluşturup oraya bağlama işlemi yapacağız. Ana sisteminize bir kapı yardımı ile bağlanıyoruz. Bu kapı mount oluyor.<p id="bf31a31b-cd5f-46fb-8f94-4b8c6e98a5bf" class="">Bu işlem için komutumuz <code>sudo mount /dev/xvdf /mnt/mp1  </code>  Şimdi df -h ile kontrol edelim.</p><figure id="75031108-ba75-4fc1-9a1d-15ab42dca4e1" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%207.png"><img style="width:681px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%207.png"/></a></figure><p id="98941b93-a7ca-4cbc-a04c-77f9f71ef13b" class="">8 gb lık insyance volume direk root a bağlı. Yeni disk xvdf mnt klasörü altında mp1 e bağlı.</p><p id="21167273-2aad-4cf9-87f2-c6ba1bebc0f4" class="">touch komutu ile mp1 içerisinde deneme.txt oluşturalım. genişletme işleminden sonra dosya hala kalcak mı kontrol edeceğiz.</p><hr id="61c41ce5-0bd0-450e-b478-f7d20520aa37"/><p id="b738a7d1-1323-44c7-a3c7-b5051d32bb11" class="">Resimde görüldüğü gibi disk hazır. Mount klasöürümüzü de görüyoruz. Birinci bölümü bitirdik. Konsola dönüp volume&#x27;ü 15 GB ye artıralım ve yeni halini hazır hale getirelim.</p><figure id="f9a81294-29e8-47cf-8732-c6a90ddbe852" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%208.png"><img style="width:1239px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%208.png"/></a></figure></li></ol><ol type="1" id="b4df2ccd-4e32-45d7-9c2a-ff4945d860a9" class="numbered-list" start="8"><li><code>lsblk </code>ve <code>df  -h</code> komutlarıyla kontrol edelim genişlettiğimiz alanı görebilyor muyuz? ve kullanabiliyor muyuz?<figure id="8ee5b397-cad9-462e-af99-908bc2aaede8" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%209.png"><img style="width:561px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%209.png"/></a></figure><p id="04596b5c-0292-4a19-a55b-79aeaba46b35" class="">Disk 15 GB olmuş. peki kullanılan alan kısmını sorgulayalım.</p><figure id="a7fdb4ef-4931-42a9-9147-decb03b061c5" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2010.png"><img style="width:674px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2010.png"/></a></figure><p id="ef12f5cc-3461-4ea1-9845-5838b5794574" class="">Hala 10 GB bölüm aktif. İlave 5 GB ı da kullanabilir yapacağız.</p></li></ol><ol type="1" id="13aba6e1-1d98-4092-936f-9cc5d1ac1c66" class="numbered-list" start="9"><li><code>sudo resize2fs /dev/xvdf</code> komutu ile bu işlemi hallediyoruz. Yaptığız şey şu aslında boşta olan yerleri de içerisinde dosya sistemi olan kısma benzet.<figure id="ff816de5-463f-453a-8cbb-03b7c42c8898" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2011.png"><img style="width:932px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2011.png"/></a></figure></li></ol><ol type="1" id="2d5d9e36-5e6d-47cb-bc77-217387f56a72" class="numbered-list" start="10"><li>Şimdi kontrol edelim. <code>df -h</code> komutu ile.<figure id="29f444b8-b08e-4dae-b864-e58fa165a7ef" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2012.png"><img style="width:689px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2012.png"/></a></figure><p id="a9e7bfc5-67eb-4114-8408-a19c41d81ae4" class="">Şuan genişletilmiş hali hazır.  Burada formatlama aslında benzetme gibi oldu. Mountlama da yapıldığı için önceki kısımda işlem bitti. 7. adımda oluşturduğumuz deneme.txt duruyor mu bakalım.</p><figure id="dc4f2d89-4c6e-43fa-a4d1-a852b4b12063" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2013.png"><img style="width:341px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2013.png"/></a></figure><p id="7ebd7d32-5f48-428f-9448-c77016ded1f5" class="">Dosyamız duruyor işlemden etkilenmemiş. </p><p id="4336f0e9-5adf-4da4-95be-abba7bb03230" class="">Şu ana kadar ne yaptık özetleyelim. Konsoldan Volume oluşturup ec2 ya attach ettik. Terminalden diski formatladık ve mountladık. Tekrar konsoldan diskin boyutunu artırdık ve genişletilmiş kısmı hazır hale getirmek için benzetme yaptık. Sonraki aşamada reboot yapacağız sistemimiz nasıl etkileniyor göreceğiz.</p><hr id="cfc938be-ff41-43a0-9b31-a2c04d467b1f"/></li></ol><ol type="1" id="b0d426d8-814a-4db0-b8b6-67c0fe5a885b" class="numbered-list" start="11"><li><code>sudo reboot now</code> komutu ile instance ımızı kapatıp açacağız. Public ip si değişmez aynı şekilde tekrar bağlabilirsiniz terminalden. Reboot çalışıan sistemleri kapatıp açıyor.<p id="7afec32a-1826-4ef6-be6d-46be006406d1" class="">lsblk ile diske bakalım.</p><figure id="9168b579-2dc3-4780-a977-6ce5da04dea9" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2014.png"><img style="width:394px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2014.png"/></a></figure><p id="90460c50-dabd-4956-882a-b19d61b65db5" class="">Disk mevcut file sistemimize bağlı mı df -h ile bakalım. Aslında Mounting Point &#x27;i koparttığını yukarıdaki komutla da görebiliriz.</p><figure id="8597b11f-b9f5-4d61-ba9c-7a9a44cd9978" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2015.png"><img style="width:504px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2015.png"/></a></figure><p id="ead108c7-090b-4f6c-8608-661613a95c0e" class="">Bağlı değil 😢. mp1 klasörü yapmıştık bu duruyor mu bakalım. </p><figure id="63ee54dd-a286-4c76-8f00-61b17797345d" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2016.png"><img style="width:313px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2016.png"/></a></figure></li></ol><ol type="1" id="0f4217c4-2f92-4aba-acb7-fe8f9ed89c30" class="numbered-list" start="12"><li><code>sudo file -s /dev/xvdf</code>  komutuyla yeni diskin formatlanmasında bir sıkıntı var mı bakalım.</li></ol><figure id="f45da22e-6a25-40df-bee8-45a9364938fc" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2017.png"><img style="width:624px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2017.png"/></a></figure><p id="91a054c5-9aa7-42c5-9914-979eb523c968" class="">       Sıkıntı yok disk formatlanmış sadece mount lama yapacağız.</p><ol type="1" id="bf2ea756-d387-4b19-ad62-d7a5e56a9727" class="numbered-list" start="13"><li><code>sudo mount /dev/xvdf /mnt/mp1/</code> komutu ile mountlama yapalım ve df -h ile kontrol edelim.<figure id="bf93ad0b-b28c-44c0-8cf4-59319886468e" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2018.png"><img style="width:520px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2018.png"/></a></figure><p id="5361ddc8-3f81-499d-9f66-7df56606d74c" class="">Şuan sistem hazır. Bu uzun yöntem idi devamında kısa yolunu da göstereceğim.</p></li></ol><hr id="f05e25bb-d6fe-4724-bb76-dba896d5663d"/><p id="41c303be-30ae-4c4f-bfd5-db1f1b745094" class="">Burada yeni bir bölüme geçiyoruz. Şimdi  Yeni bir volume oluşturacağız ec2 ya attach edeceğiz daha sonra diski 2 ye ayıracağız. Bunun devamında da ayrılmış disk üzerinde tekrar modify ile genişletme yapacağız. Dikkat edin önceki f diski idi yenisi g diski oldu.</p><figure id="0ab5505e-02e0-44e6-af21-70545044fa2b" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2019.png"><img style="width:901px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2019.png"/></a></figure><figure id="f9b8582f-e34c-4ef3-9e61-9bda1366b43c" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2020.png"><img style="width:516px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2020.png"/></a></figure><p id="ac85015c-b994-4d96-9a7c-fe103700da99" class="">Yeni diskimizi 10 gb olarak görüyoruz bir yere mount edilmemiş. Bu konu önemli disk mount edilmiş ise önce unmount yapıp diski o şekilde gölmemiz gerekiyor. </p><ol type="1" id="7be0235a-f4b1-44b9-8259-d0f36246e416" class="numbered-list" start="14"><li><code>sudo fdisk -l</code> komutu ile partition ları kontrol edelim.<p id="7a853ae8-7d8b-4b06-b5e6-21863d650c2c" class="">8 gb lık xvda , 15 gb lık xvdf yi ve 10 gb lık xvdg yi görüyoruz. </p></li></ol><ol type="1" id="d77c816d-dde2-4954-b3a6-3150bce3ff3c" class="numbered-list" start="15"><li> Son eklediğimiz diski 6 ve 4 gb olarak ikiye ayıracağız. Bu şekilde gruplama yapabilir ayrı ayrı formatlama yapılabilir.  <code>sudo fdisk /dev/xvdg</code> komutu ile disk bölme işlemini adım adım konsol yardımı ile yapacağız. <p id="04f16a9e-e29d-4e85-b190-c20e16eabff4" class="">n &gt;&gt; new parametresi ile partition type ları listelencek. p(primary), e extended</p><p id="742305e6-6441-4278-bae1-bc86a42ee3e5" class="">p &gt;&gt; parametresi ile primary seçelim veya direk enter derseniz default p seçer. Bu disk üzerinde yapacaksak p seçiyoruz conteiner kısmında değişebilir.</p><p id="d082e22a-0b4c-450f-826b-7a096f055abe" class="">1-4 &gt;&gt; arası değer seçebileceğimiz bir menü gelecek. Yani bu diski 4 e bölebiliyoruz anlamına gelir. 1 seçerek ilk parçayı oluşturacağımızı söylüyoruz.</p><p id="771d3bb0-f6ae-4795-8dfe-d76fab45da89" class="">First sector (2048-20971519, default 2048): yeni parça diskin neresinden başlasın. Default değeri 2048 yani baştan başlasın. 2048 i  0 olarak düşünebilirsiniz.</p><p id="636ff737-5664-4575-83c7-51ac05a30200" class="">Bir sonraki menüde alan seçeceğiz biz +6G yazarak ilk paçanın 6 gb olmasını sağlayacağız.</p><p id="1b0b0f65-8b3f-476e-8a22-7f59d0c98696" class="">Aynı işlemleri ikinci partition için de yapalım. Tüm değerleri default seçerseniz bir sonraki parçayı 6gb ın hemen devamından başlatır arada boşluk kalmaz veya isterseniz siz başlangıç seçebilirsiniz. Default la devam ettiğinizde kalan tüm parçayı 2. kısma ekler yani 4 GB kalmış olacak 2. parçaya.</p><p id="229fbd2b-cd47-4ddf-b834-0cdc86dfa9d6" class="">Çıkış için w parametresi kullanıyoruz. w kaydet ve çık demek. q ile çıkarsanız kaydetmeden çıkar.</p></li></ol><ol type="1" id="100c6016-95b8-4430-a7e3-1ff402cc9753" class="numbered-list" start="16"><li> <code>sudo fdisk -l</code> komut ile diskleri görelim. Veya lsblk ile de bakabiliriz.<figure id="2aa0fc82-899b-4a3f-8643-c1176dbbda3c" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2021.png"><img style="width:538px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2021.png"/></a></figure><figure id="ad691480-dec8-41b8-9af4-36d90f03997c" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2022.png"><img style="width:408px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2022.png"/></a></figure><p id="8334806a-0865-4573-83c1-6b14342a754e" class="">Sadece ilgili kısmın fotoğrafını aldım. xvdg1 ve xvdg2 olarak 2 diskimiz hazır.</p><p id="a3165cd6-dfa4-43e2-8456-6cebc403f780" class="">Şimdi formatlayalım daha sonra da mountlama yapacağız. Format için <code>sudo mkfs -t ext4 /dev/xvdg1</code> ve diğer disk için <code>sudo mkfs -t ext4 /dev/xvdg2</code> komutunu gireceğiz.</p><p id="a6b1baaa-80fe-436b-a14b-8617364ec0ab" class=""><code>sudo file -s /dev/xvdg1</code>  için kontrol edelim formatlama olmuş mu?</p><figure id="1cd143f5-f830-4c85-b391-254c38ab7a76" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2023.png"><img style="width:702px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2023.png"/></a></figure><p id="9b419ebc-2cfb-4109-8c4d-f8ddc3846507" class=""> İşlem başarılı şekilde gerçekleşmiş. Olmasa idi data yazacaktı çıktı. Sırada mountlama var.</p></li></ol><ol type="1" id="472241ab-94c8-47e4-8339-43a6ad8512af" class="numbered-list" start="17"><li>sudo mkdir /mnt/mp2  ve sudo mkdir /mnt/mp3 komutu ile önce klasörleri oluşturacağız.<figure id="00c67155-f29a-4190-8f5c-8d3aea55b1ad" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2024.png"><img style="width:277px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2024.png"/></a></figure><p id="2170491c-010a-4d40-8068-f3d94493d757" class="">2 klasör de oluşmuş hatırlayalım mp1 de ilk oluşturduğumuz 15 gb lık disk içindi.</p></li></ol><ol type="1" id="ead3d800-c169-404d-8b4c-6b62de31fcbe" class="numbered-list" start="18"><li><code>sudo mount /dev/xvdg1 /mnt/mp2/</code>  ve  <code>sudo mount /dev/xvdg2 /mnt/mp3/</code>  komutları ile 2 ve 3 numara olarak kapı açacağız yani ec2 ya bağlayacağız. df -h ,le kontrol edelim.<figure id="af5e04ec-956c-4367-99ab-f549bd3e95e7" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2025.png"><img style="width:481px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2025.png"/></a></figure><p id="e7f93c1e-fb49-4fd6-9a20-2d034b0246af" class="">İşlem tamam. Şimdi değer bölüme geçiyoruz Parçaladığımız diskin modify ile boyutunu artıracağız. </p></li></ol><ol type="1" id="09d67cb0-3ccf-439c-9d83-844f56fddf1a" class="numbered-list" start="19"><li>mp2 klasöründe deneme2.txt adıyla bir dosya oluşturalım. <figure id="3bd513a5-e838-4eae-8e1f-5a9328afa959" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2026.png"><img style="width:284px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2026.png"/></a></figure></li></ol><hr id="0e7b5fe4-66ab-40a0-9dcc-db3c8af53964"/><p id="8068500d-e257-473f-9aa5-39110206b752" class="">Son bölüme geçiyoruz. </p><ol type="1" id="28c70bc0-315c-4e33-bb24-d400f1e68853" class="numbered-list" start="20"><li>Konsola geçelim 10 gb olan volume-2 yi 12 gb&#x27;a artıralım. <code>lsblk </code>ve <code>df  -h</code> komutlarıyla  kontrol edeceğiz.<figure id="a2a60887-a011-4dff-aa4d-a984c8898d51" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2027.png"><img style="width:401px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2027.png"/></a></figure><p id="adbaacf1-1915-4d08-b9e1-495e883d688a" class="">lsblk yaptığımızda 12gb görülüyor ama hala parçalar 6 ve 4 şeklinde. </p></li></ol><ol type="1" id="e8e535fe-55e0-4c59-be0d-3250a25fdb82" class="numbered-list" start="21"><li>Artık yapmamız gereken 2 işlem var birincisi müsait parçayı genişletmek daha sonra da formatlamak. <code>sudo growpart /dev/xvdg 2</code>  komutunu kullanacağız. Burada g diskinin 2. parçasını genişlet demek istiyoruz. Zaten birinciyi genişletemeyiz hemen arkasında ikinciyi başlatmıştık tek müsait alan ikincinin devamı. growpart komutunu daha önceki genişletme de kullanmamıştık çünkü orada tek parça vardı burda 2 parça olduğu için nereye genişletilecek girmemiz gerekiyor.<figure id="ff773637-ba77-4056-9336-291531521c2e" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2028.png"><img style="width:897px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2028.png"/></a></figure><p id="59981f64-3fc1-4fc4-abec-4956e272ec9d" class="">Başarılı şekilde genişletildi. Bunu lsbllk komutu ile görebiliriz. </p><figure id="b52c7ea1-e452-4835-9a45-ce9aae692bf1" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2029.png"><img style="width:395px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2029.png"/></a></figure><p id="650d134b-65b9-4e24-bf56-f392a78ecd73" class="">df -h ile bakalım.</p><figure id="c8aa717e-a002-4586-9166-1718a6f804e3" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2030.png"><img style="width:493px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2030.png"/></a></figure><p id="f538f001-289e-4560-9351-4cdbd0abd678" class="">Formatlanmadığı için g diskinin ikinci parçası hala 4 gb.  Şimdi ilgili alanı formatlayalım.</p></li></ol><ol type="1" id="3d0a3cd1-86ad-4fdc-9ef9-3a2dc1e4dc99" class="numbered-list" start="22"><li> sudo resize2fs /dev/xvdg2 komutu ile aslında daha önce de yaptığımız benzetme işlemini yapmış oluyoruz. <figure id="8e290b68-a6a5-4bd1-8501-fdbf8ff7be91" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2031.png"><img style="width:596px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2031.png"/></a></figure><p id="fe629ea2-e0ed-4a2e-a715-c8a03ff9dea5" class="">Tekrar <code>df -h</code> ile kontrol edelim.</p><figure id="4f2cd5db-79b2-4286-87b8-bc99d579b5a2" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2032.png"><img style="width:500px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2032.png"/></a></figure><p id="1718bb09-db5f-438b-876e-efa0cc7e0f2c" class="">Şimdi hazır olmuş oldu. </p></li></ol><ol type="1" id="763bc132-0523-4f41-b8d9-0dd0a4edff73" class="numbered-list" start="23"><li>Kontrol amaçlı dosya oluçturmuştuk duruyor mu bakalım.<figure id="9a74351a-2554-48f3-8b65-5912c41cd837" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2033.png"><img style="width:260px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2033.png"/></a></figure></li></ol><p id="39cc84d8-46ba-41f0-93e3-bcbe63c7e47e" class="">Son bölüme geçiyoruz reboot edelim ve mounting pointlerimizi kaybetmeyi bekliyoruz daha önce o şekilde olmuştu.</p><ol type="1" id="ca46b340-d2fa-4d53-bbc8-9280e70b77f5" class="numbered-list" start="24"><li><code>sudo reboot now</code>   komutu ile yeniden başlatalım.</li></ol><figure id="13fe8639-f2b3-4d2a-9592-78410d71a965" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2034.png"><img style="width:413px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2034.png"/></a></figure><figure id="927520d3-8a55-442a-aad9-59208fdd74f6" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2035.png"><img style="width:561px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2035.png"/></a></figure><p id="9462459b-5254-4001-b4de-bf4d51545078" class="">Diskler duruyor ama mountlar kopmuş. Bunun kısa yolu var demiştik şimdi o şekilde mountlmayı yapacağız.</p><ol type="1" id="f9c9b7b1-c00e-4699-8061-d85735191054" class="numbered-list" start="25"><li><code>sudo cp /etc/fstab /etc/fstab.bak</code> komutu ile ı etc/fstab.bak ile yedeğini alıyoruz. fstab dosyasının içine girip değişiklik yapacağız vim veya nano ile girelim.<figure id="49a48971-c7af-4fd1-91cd-0289b8c737b3" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2036.png"><img style="width:594px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2036.png"/></a></figure><p id="288c31b6-4ca4-428f-8f06-0c97e96f3cc9" class="">En lat satıra aşağıdaki mauntlama komutumuzu yapıştırıyoruz. </p><p id="cd7f7591-7e6e-4e74-9c97-fb56cec944ba" class=""><code>/dev/xvdf       mnt/mp1   ext4    defaults,nofail        0       0</code>
+<code> /dev/xvdg1      mnt/mp2   ext4  defaults,nofail        0       0</code>
+ <code>/dev/xvdg2      mnt/mp3   ext4  defaults,nofail        0       0</code></p><p id="60c81c55-e015-47f7-8db9-8339389d3a3a" class="">Tekrar reboot yapalım.  <code>sudo reboot now</code></p><p id="5fc652bb-6204-49bd-bcb0-39571ee5644c" class=""><code>lsblk </code>ile kontrol edelim.</p><figure id="1a8e11bb-24de-4761-b085-c43a8d42265e" class="image"><a href="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2037.png"><img style="width:477px" src="EC2%20VOLUME%20-%202%20817faaeedc3e44a19368bceeca36f7fe/Untitled%2037.png"/></a></figure></li></ol><p id="e3377082-8f44-4594-9dc8-b7d2dee21a3e" class="">
+</p><p id="1de4cae1-e507-4d3a-91ee-42e645ca922d" class="">
+</p></div></article></body></html>
