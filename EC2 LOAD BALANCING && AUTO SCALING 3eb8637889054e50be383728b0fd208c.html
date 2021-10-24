@@ -1,0 +1,650 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>EC2 LOAD BALANCING &amp;&amp; AUTO SCALING</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="21d277b5-4482-4481-a231-2a243d3d13a4" class="page sans"><header><h1 class="page-title">EC2 LOAD BALANCING &amp;&amp; AUTO SCALING</h1></header><div class="page-body"><div id="cf1c5ad2-5020-4f50-8168-f2a696c14b21" class="column-list"><div id="cc1e4c73-1384-4eea-8b1e-065bbfadb636" style="width:50%" class="column"><figure id="3eb86378-8905-4e50-be38-3728b0fd208c" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled.png"><img style="width:336px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled.png"/></a></figure></div><div id="e68837a3-dac1-4899-8bcb-f20253493b89" style="width:50%" class="column"><figure id="f756dd58-8476-4d3e-82a1-ea431db4d5b9" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%201.png"><img style="width:336px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%201.png"/></a></figure></div></div><p id="4bf2b4fe-e2f5-4eb5-80a1-b47ef33eec56" class="">Gördüğünüz üzere hala EC2 servisini bitiremedik 🙂. AWS&#x27;in omurgası benzetmesi yapmıştık gerçekten de öyle. Bu zamana kadar neler anlattığımızı toparlayalım öncelikle büyük resimde neredeyiz görelim. Öncelikle instance kısmını anlattık ve bir makina ayağa kaldırdık. Daha sonra Volume kısmına geldik bu başlığı ikiye ayırdık. İlk kısımda EBS(Elastic Block Store) konsol arayüzüne değindik. Yeni volume oluşturma, snapshot alma, image oluşturma gibi konuları anlattık. Volume bölümünün ikinci parçasında olşturduğumuz volume&#x27;ü kullanılabilr hale getirmek için file sistem kurma yani formatlama, mount&#x27;lama ve takiben modify işlemlerini terminal vasıtasıyla gerçekleştirdik.</p><p id="68704ee3-beb5-42e0-b274-7d337503bbdf" class="">EC2&#x27;nun üçüncü bölümünde de load balancing ve auto scaling konularına değineceğiz. Öncelikle neden böyle bir ihtiyacımız olabilir ve iki hizmetin birbiriyle alakasını açıklamaya çalışalım. </p><p id="eef32332-00f9-4508-9f9c-93342547b3f5" class="">Load balancing adından da anlaşılacağı üzere yük dengelemek için kullanılıyor. Yani sizin birden fazla instance&#x27;ınız var ve dışardan istek geliyor. İsteğin hangi instance&#x27;a düşeceğine birisinin karar vermesi gerekiyor işte o arkadaş load balancer olmuş oluyor. Gelen trafiği makineler arasında paylaştırıyor. Herhangi bir makine çökerse tüm yükü çalışan makineler arasında dağıtıyor. Auto scaling ise bize gelen trafiği yönetmemize yardımcı oluyor. Trafiğin arttığı zamanda  instance sayısını artırarak sürekli ulaşılabilmenize imkan verirken, trafik azaldığında da makinelerin boşa çalışmaması için kapatıyor.</p><hr id="c1bd84ef-4a80-467a-ad13-c317ff78ec8b"/><p id="1a8bce37-fbbc-42dc-b0a9-defb60cec6ac" class="">Load balancing konusu ile devam edelim daha derine inelim. Neden kullanmalıyızla ilgili iki sebep söyleceğim. Birincisi diyelim makineniz çöktü ve ulaşılamıyor. Siz de daha öncesinde snapshot aldığınızı varsayalım yani iyi ihtima üzerinden gidiyorum. Sizin makineyi ayağa kaldırıp tekrar kullanıma sunmanız zaman alacak ve siteniz belli bir süre kullanılamayacak. Sonuç müşteri kaçtı 🤢. Birinci sorunun çözümünü şu şekilde halledebiliriz. İki makina kurup önüne load balancer eklersek biri çökse bile diğeri yükü sahiplenecek. </p><p id="e3b0faa3-e78e-46ed-93df-8f98720e1ab2" class="">İkinci sebep müşteri trafiğiniz arttı diyelim nazar değmesin 😂 makine yetersiz kaldı daha güçlü bir makine seçtiniz ordan devam ediyorsunuz arada kesinti oldu tabi. Maşallahınız var müşteri hala artıyor trafiği karşılamak için yine makine güçlendirmeniz gerekecek. Bu geçici çözüm yani günü kurtarırsınız ondan ziyade makine sayısını artırmanız ve önüne load balancer koymanız kesin çözüm olacak her iki sıkıntıyı da çözecektir. Şunu da ilave edelim load balancing sadece inctance&#x27;lar için değil container&#x27;lar için de uygulanabilir.</p><figure id="e1f4299b-a92f-4899-80eb-37cc347ba790" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%202.png"><img style="width:1199px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%202.png"/></a></figure><p id="61afb586-f1d2-41a4-936d-913f909423c2" class="">Nasıl çalışıyor o kısma girelim. 2 bileşen var. Birincisi listener(dinleyici) belirlediğiniz porta gelen trafiği dinliyor. ikincisi config(konfigurasyon) hangi hedefe trafiğin yönlendirileceğini belirleyen kurallar.  </p><figure id="f96e41c0-53b8-4839-ab53-0955dcef2dc9" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%203.png"><img style="width:555px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%203.png"/></a></figure><p id="473d2e4b-eac6-490f-b3ad-a229a0df0006" class="">ELB(Elastic Load Balancing) nin 4 çeşiti vardır. Çoğunlukla Application Load Balancer kullanılmaktadır.</p><figure id="8bab7dc7-4380-4a0e-a6e5-203a32e42c43" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%204.png"><img style="width:3739px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%204.png"/></a></figure><ol type="1" id="445bf3fc-23c8-4407-b689-4a1fb4da3dee" class="numbered-list" start="1"><li><strong>Classic Load Balancer:</strong> Layer 4 ve layer 7 de çalışır. En eski hizmetidir. Layer 7 de çalışan HTTP ve HTTPs için de kullanılabilir. Artık kullanılması tavsiye edilmeyen bir çeşittir. </li></ol><figure id="01826593-563b-48e5-b92f-4769979a7839" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%205.png"><img style="width:706px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%205.png"/></a></figure><ol type="1" id="ae5facf9-c5ec-4d0e-9c48-f34700514e9b" class="numbered-list" start="2"><li><strong>Aplication Load Balancer: (2016)</strong> Layer 7 de çalışan http veye  https tabanlı web siteleri, mobil uygulamalarda veya container&#x27;larda trafiklerin yönlendirilmesi için tercih edilir.</li></ol><figure id="e26b9e6a-5d2f-4b79-8ac5-f93e845fb5ad" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%206.png"><img style="width:1394px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%206.png"/></a></figure><ol type="1" id="df49398f-4e44-438f-a02e-e3bdb863b4a0" class="numbered-list" start="3"><li><strong>Network Load Balancer: (2017) </strong>Layer 4 te çalışır. TCP trafiklerinin en hızlı yönlendirmesini gerçekleştiren load balancer çeşitidir. TXP, TLS, SCP, UDP destekler. Basit ve hızlı bir load balancer&#x27;dır. Gecikme ALB&#x27;e göre 4&#x27;te bir oranında yani ALB nin yaklaşık 4 katı hızda çalışır(100ms). Saniyede milyonlarca isteği alabilir. Free tier kapsamında değildir.</li></ol><figure id="338ce437-435d-4337-ad04-4a8a20712a17" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%207.png"><img style="width:1429px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%207.png"/></a></figure><ol type="1" id="46a9e502-d362-4c91-a925-2eaa999e7e28" class="numbered-list" start="4"><li><strong>Gateway Load Balancer:</strong> (2020) 3. katman network layer&#x27;da ip protokolü ile çalışır. </li></ol><hr id="eab02e93-af8f-4f18-9834-bfa81ee52b57"/><p id="b9d64b9e-3571-4d5b-a7fa-9b58392a6d80" class="">
+</p><figure id="5a83b08f-a675-4f10-a0c1-7881916519af" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%208.png"><img style="width:245px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%208.png"/></a></figure><p id="d90eae35-bf15-4b60-81c9-f85ac0d2ca19" class="">Temel bilgiyi aldık ihtiyacı anladık sıra geldi kullanımına. Ne yapıyordu bu arkadaş gelen yükü dengeleyecekti. Biz bunun için ihtiyacımıza göre gerekli yüklemeler konfigürasyonları yapıp bir makina ayağa kaldıralım. Nginx server kuralım ve içine herhangi bir index.html atalım. Daha sonra aynı makinanın imajını oluşturarak aynı özellikli bir makina daha ayağa kaldıralım. Elimizde iki makina var Load Balancer&#x27;ı o iki makinenin önüne koyacağız. Nginx kurulumu için;<div class="indented"><p id="200869f7-a2aa-4465-ab39-2c917617a972" class="">sudo yamazon-linux-extras install nginx1.12</p><p id="c21cdc3e-bc2c-4fe0-8e4f-3da2154d3338" class="">sudo service nginx start</p><p id="4d106380-4a55-4e40-abb3-92303294f2d6" class="">sudo chkconfig nginx on &gt;&gt; açıldığında otomatik server açılsın</p><p id="915c45c2-2b72-4cd6-adfe-3915afd2c5f4" class="">/usr/share/nginx/html/    &gt;&gt; klasörünün içine index.html i koyalım.(herhangi bir dosya eklemeseniz de olur nginx in kendi index.html&#x27;i mevcut)</p></div></p><figure id="8dc019d9-82ae-4f23-b5f3-99f8ca6901f9" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%209.png"><img style="width:1275px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%209.png"/></a></figure><p id="6b902796-aa51-43c7-9155-6136352b473a" class="">EC2 servis sayfasını açalım sol konsolda Load Balancing Başlığını bulalım. Şimdi konsola geçip load balance oluşturacağız ama öncesinde Target group yapmamız gerekiyor. Target group ile aslında dinlediğiniz trafiği içerde hangi trafiğe yönlendirmeniz gerekiyor onu ayarlayacağız. Bunun için daha önce target group oluşturmadığımız için Create target group seçeneğine girelim. <div class="indented"><p id="6119bdfd-d2ad-441d-9977-4e7ba100af8a" class=""><code>Choose a target type</code> &gt;&gt; Bu 4 seçenek var. Sizin kaynağınız hangisi onu seçiyorsunuz. Instance, IP addresses, Lambda function veya  daha önce oluşturduğunuz Application Load Balancer seçebilirsiniz. Instance seçelim çünkü biz instance&#x27;ların önüne direk instance belirterek koyacağız balancer&#x27;ı. </p><p id="fab7333f-1e7d-4533-98bf-bae06bfa6f70" class=""><code>Target group name</code> &gt;&gt; ile gruba bir isim verelim.</p><p id="98d36b9b-be09-4117-a872-7af1e9332cc8" class=""><code>Protocol</code>  &gt;&gt; Dış dünyadan aldığınız trafiği içerde hangi porta yönlendirecek. default http kalabilir.</p><p id="39771011-33b4-4726-bdd6-ca3a4653d019" class=""><code>Health checks </code>&gt;&gt; Load Balancer instance&#x27;larınız düzgün çalışıyorsa trafiği onlara yönlendirir. Yani makinelerinizden birisi çöktü ise load balancer bunu anlamalı ve artık o makineye trafik aktarmamalı. Bu kontrolü yapması için önce portu seçiyoruz HTTP portu. Daha sonra bu kontolü hangi sayfa ile yapsın &quot;/&quot; bu şekilde bırakırsanız index.html ile bu kotrolü yapar. Hemen altta ileri ayarlar mevcut. Advanced health check settings;<div class="indented"><p id="30b9f3e6-5fc0-4ba7-8973-43a7b535047f" class=""><code>Port  &gt;&gt;</code> Traffic port yani yukarıda seçtiğimiz HTTP ile veya override seçeneği ile farklı bir port seçebiliriz.</p><p id="bc6a25a2-194f-4ae3-aa64-ed5f5756b484" class=""><code>Healthy threshold &gt;&gt;</code> Bu sağlık testini kaç kez sağladığında sistem sağlıklı kabul edilmesi için karar sayısı. Default değer 5. Yani 5 kez testi geçerse sistem kullanılabilir değerlendirilir.</p><p id="d974ddb9-a71c-4dd8-99e2-d81f1fea8577" class=""><code>Unhealthy threshold &gt;&gt;</code> Kaç deneme de hata alırsan sağlıksız kararı ver default 2.</p><p id="01ee5460-c828-46ab-a55d-c9ece6dbca30" class=""><code>Timeout  &gt;&gt;</code> zaman aşımı olursa tekrar kaç sn sonra dene default 5sn</p><p id="c4b0206c-4e08-4eee-979f-cd8dbf704656" class=""><code>Interval  &gt;&gt;</code> Bu 5 denemeyi kaç saniye aralıkla yap.</p><p id="2e069a9e-a3d0-4c0e-acf9-646ef95b92d2" class=""><code>Success codes &gt;&gt;</code> Burdaki kodu aldığında başarılı kabul et default 200.</p></div></p><p id="76a3809d-c1bd-4150-a2f6-caf26ea85cc5" class=""><code>Next</code> diyelim. Yeni gelen sayfada hedefimiz olan cihazları yani instance&#x27;ları seçip hemen altında <code>Include as pending</code> below&#x27;a tıklayalım. <code>Register pending target</code>&#x27;a basarak bu işlemi bitiriyoruz. Target group hazır.</p></div></p><p id="4c55fd92-762c-4b43-a829-e091d76f14f0" class="">Şimdi load balancer yapabiliriz. EC2 sayfasında, sol konsolda, Load Balancing başlığı altında Load Balancer&#x27;a tıklayalım. Create Load Balancer  butonuna basalım.</p><p id="d1abbdea-c33f-4b99-9c30-2f9394cbb35f" class="">Karşımıza daha önce gördüğümüz 3 load balancer tipi çıkacak. Dikkat ederseniz daha önce 4 demiştik. Classic Load Balancer artık tavsiye edilmediği için sayfanın altına neredeyse gizlenmiş 😂. Biz Application Load Balancer&#x27;i seçiyoruz(hemen aşağısında create butonuna basınız).  </p><p id="76e1169c-8f37-4d32-95bb-f84c1a4db5e7" class=""><mark class="highlight-red">Load balancer name &gt;&gt;</mark> kısmında balancer&#x27;ınıza isim verelim.</p><p id="d1ad4d4d-9f41-41c7-bf47-7be8b29cebc4" class=""><mark class="highlight-red">Scheme  &gt;&gt;</mark> Bu kısımda 2 seçenek mevcut. Internet-facing dışardan gelen trafiğinizi yönetmesi için kullanılıyor, internal ise siz VPC içinde bir balancer ihtiyacınız varsa içerde kullanacağınız dışarıyla alakasız bir göreviniz varsa seçebilirsiniz biz Internet-facing seçelim dışardan gelen trafik için yapacağız.</p><p id="2cbf661c-036b-497e-a63c-787bb8b89560" class=""><mark class="highlight-red">IP address type &gt;&gt;</mark> kısmında da iki seçenek var ipv4 ve dualstack. Eğer ipv6 da dahil olsun isterseniz Dualstack seçebilirsiniz.</p><p id="16d189a4-a1ca-4ed8-bbfc-5acd5a922a39" class=""><mark class="highlight-red">Network mapping &gt;&gt; </mark>Load Balancer&#x27;ın dışardan dinletiği trafiği hangi AZ(Avalibility Zone) lara aktarabileceğini seçiyoruz. </p><p id="6d1f843b-04c2-4abf-a0ee-2e59010b6d7d" class=""><mark class="highlight-red">Security groups &gt;&gt; </mark>Önceki örneklerde biz security grubu(SG) trafik  direk inctance&#x27;a yönlendiği instance için kullanıyorduk. Şimdi ise inctance ların önüne koyacağımız load balancer bu işi yapacağı için load balancer&#x27;a bir SG seçiyoruz.</p><p id="c7d3e793-f8a4-40e2-99cb-5ecdc8a07f2a" class=""><mark class="highlight-red">Listeners and routing &gt;&gt;</mark> Yukarıda bahsetmiştik iki bileşen var birisi listener diğeri config idi. Listener için gelen trafiği hangi porttan dinleyeceğini seçiyoruz. Burada http için 80 portunu dinlememiz gerekiyor eğer güvenli seçenek de olsun isterseniz https yani 443 portunu da dinleyebilirsiniz. Port girdikten sonra hemen karşısında Target Group seçilmesi gerekiyor. Daha önce oluşturmuştuk buradan seçelim.</p><p id="e26ef62d-51c4-4b63-b694-b077b2e5bf4d" class=""><mark class="highlight-red">Tag</mark> &gt;&gt; İsterseniz bir isim verelim Name Key değeri ile.  Altta summary kısmından bir gözden geçirelim sıkıntı var mı diye ve <mark class="highlight-red">create load balancer</mark> seçeneğini tıklayalım. Aktif hale gelmesi biraz zaman alacak. </p><p id="11205c1a-549b-4df2-ad6c-35b28993b714" class="">Alt konsolda Description bölümünde LB(load balancer)&#x27;ın DNS name&#x27;ini kopyalayarak browser&#x27;a yapıştıralım ve çalışıyor mu test edelim. Sayfa açıldı ama hangi makineden veri alıyorusunuz onu görmek için iki yol var. </p><p id="7b43777f-36b8-4af3-b8e2-c0be332cc1c8" class="">Birincisi herhangi birine bağlanıp index.html de küçük bir değişiklik yapabilirsiniz. Sayafayı sürekli yenileyin değişikliği göreceksiniz.</p><p id="ce3b19ed-ec47-45e9-a564-9383710f693e" class="">İkincisi ise bir instance&#x27;ı stop edelim yani birinin çöktüğünü simule edelim trafiğin tamamının değer instance&#x27;a aktığını görebilirsiniz.</p><p id="8547a2ba-c359-4b64-b457-ded881ea5202" class="">Bazı durumlarda session datayı kaybetmemek için, aynı istemciden gelen trafik sürekli aynı kaynağa gitsin isteriz. Bunu sağlamak için küçük bir ayar yapacağız. Target group sayfasında iken action butonuna basalım ve adit attributes&#x27;ü seçelim. Açılan sayfada stickness kutucuğunu işaretleyelim ve ne kadar süre bu seçeneği aktif tutacağını gün olarak seçelim. Aşağıdaki resimde client-1 den çıkan tüm isteklerin soldaki ec2 ya gönderilmesi durumu.<div class="indented"><figure id="06cef688-5b7b-4a80-b9b5-e5a6d50bdc4b" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2010.png"><img style="width:288px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2010.png"/></a></figure></div></p><p id="fac8e94c-4646-48f4-8031-b4b8ae3093a5" class="">Bazı durumlarda ise farklı AZ&#x27;lerde kaynak yaratmış olabiliriz ve her AZ için ayrı load balancer kurmuş oluruz. Fakat birinci AZ&#x27;de 2 EC2 varken diğerinde 10 adet olabilir. Bu durumda gelen istekleri eşit dağıtmamız için bazı durumlarda biz işlem yapmamız gerekeccek. Bu olaya Cross-Zone Load Balancing diyoruz. Aşağıdaki resimden iceleyelim.</p><figure id="17eef473-3e00-44e3-9562-abe066d36cc0" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2011.png"><img style="width:528px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2011.png"/></a></figure><p id="41543e8b-6e63-44e0-a8b0-f54691dfd06e" class="">Soldaki resimde Cross-Zone Load Balancing aktif durumda her iki AZ&#x27;de toplam 10 EC2 var ve tüm yükü ortak paylaştırıyor her EC2&#x27;ya %10&#x27;luk yük dağılıyor. İkincisinde ise öncelikle her AZ için yükü ayırıyor yani yük ikiye ayrılıyor. Fakat burda sol AZ&#x27;de bir EC2 %25 yük alırken diğer AZ&#x27;de bir EC2 %6.25 yük alıyor. </p><p id="6f407574-04a0-4ef8-9e90-0a8cd9be6b55" class="">Cross-Zone Load Balancing, ALB&#x27;de seçilebilir bir özellik değildir daima aktiftir. Clasic Load Balancer&#x27;da default değeri pasiftir. Siz aktif etmeniz gerekir ve extra ücreti yoktur. NLB ise default değeri pasiftir. Siz aktif etmeniz gerekir ve<code> extra ücreti vardır</code>. Load Balancer sayfasında aktif etmek istediğinizi seçin description başlığında alt kısımlarda bu özelliği görebilirsiniz.</p><p id="915d21cb-1be6-4a6e-9a3f-de19b1133295" class="">Son olarak HTTPs kullanımından biraz konuşalım. Secure gelen trafik Load Balancer&#x27;a kadar gelir ve çözümleme burada gerçekleşir. Yani LB ile EC2 arasında HTTP ile iletişim devam eder. </p><figure id="66e49330-48d4-4598-a3c6-a47453774c58" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2012.png"><img style="width:576px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2012.png"/></a></figure><p id="30a4778d-16a3-430a-ab8c-6d9b6358deec" class="">Sertifikayı biz LB üzerinde muhafaza ederiz. Fakat LB arkasında çalışan server&#x27;larda birden fazla site mevcutsa birden fazla sertifika olması gerekiyor. Birden fazla sertifika kullanımını ancak ALB ve NLB ile kullanılabilir CLB&#x27;da çoklu kullanım yoktur. Load Balancing sayfasında ilgili LB yi seçtiğinizde alt menüde listener başlığını seçelim. Edit seçeneği ile HTTPs&#x27;i seçelim ve yan taraftan sertifikamızı seçebiliriz.</p><hr id="b921c861-c28f-413d-9b7c-7cd35a6f242e"/><figure id="b4d561e5-d430-4963-94dd-68309ea00773" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2013.png"><img style="width:480px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2013.png"/></a></figure><p id="bebe718a-d6c8-4ebf-b23e-764a90eab197" class="">Auto scaling konusuna girelim şimdi de. Başlangıçta özet olarak belirttiğimiz gibi bu hizmet makine artırma azaltma işlemlerini otomatik gerçekleştiriyor. Sizin trafiğiniz günün belli saatlerinde yoğunlaşıyorsa müşterinizin size ulaşabilmesi için çok fazla kaynak kullanamanız gerekecek. Fakat geri kalan saatlerde talep azaldığında elinizde atıl kalan bir kapasite olacak. Tersi durumda kaynak atıl kalmasın diye az kaynak kullanırsanız bu sefer de yoğun saatlerde müşteri size ulaşamayacak bu daha kötü bir durum çünkü müşteri kaçar. Veya zaman zaman kampanya yapıyorsunuz trafiğiniz artıyor ve ne kadar artacağını kestirmek de kolay değil. Bu işlemleri manuel yürütmek gerçekten çok güç o yüzden bu hizmeti kullanmamız gerekiyor. Bu hizmeti kullanırken de kurallar oluşturuyoruz. Diyelim ki makinelerizin cpu kullanımı %85 lere geldi burada yeni makine devreye alma kuralı ve cpu kullanımı %40 lara düştü makine azaltma işlemleri belirlediğiniz bu kurallar çerçevesinde otomatik gerçekleşiyor. Ayrıca Auto Scaling kullanmak ücretisizdir tabiki kullandığı kaynaklar ücretli 🙂</p><p id="838e6929-ed8b-4b19-bc63-4fa1c072d865" class="">Aslında iki kavram var onları da açıklayalım. Birincisi vertical scalability diğeri horizontal scalability. Bizim bu konuda anlatacağımız horizontal scalability yani yatay ölçekleme. Farkını şöyle anlatabilirim yatay ölçeklemede makineleriniz yetersiz kalması durumunda aynı cins makine ilave ederek sorunu çözüyorsunuz. Dikey ölçeklemede ise aynı sorunu yeni makinenin özelliklerini artırıyorsunuz. Diyelim ki t2.micro kullanıyordunuz yetersiz kaldı t2.large yapıyorsunuz. Dikey ölçekleme genellikle database için kullanılacak.</p><p id="a81df5f4-e55d-42d9-b22d-e294240e15d4" class="">Şimdi konuştuklarımızı konsoldan nasıl yaparız ona bakalım. EC2 sayfasında sol konsolda en altta Auto Scaling başlığına gelelim. Öncelikle Launch Config yapacağız. Hani dedik ya Auto scaling makine sayısını artırıp azaltıyor otomatik yeni makineyi neye göre ekleyecek neyi baz alacak aslında bu menüde onu tanımlayacağız. Kabaca Instance oluştururken karşımıza çıkan sorular burada da çıkacak diyebiliriz. AMI ve Instance Type seçimi, EC2 User Data girilmesi, EBS volüme seçilmesi, Security group ayarlanması, Key seçimi gibi.</p><p id="55151f0c-3412-4198-a296-bbb59f47bf71" class=""><code>Create Launch configurations</code> butonuna basalım. <div class="indented"><p id="f07208c9-d75a-4f11-af2b-41235fc25377" class=""><code>Name &gt;&gt;</code> ile bir isim verelim</p><p id="e9ee17bb-9af2-47a6-9e5f-a40973972c44" class=""><code>AMI &gt;&gt;</code> burada yeni oluşacak makinelerin imajını seçiyoruz. Bunu kendimiz nginx li bir AMI oluşturmuştuk onu seçelim.</p><p id="ff663412-d1b2-4101-a1f3-03bc5b11d5f7" class=""><code>Instance type &gt;&gt;</code> Beleş olan t2.micro&#x27;yu seçelim</p><p id="1a49a1c0-ec16-4b54-8b64-a37ceef612df" class=""><code>Spot Instance</code> &gt;&gt; istemiyoruz şimdilik.</p><p id="7a254459-e821-4a17-9bab-efd1312fc50b" class=""><code>Monitoring &gt;&gt;</code> CloadWatch açarsanız daha 1 dk gecikme ile monitoring yaparsınız ama ücretli gerek yok.</p><p id="89001a31-d303-45b2-acc2-b770555ef7b5" class=""><code>Advanced details &gt;&gt; User data &gt;&gt;</code> Başlarken program yüklemek isterseniz burdan script olarak girebilirsiniz. Biz AMI&#x27;yi gerekli programlarla oluşturduğumuz için gerek yok.</p><p id="6cc0dc8d-396c-49e2-bed3-0abe0eb14790" class=""><code>Storage (volumes) &gt;&gt;</code> Bölümünden yeni volume ekleyebilirsiniz. </p><p id="0d4b755a-8c20-4f21-a6e3-782683d8c8d8" class=""><code>Security groups &gt;&gt;</code> Bu kısımda uygun ayarlı bir SG seçelim 80 portu açık olan birini seçebilirsiniz.</p><p id="864ad5c6-7680-483e-822c-7d2d494c2cd7" class=""><code>Key pair (login) &gt;&gt;</code> var olan bir key seçin. pem dosyasını yani</p><p id="b16697d1-1997-4328-ae36-05e9ae30a15c" class=""><code>Create lounch configuration</code>&#x27;a basalım ve işimizi bitirelim burada. Burada bir sanal makine yaratmadık sadece daha sonra oluşturulacak sanal makine kuralları belirledik. Launch config hazır sırada Auto Scaling Group(ASG) oluşturmak kaldı.</p></div></p><p id="cef016af-06cf-49c2-8e25-452c8d998911" class="">Sol konsolda  ASG yi seçelim. <code>Create Auto Scaling group</code> &#x27;e basalım. <div class="indented"><p id="3c03a618-cd56-4ef7-9e25-1fc866ac7498" class=""><code>Name </code>&gt;&gt; Bir isim verelim. </p><p id="6485a7b9-8c0e-414c-9e56-0190efc0370e" class=""><code>Launch template</code>  &gt;&gt; Biz templete değilde cofiguration hazırlamıştık. Aşağıda resimde gösterdiğim yere tıklayalım ve değişsin sayfa. Burada hazırda template varsa onu kullanabilir veya<code> create a launch template</code> diyerek oracıkta bir template oluşturabilirsiniz. Ben configuration hazırlamayı gösterdim ama yeni trend daha kapsayıcı olan launch template&#x27;dir. Aslında çok da farklı değil versiyonlama yapabilirisiniz template&#x27;de bu güzel bir özellik. Diğer kısım configuration ile çok benzer. Daha sonra oluşturduğumuz Launch Configuration&#x27;u seçelim.</p><figure id="554ea752-878d-4e1b-b705-58ae23339115" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2014.png"><img style="width:815px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2014.png"/></a></figure><p id="22d8ce17-beae-48e1-a62d-a49e48cd3c60" class=""><code>Network</code> &gt;&gt; VPC görmediğimiz için  bu kısımda sadece aşağıdaki subnetlerin hepsini seçelim ve next&#x27;e basalım</p><p id="9a6ce1b5-da49-4ed4-bd53-fbd4bae34e4e" class=""><code>Load balancing</code> &gt;&gt; üç seçenek var. Birincisi Load Balancer seçmeden devam edebilirsiniz. İkincisi hazırda load balancer varsa seçerek  ASG&#x27;yi LB arkasına koyabilirsiniz.  Üçüncü seçenekte de yeni bir load balancer oluşturup bağlayabilirsiniz. Biz daha önce yapmıştık onu seçelim. Diğer seçenekler default kalabilir <code>next </code>&#x27;e basalım.</p><figure id="7cda864d-be9d-4e41-8a40-b1be76ed81fb" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2015.png"><img style="width:513px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2015.png"/></a></figure><p id="fd1d09e2-0616-41df-9f98-2f8e4b035983" class=""><code>Group size</code> &gt;&gt; bu başlıkta üç seçenek var. Birincisi Desired capacity, bu seçekle başlangıçta kaç makine ile başlansın onu seçiyoruz. Hemen alıtındaki değerlerde ise trafiğin artması veya azalması durumunda makine sayısı maksimum hangi değere çıkabilsin ve minimum hangi değere kadar düşebilsin şeklinde belirleyebiliyoruz. </p><p id="debd259c-dc62-4a97-8193-1df70f9f1657" class="">Bunu neye göre artırıp azaltacak derseniz hemen aşağıda <code>Scaling policies</code> başlığında belirliyoruz. Scaling policies kısmını daha sonra anlatacağım şimdilik bu menüde <code>None </code>seçelim.  </p><p id="e54d74cf-add2-4d07-b41b-4eaa65fcc911" class=""><code>Add notifications</code> &gt;&gt; başlığında ise değişim olması durumunda size bildirim gelmesini istiyorsanız SNS servisi ile bildirimleri alabilirsiniz daha sonra anlatacağım SNS kısmını. Next diyelim.</p><p id="80394085-6408-4b9f-b49a-45be5fe10910" class="">Add tags &gt;&gt; ile etiketleme yapabilirsiniz. Tag new instances tiklerseniz yeni oluşan kaynaklara da bu etiketi verecek. Next Diyelim.</p><figure id="6d3f89e0-f967-4fa6-9ee7-93a56fca1812" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2016.png"><img style="width:697px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2016.png"/></a></figure><p id="8e5fdb4d-a4fe-4dbc-b52c-4c88babf6a97" class="">Review kısmında son gözden geçirmenizi yaptıktan sonra create ASG diyelim ve oluşturalım.</p><figure id="bc88cfc7-4f90-4e1f-9852-8b1f0ba016ab" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2017.png"><img style="width:1037px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2017.png"/></a></figure><p id="a9aa5f99-0454-42a1-8adb-d4200365b68f" class="">Instance sayfamızı açtığımızda 2 makine ile başla dediğimiz için yeni 2 makine(yeni-ASG etiketli olanlar) oluşturulmaya başlanmış. </p><p id="fae36aaf-d059-4cc5-92e2-aa65d7ec193a" class="">Auto Scaling groups sayfasında aşağıda resimde görüldüğü gibi <code>detail </code>kısmında oluşturma aşamasında seçtiğimiz değerleri görebiliriz. </p><figure id="396bab98-336f-4ea9-bc2a-d74d3564dd2a" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2018.png"><img style="width:1001px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2018.png"/></a></figure><p id="2a3bd86b-1224-41bf-857c-a7ea92ca93d5" class=""><code>Activity</code> bölümünde yeni bildirimler oluşturabilir oluşturdu isek daha önceki bildirim ayarlarını görebiliriz. History kısmında varsa bir hata veya başarılı sonuç çıktısını görebiliriz.</p><p id="d64632e6-4162-48a2-bc7d-6bf6d4ae7326" class=""><code>Automatic scaling</code> bölümünde neye göre makine sayısını değiştireceğimizi girdiğimiz kuralları görebiliriz.  Bu kısım önemli ASG oluştururken daha sonra yapacağımız için policy seçmemiştik  şimdi burada yapacağız.  3 seçenek var. <strong>Dynamic scaling policies, Predictive scaling policies ve Scheduled actions.</strong><div class="indented"><p id="decfa61f-55c3-4b35-8340-5706fb013175" class=""><code>Scheduled actions</code> ile başlayalım. Create scheduled action&#x27;a tıklayalım </p><figure id="40035889-0cf0-490e-8518-2fbc4bfe6f29" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2019.png"><img style="width:524px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2019.png"/></a></figure><p id="87a20abc-7bdf-42a3-ad51-ecd1f1f45297" class="">Önce isim veriyoruz. Sonra min, max ve desired capacity için belirlediğimiz sayıları giriyoruz.  Recurrence kısmında kaç kez olduğunu gireceğiz saatte bir, günde bir haftada bir gibi. Son olarak başlangıç için zaman seçip bitiriyoruz.</p><p id="d270b855-2bd5-43c6-baff-9585a71ba0ec" class=""><code>Predictive scaling</code> tahmine dayalı bir makine öğrenmesi çalıştırılabilen bir ölçeklendirme çeşitidir. Metrik değer için aşağıdakiler seçilebilir.</p><figure id="f96fe53a-86fc-4bcf-a296-932049ee8b9f" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2020.png"><img style="width:508px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2020.png"/></a></figure><p id="aecbbbd9-fd6d-4c71-a4ab-78424808fe43" class=""><code>dynamic scaling</code>   3 tipi vardır. <code>Target tracking scaling</code> seçildiğinde aşağıdaki metrik type lardan herhangi birisi seçilip belirlenen eşik değerine gelindiğinde artırım azaltım yapar. </p><figure id="7f291f7f-f03e-4ef7-a562-76c024b6edf0" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2021.png"><img style="width:468px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2021.png"/></a></figure><p id="cfcdf88f-9f8d-42bc-bbca-91dcaa05c9f7" class=""><code>Step scaling</code> seçilirse daha önce ayarlanan cloudwatch alarmı oluştuğunda.  Artırma, azaltma veya belirlenen değere ayarlama yapılabilir. Bu değer unit olarak olabileceği gibi grubun yüzdesi olarak da seçilebilir. Add step seçilip aynı şekilde farklı adımlar oluşturulabilir.</p><figure id="aa210a33-6c03-4f47-a1f3-8ad763ffaa16" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2022.png"><img style="width:855px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2022.png"/></a></figure><p id="dc16a8b2-c21d-462e-ba95-b0e179aa57fb" class=""><code>Simple scaling</code> de ise step scaling ile aynı arayüz fakat tek bir adım oluşturulabiliniyor.</p></div></p><p id="b09804ef-0b4d-48b0-b0ff-2903f7b484dd" class="">Target tracking scaling seçilip istenen değer gelindiğinde artır azalt kurallarıyla devam edebiliriz.</p><p id="ddd0912d-b403-4924-8ab2-7a3e71b095dc" class=""><code>Instances management</code> bölümünde ASG ile ayağa kalkan instance&#x27;ları görebiliriz.</p><p id="3eca1ba6-2270-4abb-899d-fe4cf38a3355" class=""><code>monitoring</code> bölümünde cloudwatch servisi ile gelen grafikleri görebiliriz.</p><p id="28dc62d7-85e8-4f42-8024-430c0483a2a3" class="">Şimdi load balancing kısmına gelelim ve target groups kısmını açalım. ASG yi load balancer arkasına koymuştuk. Yeni oluşan Instance&#x27;ları eklemiş mi bakalım.</p><figure id="4fdcf166-97b5-4df2-adcb-24680774574e" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2023.png"><img style="width:1023px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2023.png"/></a></figure><p id="c528ae31-1eaa-4440-9779-8c8f3965fc19" class="">Ne yapmıştık 2 tane instance olan target gruba eklemiştik ve ASG oluştururken de başlangıçta 2 instance minimum 1 ve maksimum 5 instance seçmiştim. 2 tane daha makine çalıştırdı ama birisini geri kapattı trafik yok ve minimum değer 1 olduğu için.</p><p id="0343dfa2-bbd6-4312-ae68-d919191fb134" class="">ASG nin çalıştığını kontrol etmek için şunu yapalım. ASG ile gelen instance&#x27;ı kapatalım çöktüğünü varsayalım. Yenisini oluşturmasını bekleyeceğiz. Bunun için 300 sn kadar beklememiz gerekir bu ayarlarda olan bir değerdi. </p><figure id="5b6c0370-b2c1-4f8d-801b-124ede6c818b" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2024.png"><img style="width:1062px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2024.png"/></a></figure><p id="5743c7a4-f931-4e38-a09a-0bb5726b6c96" class="">Yukarıdaki resimde 3 adet yeni_ASG görüyorsunuz. Bunların ikisini başlangıçta açtı ve birisini tekrar kapattı. İkincisini ben bilerek kapattım. Minimum 1 girdiğimiz için tekrar 1 makine daha oluşturdu. Önemli bir detay var burada sayılarla ilgili. Biz minimum 1 dedik ama 2 tane de önceden vardı sürekli 3 makine çalışıyor aslında biz böyle olsun istemedik. ASG öncesinde kaç makine varmış bakmaz. Ama bunun çözümü var instance sayfasına gelelim. İlk iki makineyi de bu gruba dahil edebiliriz.  Makineyi seçip action menüsünü açalım. Instance setting &gt;&gt; Attach to ASG ile her ikisini de ekleyelim.  ASG menüsüne tekrar gelelim.</p><figure id="f1f63cff-0bbd-4cf9-8be0-5a5fd05b1f5a" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2025.png"><img style="width:1003px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2025.png"/></a></figure><p id="4a8ccc33-e545-4706-a07e-cbb218bd6c73" class="">Desired capacity 1 idi 3 e çıkartmış biz bunu edit ile düzeltebiliriz. Takrar sayıyı bire düşürdüm 2 makine kapandı. </p><figure id="5468bb4c-3dae-4f9a-9cb8-0422ad2714e4" class="image"><a href="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2026.png"><img style="width:1088px" src="EC2%20LOAD%20BALANCING%20&amp;&amp;%20AUTO%20SCALING%203eb8637889054e50be383728b0fd208c/Untitled%2026.png"/></a></figure><p id="2187a2d2-21d0-478b-b92b-916d2e84e9e0" class="">Sayı artırmayı simüle etmek için de şunu yapabilirsiniz. Makineye bağlayıp stress tool&#x27;u yükleyerek yapay bir yük yaratıp görebilirsiniz. Aşağıdaki kodlar ile instance&#x27;a bağlanıp çalıştırabilirsiniz.</p><p id="c514897d-6bf7-4d6a-9cc5-9b18f70a07c1" class="">yum install <a href="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm">https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</a>
+yum install stress
+stress --cpu  80 --timeout 2000</p><p id="13853e17-684c-403e-b80a-a16c8b589eb6" class="">veya</p><p id="1730aec4-3279-4434-b563-2a06492186e8" class="">sudo amazon-linux-extras install epel -y</p><p id="72c01d5f-c41a-4751-8721-0fc13813d149" class="">sudo yum install -y stress
+stress --cpu 80 --timeout 2000
+</p></div></p></div></article></body></html>
