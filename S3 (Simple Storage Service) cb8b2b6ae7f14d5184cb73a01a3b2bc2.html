@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>S3 (Simple Storage Service)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9be64732-2e97-49d1-b1d5-b87fdd5a11ee" class="page sans"><header><h1 class="page-title">S3 (Simple Storage Service)</h1></header><div class="page-body"><figure id="cb8b2b6a-e7f1-4d51-84cb-73a01a3b2bc2" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled.png"><img style="width:672px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled.png"/></a></figure><p id="0a01200e-9ad1-4630-a97f-87588bdd289c" class="">Daha önce depolama çözümleri olarak EBS ve EFS servislerini anlatmıştım. S3 son depolama çözümümüz. EFS yazısında karşılaştırmalı anlatırken S3&#x27;ü de dahil etmiştim burada çok bahsetmeyeceğim çünkü bu kısım uzun olacak.</p><p id="a13b18a4-a0f3-4d76-a25a-835c18fd0cc8" class="">S3 Obje tabanlı depolama çözümüdür.  İşletim sistemi uygulama veya veritabanı kurulamaz ve hacim belirtilmez içine veri koydukça büyür bu özellikleriyle EFS&#x27;e benzerken EBS&#x27;ten ayrılıyor.  Fiyatlandırma anlamında da diğer çözümlerden daha uygun bir servistir. Google drive gibi düşünebiliriz.  Ayrıca EBS veya EFS&#x27;te olduğu gibi bir EC2 ile ilişkilendirilmez her yerden erişilebilir.</p><h2 id="ee2c90de-5400-40de-88d9-071eafb97608" class="">Bucket</h2><p id="8d2908d8-5fa6-4369-8eaf-9503d163c769" class="">S3 servisinin içerisinde bucket denilen yapılarda objeleri muhafaza ederiz. Bucket&#x27;lar için mantıksal depolama birimi diyebiliriz. Bucket içerisinde her türlü formatta veri depolayabiliriz. S3 global bir servis olmasına rağmen oluşturulan bucket için bir region seçmemiz gerekir. Oluşturulan bucket içerisindeki veriler region içerisindeki en az 3 AZ&#x27;de yedeklenir. Bir hesap ile maksimum 100 bucket oluşturulabilir. Fakat bucket içine konulacak veri için sınır yoktur istediğiniz kadar veri koyabilirsiniz.  Tek bir dosyanın maksimum boyutu 5 TB olabilir.  Eğer obje 5GB&#x27;dan büyükse multi-part upload kullanılmalıdır.Upload edilecek verinin büyüklüğü 160 GB&#x27;a kadar ise konsol kullanılabilir ama daha fazla ise AWS CLI, AWS SDK veya Amazon S3 REST API kullanılması gerekir. Bucket ismi global anlamda uniq olmalıdır daha önce kullanılan bir ismi kullanamayız. Ayrıca isim verirken sadece küçük harf, rakam, &quot;-&quot; ve &quot;.&quot; kullanılır. Bucket&#x27;a 3 türlü erişim mümkündür. Birincisi kendi IAM user&#x27;larınız, ikincisi bir başka AWS accountu, sonuncusu ise public yeni herkesin ulaşabildiği erişim şeklidir. Default olarak dış dünyaya kapalıdır sizin açmanız gerekir. Bucket&#x27;ı web sitesi host etmek için kullanabiliriz detayları aşağıda anlatılacak. Konsola geçelim bir bucket oluşturalım ve özelliklerine bakalım. </p><p id="45db0d2c-8f7c-4016-b21d-865be3dedcf6" class="">S3 servisini açalım. Create bucket&#x27;a tıklayalım. Aşağıdaki resimde bucket&#x27;ımıza isim verelim  isim verirken yukarıda bahsettiğimiz kısıtlara dikkat edelim. Bucket için region seçelim. Copy settings from existing bucket - <em>optional &gt; </em>seçeneğiyle yeni oluşturacağınız bucket için daha önce oluşturulmuş bucket ayarlarını kullanabilirsiniz.</p><figure id="688c5f32-5d6f-47dd-9526-278459bc0461" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%201.png"><img style="width:480px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%201.png"/></a></figure><p id="640c58b4-eb6c-4132-83e8-73d2c040278b" class="">Aşağıdaki resimde public erişim için default olarak kapalı gelen kısıtlamalar mevcut. AWS ilk bucket oluşturduğunuzda dış dünyaya kapalı olacak şekilde seçiyor siz isterseniz açabilirsiniz. Web sitesi host etmek gibi uygulamalarda açacağız. Konu hakkında detaylı bilgi yazının devamında S3&#x27;te güvenlik başlığında mevcut.</p><figure id="e82718af-bb50-4908-af8c-5107480c9788" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%202.png"><img style="width:480px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%202.png"/></a></figure><p id="a97089de-a173-4b7a-aaf5-85b14cefd1a7" class="">Aşağıdaki resimde versiyonlamayı açma, etiket verme ve şifreleme seçenekleri var. Versiyonlama objelerin yanlışlıkla silinmesi durumunda veya değiştirilmesi durumunda eski versiyonlarına erişebilme imkanı verir. Enable yapıldığında tekrar kapatılamaz sadece suspend edilir. Supend edilirse eski dosyalarda versiyonlar takip edilir fakat yeni dosyalar için versiyonlama olmaz. Dosya sildiğinizde aslında dosya silinmeyecek sadece size gösterilmeyecek oraya bir işaretçi(delete marker) koyacak. Delete marker&#x27;ı bir örtü gibi düşünebiliriz dosyanın üzerini kapatıyor siz dosyayı görememiş oluyorsunuz. Eski haline dönmek istediğimizde ise delete marker&#x27;ı silmemiz gerekecek yani örtüyü kaldırdığımızda dosyayı görmüş olacağız. Versiyonlamayı bucket oluştururken yapabildiğimiz gibi daha sonra da değiştirebiliriz. Versiyonlama daha sonra açılmışsa önceki dosyalar için versiyon numarası oluşmayacaktır. </p><figure id="69daf069-e68f-4aed-9d62-821ca0174213" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%203.png"><img style="width:480px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%203.png"/></a></figure><p id="362c3b5e-911a-4e44-be7e-d6a4bbaae31b" class="">Yukarıdaki resimde encryption seçeneği ile bucket içerisinde iken verinizin şifreli muhafazası sağlanmış olur. Şifreleme detayları yazının devamında S3&#x27;te güvenlik başlında mevcuttur. Burada şifreleme seçeneklerinden Server tarafında yapılabilen  SSE-S3 ve SSE-KMS seçilebilir.</p><figure id="7fbad3d3-c9e6-438a-bec9-d857d21a059e" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%204.png"><img style="width:480px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%204.png"/></a></figure><p id="fa5f11b8-f5a2-4752-9229-b2f6972446e3" class=""><strong>Advanced settings seçeneği ile  Object Lock </strong>özelliğini açabiliriz. Bu özellikle bucket&#x27;ınızı kilitlemiş olursunuz sadece read-only kullanmış olursunuz. Verilerinizin değişmemesini istediğinizde kullanışlı bir özelliktir. </p><p id="e98a4022-a7a1-49cf-8622-09b94d382166" class="">Bitirdikten sonra Create bucket&#x27;a tıklayalım. Yeni oluşturduğumuz bucket&#x27;ı tıklayarak içine girelim.</p><figure id="cb9411c2-fa21-4b29-b7d1-d6ef38b35a9c" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%205.png"><img style="width:1493px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%205.png"/></a></figure><hr id="4047d691-e8f5-4328-b3c0-78dcfeee1c07"/><p id="c749a96f-e066-4a5c-a1ea-3030aff7124f" class="">Yukarıdaki menü bucket içindir. İlerde obje için de menü paylaşacağım biribiri ile karıştırmamak gerekir. Burdaki değişiklikler tüm objeleri içerir.  Bazı menüleri burada açıklayalım.</p><h3 id="537d57a6-b66a-4e56-97cd-d01a9c60952f" class="">Object menüsü  </h3><p id="64be45b5-5b7d-470f-94d0-879d8548102c" class="">Bucket içerisine yüklemek istediğimiz objeleri Upload seçeneğiyle veya sürükle bırak ile yüklenebilir. Create folder ile bucket içinde klasör oluşturabiliriz. Herhangi bir obje seçili iken action menüsüyle de obje üzerinde localinize indirme, isim değiştirme, objeyi public yapma,  şifreleme ve storage özelliklerini değiştirme, kopyalama, taşıma gibi işlemleri yapabiliriz. Ayrıca Query with S3 Select seçeneğiyle veriyi indirmeden SQL sorgusu yapabilirsiniz.</p><h3 id="ec5cd7f0-11c5-46dc-8f9d-3e9d7c584e13" class="">Properties menüsü </h3><p id="d7d6a6a4-a2e3-4ef9-843e-45518cea2615" class=""><strong>Bucket Versioning &gt; </strong>Versiyonlama bir S3 bucket&#x27;ına kaydedilen herhangi bir nesnenin herhangi bir sürümünü yönetmek, silmek ve geri yüklemek için kullanılır. Bu menü ile bucket oluştururken yaptığımız versiyonlama ayarını değiştirebiliriz. Eğer açık ise kapatılamaz suspend edilebilir. Versioning&#x27;de show version esnasında yapılan silme permenent delete olacaktır. Show version kapalı iken silinen dosya delete edilir aslında delete marker eklenir.</p><p id="42976af6-fb43-49f7-92cc-1b46e547ebab" class=""><strong>Tag &gt;</strong> ile etiket verebiliriz. Faturalandırmada kulanılabilir billing servislerden cost allocation tag özelliği açılması gerekir. En fazla 10 adet tag girilebilir.</p><p id="605b378e-7ba4-4d04-9d65-0ef9e37cd93a" class=""><strong>Default encryption &gt; </strong>ile bucket oluştururken yaptığımız şifreleme ayarını değiştirebiliriz. Detaylı bilgi yazı devamında olacak.</p><p id="082e35f5-253c-4953-be82-a6f51382cca2" class=""><strong>Intelligent-Tiering Archive configurations &gt; </strong>ile bucket  içerisindeki veriler için storage seçeneklerinden birisi olan Intelligent-Tiering arşiv konfigurasyon ayarlarını yapabiliriz. Bucket içindeki tüm dosyaları veya belirli etikete sahip olanlar veyahut da belirli prefix&#x27;e sahip olanlar üzerinde işlem yapılabilir.  90-270 gün arasında seçim yapılarak dosyalar Archive Access tier&#x27;a daha sonra da istenirse en az 180 gün sonra da Deep Archive Access tier&#x27;a dosyaların otomatik gönderilmesini sağlayabiliriz. Bunu verileri daha uygun fiyatla saklayabilmek için yapıyoruz.</p><p id="4c477c59-381a-4728-aee5-2503c4b38f0e" class=""><strong>Server access logging</strong> &gt; Bucket içindeki verilere kim, nasıl erişmiş logları görebilmek için kullanılır. Enable yaptığınızda bu logların kaydı için bucket seçmek gerekir. </p><p id="a834b179-0353-4530-a9cd-e4a1e41a4952" class=""><strong>Event notifications &gt; </strong>ile bucket içinde herhangi bir işlem oluğunda(ekleme, çıkartma, değişiklik gibi) bu işlem ile bir lambda fonksiyonunun otomatik çalışması sağlanabilir.</p><p id="02bad6ef-9f92-4a15-a140-7f5b4df0bb3f" class=""><strong>Transfer acceleration &gt; </strong>Çok büyük verilerin tranferi için kullanılır<strong>. </strong>Normal url den göndermek yerine yeni verilen end point ile aktarım yapıyorsunuz eğer AWS aktarımı  hızlandırabilirse extra ücreti ödüyorsunuz.</p><p id="f4ea1a35-7bac-460b-bc0d-991f94297844" class=""><strong>Object Lock &gt; </strong>ile verilerin yanlışlıkla silinmesi belirli süre veya sonsuza kadar engellenebilir. Sadece bucket yaratılırken uygulanabilir daha sonra uygulanamaz.</p><p id="997a0202-47f5-402d-aa55-bb49f0ba4eef" class=""><strong>Requester pays &gt; </strong> ile koyulan dosyaya birisi erişip download ederse ücreti karşı tarafın AWS hesabından kesilebilebilme özelliği açılabilir. Public access kapatılması gerekir.</p><p id="0549037b-342e-41a6-8bd8-87861494f22b" class=""><strong>Static website hosting &gt; </strong>ile web hosting yapılabilir aşağıda detaylı anlatılacak.</p><h2 id="846b0d1b-8ad7-484d-a1bb-1584f94ba471" class=""><strong>Permissions</strong> menüsü </h2><p id="bf4f84dc-b361-4583-954e-e593f55034d2" class=""><strong>Block public access (bucket settings) &gt;</strong> Bu kısmı bucket oluşurma esnasında karşımıza çıktında anlatmıştık. Dış dünyadan erişimi kapatıp açmaya yarar.</p><p id="bc62508f-134b-4e51-b9ec-f19ba0960133" class=""><strong>Bucket policy &gt; </strong> Bucket&#x27;ınıza erişim için kullanılacak kurallar belirlenir. Yukarıdaki seçenekten dış kapıyı açmış olacaksınız. Bucket&#x27;ınızdaki veriye birisi erişmek isterse veya web hosting için kullanacaksanız burda policy girmeniz gerekiyor. Policy girme ile ilgili aşağıda Bucker Policy Girilmesi başlığında örnek görebilirsiniz.</p><p id="90486b51-81fd-4ac0-969e-7a219bc17b83" class=""><strong>Object ownership &gt; </strong>Dosyaların sahipliğini değiştirebilirsiniz. Burada <strong>Access control list (ACL)</strong> ayarlarını yapmamız gerekir.</p><p id="53782b32-6938-4e91-bd26-895a0ff556e0" class=""><strong>Access control list (ACL) &gt; </strong>Dosyaların okuma, yazma, listeleme erişim yetkilerini belirli bir gruba veya tüm herkese açma şeklinde ayarlar yapabilirsiniz.</p><p id="dd60e8fd-e8ff-4686-9c22-d639340b75ce" class=""><strong>Cross-origin resource sharing (CORS) &gt; </strong>Bu başlık bu yazının en son kısmında anlatılmıştır.</p><h2 id="35b1162a-fcac-4a21-b929-9aa7e45179ff" class="">Management Menüsü </h2><p id="fabb2772-6adc-420f-9d30-a1e3e3c85cef" class=""><strong>Lifecycle rules &gt;&gt;</strong>S3 Storage Sınıfları<strong> </strong>başlığında depolama için farklı özellikli çözümleri inceledikten sonra bu kısma bakabilirsiniz. Lifecycle rules ile biz depolama çözümleri arasında geçişleri bir kurala bağlayarak otomatize etmiş oluyoruz. Daha uygun bir fiyatlandırma için yaptığımız bir ayar diyebiliriz.  Storage değişimleri pahalıdan ucuza yönünde yani Standard&#x27;tan Glacier Deep Archive yönünde olur tek yönlüdür tersine kural verilemez. Create lifecycle rule diyerek sayfaya girelim.<div class="indented"><figure id="14bc3ce3-fb78-4849-b542-0e5ec40cffb1" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%206.png"><img style="width:703px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%206.png"/></a></figure><p id="13b53b35-07e2-442b-9e7d-8ff2aa032fa6" class="">Lifecycle rule name &gt;&gt;öncelikle bir kural ismi girelim.</p><p id="2458f9ff-8dd0-44d7-8b42-7dfde71da31e" class="">Choose a rule scope &gt;&gt; Bu kuralı tüm bucket için mi yoksa filtre kullanarak mı yapmak istiyoruz. Filtre tipi olarak da iki seçenek mevcut. Birincisi Prefix kullanmak bucket içinde belli klasör içindekileri veya dosya adı xxxx ile başlayanlar diye filtre koyabiliriz. Diğer seçenek Tag yöntemi bu yöntemle bucket&#x27;a objeyi atarken tag giriyoruz belirlediğimiz tag ile giriş yapan objeler için kural belirlemiş oluyoruz.</p><p id="342aea86-0f7d-436d-8af4-bb5eb73464ce" class=""><strong>Lifecycle rule actions &gt;&gt; </strong>Burada hangi versiyon üzerinde işlem yapacağımızı seçiyoruz. İki versiyon var birincisi son versiyon yani current version diğeri ise geçmiş versiyonlar yani noncurrent version. Her ikisi içinde ayrı kural belirleyebiliyoruz.<div class="indented"><p id="6d247201-dba9-4938-b26b-bff13311252b" class="">Move current versions of objects between storage classes &gt;&gt;&gt; Son versiyon için storege değiştirme kuralı</p><p id="6566fc9a-4865-4307-bd85-c76c006a9474" class="">Move noncurrent versions of objects between storage classes &gt;&gt;&gt; Eski versiyonlar için storege değiştirme kuralı</p><p id="2e5adc49-47ba-4eef-8c6b-19a0a0f11ede" class="">Expire current versions of objects &gt;&gt;&gt; Bu seçenekle eski versiyoları kalıcı silme son versiyon içinse delete marker ekleme kuralı </p><p id="0c8d5303-c1b0-4e0d-9809-b93b71a2abbf" class="">Permanently delete noncurrent versions of objects &gt;&gt;&gt; Eski versiyonlar için kalıcı silme kuralı</p><p id="36fff1b0-de06-4d97-b867-9ceefacf505e" class="">Delete expired object delete markers or incomplete multipart uploads &gt;&gt;&gt; Bu seçenek ile boşta kalan delete marker&#x27;lar ve parçalı yüklemelerde tamamlanamayan dosyaların silinme kuralı belirlenir.</p></div></p><p id="80005535-5523-4053-a7be-293b51b46f49" class=""><strong>Expire current versions of objects &gt;&gt; </strong>Yukarıda seçtiğimiz kurala göre ilk iki seçenek için storage ve gün seçimi diğer üç adet silme kuralları için ise gün seçimi yapıyoruz. </p><p id="9546990f-9030-44a7-b257-87a161711d7f" class=""><strong>Review transition and expiration actions &gt;&gt; </strong> Aynı anda birden fazla kural seçilebilir veya bir kural için birden fazla storage değişimi yapılabilir. Yukarıda seçilen tüm kuralları gözden geçireceğimiz bölüm burası.</p></div></p><p id="62ed4e2e-7d31-451f-ab71-bafd95c90303" class=""><strong>Replication rules &gt; </strong> Bu özellik sayesinde oluşturduğunuz bucketların kopyasını aynı veya farklı regionda tutabilirsiniz. Bu size yedeklilik ve farklı bölgelerdeki kullanıcılarınızın verilere daha hızlı erişmesini sağlar. Bu özellik yasal zorunluluk veya kurumsal kısıtlamalar sebebi ile de kullanılabilir. Öncelikle replikasyon için hem kaynak hem de hedef bucket&#x27;larda versiyonlama açık olmalı. Versiyonlama için de kurallar oluşturmamız gerekiyor. Neleri yedekleyecek nerelere yedekleyecek şeklinde. Bir önemli konu daha var burada o da bir S3 bucket&#x27;ının başka bir S3 bucket&#x27;ına erişmesi için yetki alması gerekiyor. Bunu da IAM role olarak tanımlıyoruz. IAM role oluştururmadan önce de ilgili yetkileri tanımlayan policy oluşturmamız gerekiyor. Daha sonra oluşturduğumuz policy&#x27;i IAM role atıyoruz. Ayrıca replika esnasında objenin metadata sı korunur. </p><figure id="762032e4-d56b-4835-b3bd-7b7f1cebda5c" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%207.png"><img style="width:528px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%207.png"/></a></figure><p id="c5beced9-2d48-410f-8544-47e21c2182b4" class=""><strong>Replication rule name &gt;</strong> ile bir isim verelim.</p><p id="a718f037-e441-4a6e-a047-c9a74ea65130" class=""><strong>Choose a rule scope &gt; </strong> Lifecycle&#x27;da olduğu gibi prefix veya tag ile filtreleme yapabilir veya tüm bucket olarak seçebiliriz. </p><p id="dd41b3ad-f9a6-4cf0-94f5-0cb346681846" class=""><strong>Destination &gt; </strong> Nereye yedek almak isterseniz daha önce oluşturduğunuz bucket&#x27;ı seçiyoruz.</p><p id="02f7da69-e5c9-4711-9c8a-afa3c117c870" class=""><strong>IAM role &gt; </strong>ilgili yetkilendirme yapılmış IAM role seçilir.</p><p id="c5053f98-3bef-4af6-80fb-245b6837d600" class=""><strong>Encryption &gt; </strong>Replica&#x27;sı alınan dosyalar için bucket içi şifreleme yaptırılabilir.</p><p id="374bcb42-7114-487a-a408-9ea841fedccf" class=""><strong>Destination storage class &gt; </strong>Bu seçenek değiştirilmez ise<strong> </strong>Kaynak bucket storage class&#x27;ı hedef için de geçerli olur veya istediğiniz class tipi seçilerek replika muhafaza edilebilir.</p><p id="f5029ef7-b882-4988-92b0-e1cb09138b6d" class=""><strong>Additional replication options </strong><div class="indented"><p id="32accbe3-6e14-4fbe-b701-b2588d0bfa0b" class=""><strong>Replication Time Control (RTC) &gt;&gt;</strong> Büyük veriler için ücreti mukabil15 dakika içinde tamamlanması sağlanabilir. </p><p id="18bdfd04-59b7-4a17-9104-92a9a1455d6f" class=""><strong>Replication metrics and notifications &gt;&gt; </strong> Ücreti mukabil cloudwatch servisinden veriler takip edilebilir.</p><p id="7ab9ef1b-9a47-49ed-889c-61cf53ed9358" class=""><strong>Replication metrics and notifications &gt;&gt; </strong>Normalde delete markerler replika edilmez edilsin isterseniz tikleyebilirsiniz.</p></div></p><p id="d139e36b-90d5-4f28-addb-d10edfb8c840" class="">Menü kısmını bitirdik. Birkaç ek bilgi verelim. Dolu bucket silinemez. İçini boşaltmak için empty bucket yöntemi kullanılabilir. Bu şekilde hem verison tarafı hem normal taraf silinir.</p><hr id="319eede6-b5f0-406b-ba79-f9983b3bef8c"/><h2 id="60b65bf6-b468-4fc7-a4d7-3e66ffa14e5c" class="">S3 Storage Sınıfları</h2><p id="4bba1679-b45a-4655-8ead-6acfa6e0f1fd" class="">S3 içerisindeki veriyi seçebileceğimiz 6 farklı seçenekle tutabiliriz. </p><figure id="ea6e3cfc-1d90-41c1-bbf2-d3ea221b1784" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%208.png"><img style="width:800px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%208.png"/></a></figure><p id="21513b93-e326-451c-af3f-b062e58347b9" class=""><strong>Standard &gt; </strong>Sık erişilen veriler için tercih edilir. Default değerdir dosya yüklerken aksi seçilmez ise standard olarak muhafaza edilir. Hızlı erişim sağlanır ve ücret olarak en pahalı seçenektir.  Güven anlamında % 99.99999999 (11 9) luk güvenilirlik sağlar. Bu şu anlama gelir bir yılda 10 milyar objeden 1 tanesinin kaybolma riski vardır. Erişilebilirlik anlamında 99,99% oran vardır. Yani  10 bin saatte 1 saat erişilememe riski olabilir. Bulut uygulamaları ve web servisleri, mobil oyun ve uygulamalar, web sitesi barındırma, içerik dağıtımı gibi ihtiyaçlar için en uygun kullanım alanları olarak sayılabilir.</p><p id="6b4b95db-1676-49ec-b7f6-dde3b02523e6" class=""><strong>Intelligent-Tiering &gt; </strong>Dosyaların kullanım sıklığına göre storege class değişimini otomatik gerçekleştirir. Öncelikle standard storage&#x27;da veri bekletilir. 30 gün erişilmeyen bir dosya Standart-IA&#x27;ya aktarılır. Dosyaya erişim olduğunda tekrar standard&#x27;a taşır. Bucket properties menüsünden Intelligent-Tiering Archive configurations  kısmından diğer storage&#x27;lara taşınması için gün ayarlaması yapılabilir.</p><p id="77d46d99-f036-492e-a9dd-6711474f468f" class=""><strong>Standart-IA &gt; D</strong>aha az erişilen veriler Standart IA&#x27;da saklanır. Erişim hızı anlamında standard ile aynıdır. Fiyat anlamında standard&#x27;dan uygundur. Erişilebilirlik anlamında 99,9% oran vardır. Yani 10 bin saatte 10 saat erişilememe riski olabilir. Dosyaya her eriştiğinizde normalden daha fazla ücret ödeneceği için sık erişilen dosyalar için tercih edilmez.</p><p id="e3fd7022-886f-4eb3-9069-4f24d175d6a1" class=""><strong>One Zone-IA &gt; </strong>Standard IA&#x27;den yüzde 20 daha ucuzdur. Veriler tek AZ&#x27;de tutulur yedeklilik yoktur. Kaybolması sıkıntı yaratmayacak sık erişmediğiniz veriler için uygun fiyatlı çözümdür.</p><p id="d8bb5a8b-240b-4fb5-9ace-892b29c842e6" class=""><strong>Glacier &gt; </strong>S3 servisinden bağımsızdır. Uzun süer saklamanız gereken ve çok çok nadir erişim ihtiyacı duyulabilen dosyalar için kullanılır. Fiyat anlamında diğerlerine göre çok uygundur. Minimum 90 gün dosyaya dokunmamanız gerekir. Eğer daha önce işlem yaparsanız 90 gün ücreti ödersiniz. İhtiyaç halinde 1-5 dk içinde erişebilirsiniz. </p><p id="3fcfca9f-43a4-40a1-b489-27546c5a4915" class=""><strong>Glacier Deep Archive &gt; </strong>En düşük fiyatlı çözümdür. Ulaşmak zorunda kalmayacağınız dosyalar için uygulanabilir. Ulaşmak istenildiğinde 12 saat ile 48 saat arasında çağrılma süresi vardı . Minimum 180 gün boyunca dokunmaycağınız dosyalar için kullanılır. Eğer daha erken çağrılırsa 180 gün ücreti ödenir. </p><hr id="ecaf8e7f-e2fb-49d1-8a9f-d1a30d1a8e99"/><h2 id="38997a5d-b30e-42ec-a837-4ae318abe8b8" class="">Ücretlendirme</h2><p id="e7e5e9e3-e664-4bf2-93fb-d65d63a2afaf" class="">Fiyatlandırma 3 aşamalı gerçekleşir.  Birincisi depoladığınız veri için GB başına ücret ödersiniz. ikinci aşamada depolanan veriye dış dünyadan erişim içinde GB başına ücret ödersiniz. Son olarak dış dünyadan yapılan istek başına da ücret ödenir. Ayrıca upload için ücretlendirme yapılmaz. Son olarak aynı region içinde  transfer işlemleri için de ücretlendirme olmaz. Bu hesap karmaşık olduğu için AWS&#x27;in hesaplama için yaptığı calculator&#x27;dan yardım alınabilir.  </p><p id="286da8ae-6a69-4e35-92b6-9ef9ba045f6c" class="">
+</p><hr id="ce5d893d-c91f-4822-99fa-02d0a6c0aa34"/><h2 id="93db8236-e9bf-4ced-bac0-4c180812e8df" class="">Objelerin Şifrelenmesi</h2><p id="262f65d6-cd5b-48d3-8143-f6686ff37843" class="">Bucket oluşturma aşamasında default şifreleme çeşiti seçilebilir. Objeyi şifrelemek için ise <strong>obje seçildiğinde Properties menüsünden &gt; Server-side encryption settings &gt; Edit </strong> ile giriş yapılabilir. Ayrıca herhangi bir obje seçili değil iken bucket&#x27;ın <strong>properties menüsünden &gt; Default encryption &gt; Edit </strong> seçilerek bucket kurulurken atladığımız default ayarı burdan yapabiliriz. Enable edildiği taktirde yeni eklenen dosyalar belirlenen yöntemle şifrelenmiş olacak. Ayrıca dosya upload edilirken properties kısmından da yükleme esnasında şifrelenmesi ve türü seçilebilir. Objeleri encryption için 4 method vardır. İlk üçü server tarafında(SSE) şifreleme türüdür.<div class="indented"><ol type="1" id="05eff8fa-c038-4dbf-9e60-75e57b37409a" class="numbered-list" start="1"><li>SSE-S3 : AWS S3 tarafından yönetilen anahtar kullanılır. Objeler Server tarafında şifrelenir. HTTP veye HTTPs ile upload yapılabilir.<figure id="544ed56d-c7c4-4e4e-89fc-00b179a3cdfd" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%209.png"><img style="width:1139px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%209.png"/></a></figure></li></ol><ol type="1" id="bb0997e2-bbf6-4aae-a377-5c8bc706d772" class="numbered-list" start="2"><li>SSE-KMS : AWS in Key Management Servisi kullanılarak anahtar yönetimi yapılır. HTTP veye HTTPs ile upload yapılabilir.<figure id="8e5b8a67-7899-4536-a6af-8a93866e9cb9" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2010.png"><img style="width:1127px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2010.png"/></a></figure></li></ol><ol type="1" id="e7da3007-524f-4ec2-8300-298b22e7f05c" class="numbered-list" start="3"><li>SSE-C : Kendi Şİfreleme anahtarınızı kullanırsınız. Sadece HTTPs ile upload yapılabilir. Anahtar S3&#x27;te depolanmaz. Bu seçenek konsoolda gözükmeyecek. CLI kullanarak yapabilirsiniz.<figure id="8b652895-9dc2-463d-ad95-ee0b08819554" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2011.png"><img style="width:1197px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2011.png"/></a></figure></li></ol><ol type="1" id="2f550685-2b74-4e25-a5e2-8145ca1a4fa1" class="numbered-list" start="4"><li>Client Side Encription: Obje şifrelenerek gönderilir. Şifrenin tekrar açılmasından da client sorumludur. Bu seçenek de konsolda gözükmeyecek.<figure id="92417892-d2d7-4c84-a231-71c01a04a71b" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2012.png"><img style="width:1180px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2012.png"/></a></figure></li></ol><p id="93fa290a-5275-401f-a12e-8bea578c10d4" class="">Şirelenen objenin properties menüsüne gelindiğinde detayları görebiliriz. Edit ile değişiklik yapabiliriz.</p><figure id="405f6921-a5a7-42f5-9bc6-d95462b8aff2" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2013.png"><img style="width:1641px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2013.png"/></a></figure><hr id="06c06e59-d3aa-4321-add0-71417556607f"/><h2 id="59bf4242-d68c-47b3-850f-5f716cadf43f" class="">S3&#x27;te Güvenlik</h2><p id="8c29674e-5729-4dbe-b8ae-93ad834c99ea" class="">İki türü vardır bunlardan birisi açıksa bucket&#x27;a eişim mümkün olur. <div class="indented"><ol type="1" id="94cb0ea1-8c54-4fdd-bf59-68ffe77a33ef" class="numbered-list" start="1"><li>Kullanıcı tabanlı erişim IAM Policy ile düzenlenir. </li></ol><ol type="1" id="9b0e9cf8-6752-4b39-bb81-3c8af0c92fc2" class="numbered-list" start="2"><li> Kaynak tabanlı erişim bunu da kendi içinde ikiye ayırıyoruz.<ol type="a" id="d261f409-dab3-4cf9-a96c-17a46d969b44" class="numbered-list" start="1"><li> Bucket Policy : Json formatında olmalı<figure id="e739f05e-f5f0-4c7e-a95a-8d7d63f085e5" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2014.png"><img style="width:336px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2014.png"/></a></figure></li></ol><ol type="a" id="556efe8d-06fc-4e77-a470-dac2f15a1ec7" class="numbered-list" start="2"><li> Access Control List(ACL). </li></ol><p id="077479b0-2bbf-4e3b-9468-f4c9d5465180" class="">Kaynakta düzenlemeyi policy ile yapabileceğimiz gibi obje veya bucket özelinde ACL de ayarlanabilir. S3 bucket&#x27;ına erişim için herhangi açıkca belirtilmiş bir engelleme yok ise ya IAM izinleri verilmiş olmalı veya Kaynak izin vermiş olmalıdır.</p></li></ol></div></p><p id="c002fc21-f14d-4235-878c-4c94a1e28547" class="">Public erişimi engellemek için 4 farklı seçenek mevcut.<div class="indented"><ol type="1" id="b7d3d578-1a50-4dcd-afc7-095257e1c2db" class="numbered-list" start="1"><li>Block public access to buckets and objects granted through new access control lists (ACLs) &gt;&gt; Bucket ve objelere yeni eklenen ACL&#x27;ler aracılığıyla erişimi engeller.</li></ol><ol type="1" id="96be382f-a96a-4839-9355-099b4ea704c0" class="numbered-list" start="2"><li><strong>Block public access to buckets and objects granted through </strong><em><strong>any</strong></em><strong> access control lists (ACLs)  &gt;&gt; </strong>Bucket ve objelere herhangi ACL&#x27;ler aracılığıyla erişimi engeller.</li></ol><ol type="1" id="21bd53aa-eedc-4054-b641-c2130f6a246f" class="numbered-list" start="3"><li>B<strong>lock public access to buckets and objects granted through </strong><em><strong>new</strong></em><strong> public bucket or access point policies &gt;&gt; </strong>Yeni public bucket&#x27;ların veya yeni accsess pointlerin erişimini engeller.</li></ol><ol type="1" id="31994d6c-c455-468d-9e10-f0f51488568a" class="numbered-list" start="4"><li><strong>Block public and cross-account access to buckets and objects through </strong><em><strong>any</strong></em><strong> public bucket or access point policies &gt;&gt; cross-account erişimlerini engeller.</strong></li></ol><hr id="78a7cb84-d9c7-4f55-9608-7aa9a059e7f6"/><h2 id="f2888e91-c218-4b55-8875-a642eb30ebb9" class="">Bucker Policy Girilmesi</h2><p id="f89a3f54-b444-4b37-93a5-ff1fa9815bc7" class="">Bucket içinde şifrelenmiş veri girmesin istenirse;</p><figure id="7b1b028d-553a-497c-9ff5-05e92255dc91" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2015.png"><img style="width:584px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2015.png"/></a></figure><p id="da495019-df96-4dae-acd5-9bec560159b4" class="">Yukarıdaki örnekte bucket&#x27;a SSE ile şifrelenmemiş obje upload etmeyi engelleyen policy ürettik. Buna ilave şifreleme türü de sadece AES256 olanlar deseydik aşağıdaki gibi ayarlayacaktık.<div class="indented"><pre id="9c41092e-2876-4308-ba6f-0d3def27926c" class="code"><code>Policy tipi &gt; S3
+Effect &gt; Deny
+Actions &gt; PutObject
+Amazon Resource Name &gt; ARN/*
+Condition &gt; StringEquals
+Key &gt; s3:x-amz-server-side-encryption
+Value &gt; AES256</code></pre><p id="c82616a2-ba6e-4241-862c-0d502e3785f2" class="">Seçimleri yukarıdaki gibi yaptıktan sonra Generate Policy dedikten sonra çıkan json kodlarını kopyalayıp policy bölümüne yapıştıacağız.</p></div></p></div></p><hr id="2ff74d65-5064-4013-adaa-4dd1043cb143"/><h2 id="53bf242d-c73d-4214-a8c5-9c17460c5616" class="">S3 ile Statik Web Sitesi Hosting</h2><p id="6bff2406-ca70-4245-9853-7c832f9bac5c" class="">Öncelikle oluşturduğunuz bucket&#x27;a html dosyanızı ve varsa bağlı fotoğrafları upload edelim. Dilerseniz hata durumunda karşınıza çıkması için bir error.html de yükleyebilirsiniz.</p><p id="731fbf2f-feaf-4036-bc8d-4e2b68f4480a" class="">Bucket Menüsünden &gt; Properties &gt; <strong>Static website hosting &gt; </strong>kısmına gelelim;</p><figure id="c5d163ca-11d6-4e24-8057-8d5c86e6759a" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2016.png"><img style="width:802px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2016.png"/></a></figure><p id="f4a81220-6b7a-47b2-b9d1-6629438706a5" class=""><strong>Static website hosting &gt; enable</strong></p><p id="752d8977-efac-48f4-864c-e3a5c31edcef" class="">Hosting type &gt; Host a static website.  Diğer seçenek sitenizin URL&#x27;ine ulaşmak isteyen kullanıcıları farklı bir siteye yönlendirmek için kullanılır. Seçim yapıldığında adres yazmanız için alan açılır.</p><p id="6e77b42a-ed83-4122-b89c-1f452530f6a9" class="">Index document &gt; html uzantışı hazırladığınız dosya ismi yazılır.</p><p id="ced0dfb0-9cd8-4c72-96e1-5cd7c32bc0e5" class="">Error document<em> - optional &gt; </em>istenirse hata durumunda karşınıza çıkmasını istediğiniz html uzantılı dosya adı yazılır.</p><p id="cc485d04-786e-4b1a-889e-c3c13f686840" class="">Properties menüsünün en alt kısmında aşağıdaki gibi bir endpoint sitenizin URl ini görebilirisiniz.<div class="indented"><figure id="8135319e-bd3b-4f02-a78f-510a7357621e" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2017.png"><img style="width:849px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2017.png"/></a></figure><p id="3cbaaeaa-53a9-4759-8234-c1e9b6393e7d" class="">Kopyalayıp açmaya çalıştığınızda hata ile karşılacaksınız çünkü dış dünyadan erişime açmadınız henüz.</p></div></p><p id="c155f979-a395-4dae-8ba6-42e8b0090832" class="">Permission menüsüne gelelim;<div class="indented"><p id="eafe9714-7d6e-43ed-973d-ac3f79587bf5" class=""><strong>Block public access (bucket settings) &gt; </strong>edit seçerek off konumuna yani tikler kalkmış pozisyona getirelim. Bu hareketle evinizin dışındaki çiti açmış oldunuz eviniz hala kapalı.</p><p id="e3745e3e-18cc-48d5-8564-d7a6359f4c5f" class=""><strong>Bucket policy &gt; </strong>edit diyerek yeni bir policy oluşturalım.<strong>  Dış dünyadan herkesin </strong> erişmesi için bir policy yazacağız. Generator kullanalım.<div class="indented"><p id="a5939fd3-a27b-428f-8b61-0b278e67f0fa" class=""><strong>Select Type of Policy &gt; S3</strong></p><p id="8be5d755-502d-45c2-9fd7-db4a17a97944" class=""><strong>Effect &gt; Allow</strong></p><p id="7f677e45-9fd7-44cc-8da2-0c7fa6cdbd83" class=""><strong>Principal &gt; *          </strong></p><p id="92f39f5b-af06-4439-9550-a70addc7fc07" class=""><strong>Actions &gt;GetObject</strong></p><p id="b274b177-5a6f-4b4f-8085-1a817c96245d" class=""><strong>Amazon Resource Name&gt; ARN/* (içindeki herşey anlamında ARN sonuna /* ekle)</strong></p><p id="e35a688d-5960-4957-ac74-7faa03988f0f" class="">Artık sitenize erişebilirsiniz.  Policy yazmadan da aşağıdaki resimde gösterildiği gibi bucket&#x27;ınızın içindekiler <code>make public </code> yapabilirsiniz.</p><figure id="24545ecd-db1e-41fe-848a-a3a28a459d42" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2018.png"><img style="width:1081px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2018.png"/></a></figure></div></p></div></p><h2 id="d07a62f3-cbd9-47f6-b600-61d87a1ff7c2" class=""><strong>Cross-origin resource sharing (CORS)</strong></h2><p id="54cb3bd5-d1a7-4664-97e5-ea6ca1100bbd" class="">Öncelikle ne olduğunu anlayalım konunun. Origin yani köken protokol(HTTP, HTTPs gibi), host(domain), ve port değerlerinden oluşur.  Kökenler arası kaynak paylaşımı anlamına gelir.</p><p id="6dc8d8b4-22f9-4647-8836-bdebcf3b57da" class="">Örnek: <a href="https://www.example.com/">https://www.example.com</a> ( port 443  HTTPS, 80  HTTP)</p><p id="86d72355-c528-4a19-b297-ea21c984ce0b" class="">CORS ise bir web uygulamasının içerisinde farklı bir kökende yer alan web uygulamasına erişim kontrolü sağlayan mekanizmadır. </p><figure id="981664d7-9e5f-43b3-99e1-8063a6aeb37c" class="image"><a href="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2019.png"><img style="width:898px" src="S3%20(Simple%20Storage%20Service)%20cb8b2b6ae7f14d5184cb73a01a3b2bc2/Untitled%2019.png"/></a></figure><p id="b7a3d1fc-8601-4f2c-b667-a96180c70951" class="">Yukarıda örnekte görüldüğü gibi diyelim sizin <a href="http://domain-a.com">domain-a.com</a> isimli web uygulamanız var. Siz <a href="http://domain-b.com">domain-b.com</a> web uygulamasındaki  içeriğer erişmek istediğinizde domain-b CORS ayarlarıyla size bu izni vermesi gerekmektedir.</p><p id="e9c23dde-b883-4732-bc68-016636351ccf" class="">S3 bucket&#x27;larında nasıl oluyor bu olay? Herhangi bir istemci sizin buucket&#x27;ınızda bulunan websitesine erişmek istediğinde siz bunu CORS ayarların belirtmenin gerekiyor CORS izinleri ile spesifik bir istemciye izin verebilirken &quot;*&quot; karakteri ile tüm istemcilere izin verebilirsiniz. </p><p id="3c25f2d4-072a-409a-b0ab-fcf88761087c" class="">Bir uygulama yapalım daha iyi oturacaktır. Çok fazla resim kullanmayacağım çok uzamış olacak madde madde tarif edeceğim.<div class="indented"><ol type="1" id="8c38ea90-1ff4-4256-bae9-9c282ae2d4d1" class="numbered-list" start="1"><li>Yeni bir bucket oluşturalım kokbucket ismini verdim siz faklı vereceksiniz ve içine bir adet html dosyası attım.</li></ol><ol type="1" id="583989e5-f30d-46ec-8c6b-475e06f02383" class="numbered-list" start="2"><li>Bucket ayarlarından <strong>Block public access (bucket settings) &gt; hepsini off </strong>yapalım.</li></ol><ol type="1" id="c060a23b-a693-4f1d-9f1a-622360c247d7" class="numbered-list" start="3"><li><strong>Bucket policy </strong> kısmına gelip getobject izin veren bir policy belirleyelim. Bucket policy anlattığım yere dönebilirsiniz. Veya action kısmından make public de yapabilirsiniz. </li></ol><ol type="1" id="b7e0546c-5a69-4dd8-a5f4-10a09b7db4fc" class="numbered-list" start="4"><li>Properties menüsünden <strong>Static website hosting </strong> ksımına gelelim enable yapalım ve html dosyamızın adını yazalım. End point ile kontrol edin sayfanızı görebildi iseniz devam edelim.</li></ol><ol type="1" id="9fc4eaaa-c282-48a3-a682-13fd489b1279" class="numbered-list" start="5"><li>Yeni bir bucket daha oluşturalım ben digerbucket ismini kullandım ve aynı web hosting için gerekli işlemleri onun için de yapalım. </li></ol><ol type="1" id="61f22b3d-52dd-49ee-800f-e84a13997e13" class="numbered-list" start="6"><li>kokbucket içindeki index.html içerine bir kod ekleyim tekrar yükleyeceğiz. Kodu aşağıda paylaşacağım degerbucket olarak yazdığım url kısmını kendinize göre değiştiriniz. fetch ile diger bucket içirisindeki veriye ulaşmaya çalışıyoruz.<pre id="64647159-576c-454b-8913-e58f92097eb3" class="code"><code>&lt;div id=&quot;tofetch&quot;/&gt;
+    &lt;script&gt;
+        var tofetch = document.getElementById(&quot;tofetch&quot;);
+
+        fetch(&#x27;http://digerbucket.s3-website-us-east-1.amazonaws.com/extra-page.html&#x27;)
+        .then((response) =&gt; { 
+            return response.text();
+        })
+        .then((html) =&gt; {
+            tofetch.innerHTML = html     
+        });
+    &lt;/script&gt;</code></pre></li></ol><ol type="1" id="53969cea-5c2b-42b6-aa4c-15871d3c7f3b" class="numbered-list" start="7"><li>kokbucket sayfanızı yenildeiğinizde bu içeriği göremeyeceksiniz. Çünkü CORS izni vermedik.  Error çıkmacak geliştirici ayarları kısmında hataya bakabilrisiniz.</li></ol><ol type="1" id="2fbe385c-7e2d-4f95-baed-0dd49344dd95" class="numbered-list" start="8"><li>digerbucket permission menüsünde CORS kısmına gelelim. Edit diyelim ve aşağıdaki kodu yapıştıralım. <pre id="e825c125-3bad-4c89-86d7-4d32911c0f5d" class="code"><code>[
+    {
+        &quot;AllowedHeaders&quot;: [
+            &quot;Authorization&quot;
+        ],
+        &quot;AllowedMethods&quot;: [
+            &quot;GET&quot;
+        ],
+        &quot;AllowedOrigins&quot;: [
+            &quot;http://kokbucket.s3-website-us-east-1.amazonaws.com&quot;
+        ],
+        &quot;ExposeHeaders&quot;: [],
+        &quot;MaxAgeSeconds&quot;: 3000
+    }
+]</code></pre><p id="643a322d-b6dd-4803-8d3a-a960f703330c" class="">AllowedOrigins &gt; kısmına hangi web uygulaması erişmek istiyorsa onu yazın vaya &quot;*&quot; yazarsanız da tüm istemciler erişebilir.</p></li></ol><p id="a381a555-1e25-41cd-b16a-7b7e5588a7ca" class="">
+</p><p id="ae1ccb41-879c-433a-bcec-75bbca1d184e" class="">
+</p></div></p></div></p></div></article></body></html>
