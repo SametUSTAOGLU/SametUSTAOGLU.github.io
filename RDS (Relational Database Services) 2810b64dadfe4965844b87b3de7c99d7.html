@@ -1,0 +1,659 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>RDS (Relational Database Services)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="faa44f1b-54d4-4e25-9f49-d414da034d55" class="page sans"><header><h1 class="page-title">RDS (Relational Database Services)</h1></header><div class="page-body"><figure id="2810b64d-adfe-4965-844b-87b3de7c99d7" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled.png"><img style="width:576px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled.png"/></a></figure><p id="7f65c65f-ca18-4736-808b-6632cfb37a04" class="">Bu yazımızda AWS in ilişkisel veri tabanı servisi olan RDS&#x27;i göreceğiz. Kısa bir giriş yapalım neden veritabanı kullanırız? Diskimiz üzerindeki verileri daha sonra çağırmak üzere düzenli şekilde kullanabilmek için veritabanlarını kullanırız. Bunun için verileri belirli yapılarda depolarız. Günümüzde kullanılan iki tip veritabanı tipi vardır. SQL ve NoSQL.</p><figure id="3a4989b9-da54-4d1c-8847-da28cecde1f5" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%201.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%201.png"/></a></figure><p id="8b8c79a4-6360-4deb-8acc-59fc1b90bf8a" class="">SQL&#x27;de veriler tablolar halinde tutulur. Farklı tabloların birbiri arasında ilişki kurmasına ve join(birleştirme) yapılmasına müsaade eder. SQL dili sorgulama yapılabilir. Önceden şablon belirlenmelidir. Yani siz belirli bir planın dışına çıkmazsınız. Bu SQL&#x27;in en büyük dezavantajıdır. Başlangıçta kurduğunuz kurgudan uzaklaşamazsınız. Excel gibi düşünebiliriz satır olarak veri örneklerini sütun olarak da verinin özelliklerini gösterir. </p><p id="124031e5-108f-4fbf-bea9-34e958b4b920" class="">NoSQL ise doküman tabanlıdır. SQL&#x27;in yukarıda bahsettiğimiz dezavantajını kullanabilmek için geliştirilmiştir. Yani veri tablolar halinde değilde json formatında doküman tutulur bu yüzden esneklik vardır. Önceden şablon belirlemenize veya şablon içerisinde kalmanıza gerek yoktur. Verinin şekli değişken olabilir. Veriler key-value (anahtar-değer) olarak depolanır. Join işlemleri yapılmaz, SQL dilini desteklemez. Basit sorgular üretilebilir. AWS&#x27;in NoSQL çözümü Amazon DynamoDB&#x27;dir daha sonra inceleyeceğiz.</p><p id="1951eacb-7a4c-4e12-bb8a-f8bff1ca7595" class="">Biz bu yazıda ilişkisel yani SQL servisi olan içerisinde Orcale, MySQL, Microsoft SQL Server, ve kendi ürünü Aurora gibi birçok veritabanı motoru çeşidi bulunan RDS konusunu işleyeceğiz. Amazon Aurora MySQL ve PostgreSQL altyapıları üzerine kurulmuştur. Diğerlerine göre yaklaşık 5 kat daha hızlı ve üccret olarak diğerlerine nazaran 1/10 (onda bir) gibi düşük bir maliyeti vardır.. AWS de siz bir database oluşturduğunuzda database&#x27;in çalışcağı instance&#x27;ı kendisi oluşturur. Veri tabanın koştuğu instance veritabanı bakımı, kurulum AWS tarafında, veri manipülasyonu kullanıcı sorumluluğundadır.</p><hr id="3f7be826-d460-46b8-8e0c-2a542b3391a0"/><p id="7c8d43de-33b0-44cf-a7c4-72feeda897ab" class="">Konsola geçemeden kabaca neler yapacağız onları konuşalım. 3 aşamalı kurulum yapacağız. Sanki normal bir instance ayağa kaldırır gibi aşağıdaki işlemleri yapacağız.</p><p id="b43be86f-4f69-49a6-9710-b86e46eebfd3" class="">Birincisi, veritabanı tipi seçilir(Orcale, MySQL, Microsoft SQL, Aurora vb). </p><p id="b5e02aec-66de-4a43-9fbe-a5484dce53e7" class="">İkinci olarak veritabanının üzerinde koşacağı sanal makine tipi seçilir. Tip seçerken CPU ve RAM önemlidir. Stop instance seçilemez, On-Demand veya Reserved seçenekleri kullanılabilir. Bir RDS instance&#x27;ı manuel olarak stop edebiliriz fakat en fazla 7 gün stop pozisyonunda kalır daha sonra kendisi tekrar başlatır. Başlangıçta belirlediğiniz makineyi yetersiz kalması durumunda kesinti olmaksızın daha yüksek özellikli tipleriyle değiştirebilir ve disk değişimi yapabilirisiniz.</p><p id="6efc66aa-42cc-4c71-afbf-b7907c920bc8" class="">Ücüncü olarak disk seçimi yapılır. Veritabanı&#x27;na erişimi, okuma ve yazma hızlarını etkiler. Veritabanlarında okuma-yazma hızları oldukça önemlidir. Disk olarak da General Purpose, Provisioned IOPS ve Magnetic olarak 3 seçenek mevcuttur.  General Purpose fiyat-performans ürünüdür 🙂. 20GB - 64TB arası veri depolanabilir. Hız verinin boyutu ile orantılıdır. GB başına 3 IOPS olmakla birlikte maksimum limit 3000 IOPS dur. Provisioned IOPS&#x27;da ise extra hız gerektiren işlemlerde kulanılır. 1000 IOPS&#x27;dan 80000 IOPS&#x27;a kadar seçilebilir. Magnetic eski bir çözümdür ama hala kullanılır maksimum 3 TB  depolama ve 1000 IOPS değeri sağlanabilir.</p><p id="98b2e9b6-b71d-4f96-ae90-9ac43edbec24" class="">Yedekleme veritabanlarında çok önemli bir mevzudur. Otomatik veya manuel yedekleme yapılabilir. Otomatik yedekleme de bizim verdiğimiz zaman aralığı boyunca ve belirlediğimiz zamanda gerçekleştirir. 7 günden 35 güne kadar yedekleme seçilebilir. Yedekler S3&#x27;te depolanır. Ayrıca yedekler ile birlikte Transaction Log kayıtları da tutulur. Bu loglar 5 dakikada bir alınır ve bu sayede siz spesifik bir zamana geri dönüş sağlayabilirsiniz. Yedekten geriye dönmek istediğinizde yeni bir DB instance oluşturarak dönüş sağlanır, var olan instance ile devam edilemez. Manuel olarak da istediğiniz anda ve isteğiniz kadar snapshot oluşturabilirsiniz. Burada önemli bir durum var. DB instance&#x27;ınızı sildiğinizde otomatik back-up&#x27;lar silinirken manual back-up&#x27;lar silinmez. </p><p id="e4971530-879f-4a62-a156-f2f07c478fd7" class="">Konsola geçmeden önce anlatmak istediğim iki konu daha var birincisi Multi-AZ diğeri ise Read Replica özellikleri. </p><p id="7b64932d-fe39-4433-a56e-3efac85c0521" class="">Multi AZ özelliği sayesinde kesintisiz çalışma ve olumsuz şartlardan korunma sağlar. Bu seçenekte aynı anda aynı region&#x27;da farklı AZ&#x27;lerde iki DB instance oluşturulur. Bir AZ&#x27;deki instance aktifdir diğeri pasiftir ama tamamen senkrondur. Asıl DB instance&#x27;ın çalışması herhangi bir sebeple durursa pasik olan aktif konuma geçerek operasyon devam eder. Amaç performans artışı değildir operasyon sürekliliğidir. Performans artışı için bahsettiğim ikinci konu read replica&#x27;ya bakalım.</p><p id="501d7b39-fc6b-459a-8cf9-b7d15ddfc666" class="">Read Replica sayesinde aynı özellikli fakat sadece okuma yapılabilen replicalar oluşturup ana makinenin iş yükünü azaltarak performans artışı sağlanır. Veritabanlarına okuma ve yazma olarak iki çeşit işlem yapılır. Okuma sayısı yazmaya oranla çok daha fazladır. Okuma sayısının fazlalığından dolayı database&#x27;i yormamak için aynı database&#x27;in sadece okunabilen kopyaları oluşturulup aynı veya farklı region&#x27;larda tutulur. Sadece biri yazma yetkisine sahipken diğerleri sadece read-only tanımlanır. Burada amaç perfomans artışıdır. Herhangi bir arıza durumunda yedeklilik değildir Multi-AZ ile karıştırılmamalıdır.</p><hr id="0b3b44fc-151f-4d90-aa99-abd2489332d7"/><p id="b70a8188-402d-4939-81ca-d616f0b1442d" class="">Konsola geçelim, arama çubuğuna RDS yazalım. RDS servisine geldikten sonra Create database&#x27;e tıklayalım.</p><figure id="0e11f141-c4ea-43ba-bb27-7b755c04ee7e" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%202.png"><img style="width:1886px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%202.png"/></a></figure><figure id="337609c0-5f48-4193-b3e1-f880d99c3e32" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%203.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%203.png"/></a></figure><p id="aed2f2f5-401f-4278-8d07-6fee97ecff88" class="">İki seçenek ile kurulum yapabiliriz. Standart ile tüm özellikleri kendimiz seçeriz. Easy create ile bir çok özelliği default seçilerek, daha az girdi ile daha hızlı oluşturma yapabiliriz.</p><p id="ca04f246-746c-4444-a3dd-2757912bc17b" class="">Hemen altında veritabanı tipimizi seçiyoruz hangisini istiyorsak onun engine type&#x27;ını seçeriz. Free tier özelliği olan Mysql seçeceğiz.</p><figure id="848c1d51-f23b-41dd-be87-cffee472c661" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%204.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%204.png"/></a></figure><p id="d6ab937b-380e-46dd-8ba9-97e8b29d834c" class="">Versiyon seçimi ile devam ediyoruz. Bu kısım şurada önem kazanıyor eğer sizin kullandığınız yazılım için bir kısıt yoksa son sürümü seçebilirsiniz eğer kısıt varsa daha düşük seçmeniz gerekebilir aksi halde uyumsuzluk yaşayabilirsiniz.</p><figure id="7e67f089-5bff-4044-a679-0ff573ce2a8f" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%205.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%205.png"/></a></figure><p id="92ca6836-2be1-4b82-bb69-26dec7333362" class="">Templete için 3 seçenek mevcut. Eğer production&#x27;da kullanacaksak hızlı ve yüksek güvenirlilik sağladığı için Prduction seçmeliyiz. Geliştirme ve testler için Dev/Test templete&#x27;i veya bizim gibi para yazmasın ucundan biraz bakcaz derseniz de free tier seçebiliriz 🙂</p><p id="b064ac56-4607-4650-9743-168660fd5ad5" class="">Setting kısmında öncelikle veritabanı motoru bir instance üzerinde olacağı için bu iş için açılacak instance&#x27;ınıza hesabınızda kullanmadığınız bir isim verin.</p><p id="b3360e06-3d33-444d-bc8a-6c0e63f15237" class=""><strong>Credentials Settings </strong>kısmındaki master username ve şifre önemli geliştirme ortamlarında veritabanına ulaşmak için kullandığınız username ve şifreyi burada belirliyoruz. Ayrıca MySQL Workbench gibi uygulamalarla database&#x27;e bağlanırken de bu şifreye ihtiyacımız olacak.</p><figure id="5dd3bc96-5aeb-40d1-929a-96aa410f5883" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%206.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%206.png"/></a></figure><p id="d690df93-a292-4862-a46b-066171e11b4c" class=""><strong>DB instance class &gt;</strong> seçeneğiyle veritabanı kullanım amacınıza göre instance tipinizi seçiyorsunuz. Biz templete olarak free tier seçtiğimiz için sadece t2.micro kullanabileceğiz.</p><p id="5653ac5b-68cf-4d0b-a840-a7922f84cdeb" class=""><strong>Storage </strong>&gt; seçeneğiyle öncelikle tipini seçiyoruz. Burada okuma yazma hız ihtiyacınız ön plana çıkıyor. Eğer yüksek değerlere ihtiyacınız varsa Provisioned seçip IOPS değerini kendiniz seçebilirsiniz. General purpose olarak bırakırsanız da verinin boyutuna göre performance ayarını kendisi yapar.  Hemen altında ihtiyacınıza göre depolama boyutu seçiyoruz.  Storage autoscaling ile de depolama için gereksinimi otomatik artırma yaptırabiliriz depolama alanı azaldığında kendisi sitemi büyütecektir. Burada maksimum değer de seçilebiliyor.</p><p id="975eabb8-2d1d-4606-9468-b8d606ef96a9" class=""><strong>Availability &amp; durability &gt; </strong> bizde aktif olmayacak yukarıda bahsettiğimiz Multi AZ seçimi burada yapılıyordu. Bu seçenek ile aynı özellikli bir instance daha farklı AZ&#x27;de paralel çalışır aynı anda birisi aktiftir diğeri pasiftir ama sürekli senkronizasyon sağlanır. Olumsuz durum oluşursa pasif olan aktif duruma geçer. Süreç kesintiye uğramaz.</p><figure id="5a9aa2dd-34a3-4799-bd73-0a43fb3b279f" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%207.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%207.png"/></a></figure><p id="54689238-8b8d-4b37-af22-c2bdd4f5a98e" class="">Connectivity ile VPC , subnet grup, Security Grup, public erişim olsun veya olmasın, AZ ve port seçimi yapılır. VPC burada seçildikten sonra değiştirilemez. Database portu olarak 3306 seçilir, SG da buna göre yapılmalıdır. Genellikle veritabanları public erişime kapalı olur. No seçildiğinde VPC dışından doğrudan erişim mümkün olmaz. Biz dışarıdan ulaşacağımız için yes olarak seçelim.</p><figure id="c0910dd1-6360-4f8d-b0d0-a65f80da7eaa" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%208.png"><img style="width:480px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%208.png"/></a></figure><p id="43ab1521-8957-46c3-811a-8fdfc39dbe7d" class="">Database&#x27;e erişim için sadece şifre veya şifre ile birlikte belirlenen IAM User veya IAM role ile kıstılamalar koyabiliriz.</p><figure id="7bdb8c02-ee04-4225-9895-ded1f75f831c" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%209.png"><img style="width:480px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%209.png"/></a></figure><figure id="9d96d04d-1598-4263-b7dd-36ca79a4779f" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2010.png"><img style="width:480px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2010.png"/></a></figure><p id="98fe02ee-de19-4136-a92c-a7531d035a7b" class="">Ek ayarlar ile Initial Database Name ile database&#x27;imiz&#x27;e isim veriyoruz. Varsa parameter grup seçebiliriz. </p><p id="b52ed89b-4943-4306-841e-032df8e8274f" class="">Enable automated backups &gt;&gt; ile altta belirtilen period ile otomatik yedek alır. Kaç gün geriye dönük yedek istiyorsak o değeri gireriz. 35 güne kadar seçim yapılabilir. 35 seçtik diyelim son 35 günün back-up&#x27;ı tutulur 36. gün ilk günün back-up&#x27;ı silinir.</p><p id="40c538bd-3084-45f3-bf4b-a8bdc949bcb8" class="">Backup window &gt;&gt; kısmından Select windows seçilirse yedek almak için başlangıç zamanı ve süre seçili yapılabilir. Çok kullanılmayan bir saat seçilmeli. Çünkü performan düşüşüne sebep olacaktır.</p><p id="75267e35-d4fa-4423-be8a-15406e2aa9e5" class="">Monitoring &gt;&gt; ile ücreti mukabil CPU analizi için detaylı izleme yapılabilir.</p><p id="0b7f6fdc-0a3f-4ae2-93c3-552cb9bb302e" class="">Log export &gt;&gt; ile hangi log tiplerini CloudWatch ile takip etmek isteiğimizi seçiyoruz.</p><figure id="60ad878b-d579-484b-9704-2f8b68c9cd4e" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2011.png"><img style="width:528px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2011.png"/></a></figure><p id="b4bf5523-c161-42d1-b3ed-317242ae50ba" class="">Enable auto minor version upgrade &gt;&gt; ile veritabanı sürümünde küçük değişiklikler olursa otomatik güncelleme yapılsın mı seçeneği. Küçük büyük olayını da şu şekilde düşünelim 7.1 sürümünden 7.2&#x27;ye geçiş büyük bir değişikliktir ama 7.1.1&#x27;den 7.1.2&#x27;ye geçiş küçük bir değişikliktir. Bu geçişi otomatik yapmayı sağlar. </p><p id="0b5ee5c8-5250-4572-9f5b-185d2f8de640" class="">Maintenance window &gt;&gt; ile de yukarıdaki değişikliği ne zaman yapsın onu seçeriz. Diikat edelim önemli bir nokta var bu kısımda. Burada seçtiğiniz zaman dilimi ile otomatik back-up zaman dilimi çakışmamalı.</p><p id="b6ee4ccd-f90a-4025-b18a-6530dbcbb14c" class="">Deletion protection &gt;&gt; ile de database&#x27;in yanlışlıkla silinmesini engelleyebiliriz. Enable seçtik ve daha sonra silmek istersek Modify seçeneği ile yapabileceğiz.</p><p id="52c97f28-98b5-416f-ac19-0083544e0101" class="">En alt kısımda Estimated Montly Cost çıkacak. Bu kısma dikkat edelim Free Tier olduğunu teyit edelim aksi halde burada bir fiyat görürseniz free tier&#x27;dan çıkacak bir seçim yapmışsınız anlamına gelir.</p><p id="d738b0b2-d2d0-44e1-9f70-845de60f177e" class="">Create database ile kurulumu başlatalım. Kurulum biraz zaman alacak.</p><hr id="bd953821-adb5-4961-80f1-9dee78162e92"/><figure id="7c019994-4e18-4098-9c59-bd76df2b330d" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2012.png"><img style="width:480px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2012.png"/></a></figure><p id="45d4ffb2-458d-4d26-8425-aaab886bbeb9" class="">Database&#x27;e görsel arayüz için bir program yüklememiz gerekecek mysql için bu programın adı MySQL Workbench. İndirip bilgisayarınıza kurabilirsiniz. Bağlatıyı bu şekilde sağlayacağız. Bağlantı için DB instance için konsoldan Security grubu kontrol edin 3306 portundan kendinize izin vermeniz gerekecek. Daha sonra Connectivity menüsünden Endpoint&#x27;i kopyalayın. Workbench&#x27;e gelip yeni bağlantı için &quot;+&quot; sembolüne tıklayın.</p><figure id="65205827-e1b7-4615-a2b1-5ff465844d6b" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2013.png"><img style="width:528px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2013.png"/></a></figure><p id="aa7529da-7415-4bbb-b634-b90b4b889138" class="">Bağlantı için isim girin ne girildiği önemli değil programın arayüzünde görünecek sadece.</p><p id="93340e90-a518-4606-b681-a3978bdc3f8e" class="">Hostname kısmına endpoint&#x27;i yapıştırın. Endpoint&#x27;inizi RDS&gt;Database&gt;İlgili DB seçilerek Connectivity and Security menüsünden kopyalayabilirsiniz.</p><p id="33727072-9dd7-4ca7-a88f-6d0b4c5a8233" class="">Port 3306 girmiştik kalsın.</p><p id="c3b000ea-f39b-4641-8a99-4b241878458c" class="">Username ve şifreyi de kurulum RDS servisinde database kurulumu esnasında belirlemiştik.</p><p id="8178675f-18e7-44b0-8039-1399c8b7be1f" class="">Password giriş için store in vault&#x27;a tıklayın ve yeni açılan pencerede girin.</p><figure id="aa0498fd-f965-41f6-bf12-eb0d48333423" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2014.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2014.png"/></a></figure><p id="8f5acc25-a72c-4a15-b0b3-5216553d285c" class="">Tebrikler RDS ile bağlantıyı sağladınız 😉 Inıtial Database name olarak muhasebe_db girmiştik onu görüyoruz ayrıca kendi default sys isimli database görülüyor.</p><div id="b1938d67-44d5-4133-8ac7-6e09d8877e9e" class="column-list"><div id="b24ced6e-5eb2-40c5-86b2-b5b635d407de" style="width:37.5%" class="column"><figure id="497b0023-43c2-494e-b717-d59c48cc5ddf" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2015.png"><img style="width:384px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2015.png"/></a></figure></div><div id="acb3fdf9-507f-4799-a76d-d1c2dd7d62e6" style="width:62.5%" class="column"><figure id="904fca79-9c38-4f7b-8350-4a7badaba504" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2016.png"><img style="width:480px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2016.png"/></a></figure></div></div><p id="7a784b41-e398-4158-923c-6279a64aa658" class="">Create table ile muhasebe database&#x27;i içerisinde yeni tablo oluşturacağız. Maaşlar adıyla yeni bir tablo yaptım ardından AD, PER_ID, MAAS isimli kolonlar oluşturdum ve apply&#x27;a bastım.</p><figure id="d2367a60-4fe7-489b-b7e5-0a0fa4585396" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2017.png"><img style="width:975px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2017.png"/></a></figure><p id="4c8b92d1-1742-4acb-b9d9-f5a63462ad4f" class="">Açılan sayfada kontrol edip apply dedim. Görsel arayüzle yaptığım işin SQL sorgu şekli aslında.</p><div id="2bbffec0-c633-4256-b201-659c0577b53a" class="column-list"><div id="1b045239-4c70-4484-8985-fdae3417748f" style="width:50%" class="column"><figure id="71f71aff-729a-499f-b523-9989a6c94c92" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2018.png"><img style="width:432px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2018.png"/></a></figure></div><div id="b15d733f-e835-4aa7-80e5-dd1de3b5734d" style="width:50%" class="column"><figure id="e11e7179-d220-46fc-9e52-64214dbfeac1" class="image"><a href="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2019.png"><img style="width:405px" src="RDS%20(Relational%20Database%20Services)%202810b64dadfe4965844b87b3de7c99d7/Untitled%2019.png"/></a></figure></div></div><p id="e68dc16a-6dca-4a06-ba63-cdb275686b74" class="">Yukarıda gördüğünüz gibi SQL komutlarıyla veri girişi yapıp yine SQL komutlarıyla içeriğine bakabiliriz. </p><p id="dce72360-6cfe-439b-ac1d-d4ec0d92508c" class="">
+</p><p id="1ef856ec-e62b-4e16-ad65-ef3218878644" class="">
+</p><p id="e32a6aed-353d-4c08-b307-f10bbd79a409" class="">
+</p></div></article></body></html>
