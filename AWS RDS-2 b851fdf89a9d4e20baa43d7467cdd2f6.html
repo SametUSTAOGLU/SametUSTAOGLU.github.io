@@ -1,0 +1,662 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS RDS-2 </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d949a699-4e0d-4fe0-bbbe-fe8f45299834" class="page sans"><header><h1 class="page-title">AWS RDS-2 </h1></header><div class="page-body"><p id="b7fc1bac-5236-44bb-a154-3c33352ee918" class="">RDS ile ilgili ilk yazımda database kurulumundan bahsettim ve devamında mysql workbrench uygulaması ile database&#x27;e bağlanıp veri manipulasyonu yaptık. Bu yazıda RDS ile ilgili biraz daha derine ineceğiz.Öncelikle Left-Hand menü ve database iç menüsüne bakacağız. Sonra manual ve otomatik snapshotlar alıp geçmişe dönmeye çalışacağız. Son kısımda ise olan database üzerinde modify işlemleri ile önce kapalı olan multi-AZ özelliğini açıp ne işe yaradığına bakacağız. Daha sonra da yine modify ile read replica özelliğini açıp ne işe yaradığını görmeye çalışacağız.</p><hr id="923f5f75-0a2b-4ef1-8c83-21499cf97251"/><p id="6898e9dc-fa84-47ca-8d66-7cf88d267579" class="">Sol konsola(Left-Hand Menu) biraz bakalım.</p><div id="60463c9d-0c9f-4db4-8445-3aa20305915b" class="column-list"><div id="e8eb35b2-a899-4f4d-b406-9281a95163db" style="width:50%" class="column"><figure id="b851fdf8-9a9d-4e20-baa4-3d7467cdd2f6" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled.png"><img style="width:432px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled.png"/></a></figure></div><div id="b1e598e8-4850-42e4-b333-86993a39e153" style="width:50%" class="column"><figure id="f2f17a03-0e17-488c-97d1-71c2268a7002" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%201.png"><img style="width:532px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%201.png"/></a></figure></div></div><p id="c89ba4a0-7518-4e49-b939-b854fd3d178c" class="">Performance Insights ile database&#x27;inizin performansını takip edebilirsiniz. Database&#x27;in verimli çalışması önemli. Bu menü ile geçmişe dönük performansı takip edebilirsiniz. İlerisi için önlemler alınabilir. Veritabanı açılırken seçimi yapılmalıdır.</p><figure id="191b3cbc-2297-4780-abed-4238878720e4" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%202.png"><img style="width:1815px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%202.png"/></a></figure><p id="384dcfbb-0edc-4c7c-9ebd-5da389d0ea02" class="">Database&#x27;lerin yedeklenmesine snapshot almak diyoruz. Bu menüde snapshot&#x27;ları görebilirsiniz. İki tür yedek alma vardır. Birincisi otomatik bizim belirlediğimiz konfigurasyon dahilinde yapar. Diğeri ise manuel yedek alma o andaki Database&#x27;inizin kopyasını oluşturursunuz. Otomatik yedekleme de yedek alırken 5 dakika bir oluşan Transaction log da oluşturur. Bu sayede spesifik bir zamana geri dönüş yapabiliriz. Uygulamalı bakacağız bu kısma yazının devamında.</p><div id="a0758cba-bdc3-4165-b48b-82d28a574149" class="column-list"><div id="9449f588-8b88-435f-9fbe-ee9067d83bc8" style="width:50%" class="column"><figure id="f5edecbd-b60a-4adc-a977-888244f06cd6" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%203.png"><img style="width:1828px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%203.png"/></a></figure></div><div id="85fb3768-4cbc-4225-9e99-37e81f698980" style="width:50%" class="column"><figure id="318f989c-cfa3-43e1-93c1-2ee230a1e18c" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%204.png"><img style="width:336px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%204.png"/></a></figure></div></div><p id="0e380ab7-6cbd-425c-9b0f-1a21df9f234d" class="">RDS instance için iki çeşit olabilir demiştik birincisi on-demand ikincisi ise reserved seçeneği idi. Daha uygun ücretlerle reserved instance istediğimizde bu menüden yapacağız. Belli bir kısmını veya tamamını ödeyerek daha uygun ücretlerden faydalanabilirsiniz.</p><figure id="08cdb950-346b-444f-88e6-0dedaf41c373" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%205.png"><img style="width:1801px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%205.png"/></a></figure><p id="29bc745d-5b43-40af-a09a-2633a3a2a869" class="">Subnet group ayarladığınızda sadece belirlediğiniz subnetlerde database oluşturabileceksiniz. Eğer siz yapmazsanız default subnet group herhangi bir AZ&#x27;de Database oluşturabilir çünkü default seçeneğinde hepsi seçilidir. Siz Database&#x27;i ayırmak için kullanabilirsiniz.</p><figure id="3a58903e-ba7c-4767-9384-3fb84a83b7c7" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%206.png"><img style="width:1814px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%206.png"/></a></figure><p id="bbf277e6-0a6f-4585-af6d-d1e377b7ea30" class=""><strong>Parameter groups</strong> özelliği her database engine için ön tanımlı ayar yapabilmenize olanak sağlar. Öncelikle bir database engine ve sürüm numarası seçilerek bir grup oluşturulur. Daha sonra içine girilerek default ayarlamaları kendinize göre yapabilirsiniz. Biraz derin konudur. Database adminlerin yaptıkları ayarlar diyebiliriz. </p><p id="396e3e88-ff60-4c95-a650-375c19474763" class="">Hemen altında <strong>Option groups</strong> seçeneği var. Çok az ayar var database&#x27;ler özelinde buradan seçimler yapabilirsiniz.</p><p id="9189c7cc-8008-48e9-b79c-d039f96110d4" class="">Onun altında <strong>Events</strong> seçeneği var. DB instance oluşturuldu, snapshot alındı vs gibi gerçekleşen önemli olayları takip edebilirsiniz. Burada bütün database&#x27;leri göreceğiz daha sonra iç menülerde de events seçeneği olacak. Orada sadece seçilen database&#x27;in olaylarını takip edebileceğiz.</p><figure id="ed7a4918-750a-487c-97b1-e3b9cc229b0f" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%207.png"><img style="width:1814px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%207.png"/></a></figure><p id="7a40e886-fc85-4abc-9458-0e8f87018981" class="">Event subscriptions seçeneğinde ise gerçekleşen olaylar için alarmda bildirim alma özelliğini açabilirsiniz. Seçtiğiniz olaylar için mail olarak bilgilendirme yapılır.</p><figure id="c771e76b-1aaf-49e0-b18a-1bcf838e7622" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%208.png"><img style="width:1806px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%208.png"/></a></figure><hr id="8bc6455b-5649-40e2-a89c-5e658af2cdf7"/><p id="ae2ef684-226d-4300-a6ea-51502157d2c0" class="">Left-Hand menüyü anlattık kısaca şimdi de database&#x27;imizi seçelim ve iç menüye bakalım.</p><figure id="019ebed2-13e0-425b-9b80-797c52837e83" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%209.png"><img style="width:797px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%209.png"/></a></figure><p id="82a0d640-2efd-4ef7-9138-c2f66b5bca5e" class="">1, 2, 3 &gt;&gt; Database instance&#x27;ınızı durdurabilir, tekrar başlatabilir veya delete ile tamamen kapatabilirsiniz.</p><p id="7d00a2f2-7cab-469b-8fdc-c4a55cb09ab9" class="">4 &gt; Create replica özelliğiyle performansınızı artırmak amacıyla sadece okuma özelliğiyle istediğiniz yerlerde istediğiniz kadar kopyasını oluşturabilirsiniz.</p><p id="e28dac7a-0068-4f8e-9a85-98de7cfee625" class="">5 &gt; Promote ile Read replica olan database&#x27;in normal database&#x27;e dönüştürülmesi sağlanır. Geçen yazıda read replicanın performans artırmak amacıyla sadece read yapılabilen kopyalar olduğundan bahsetmiştik.</p><p id="397fce8c-fa4d-4ed2-bea6-a4d45d788fea" class="">6 &gt; Bu seçenekle manuel snapshot alınabilir.</p><p id="6b8e3168-73d4-4189-b558-d4e4668551b6" class="">7 &gt;  Aldığınız otomatik back-up&#x27;lar ile istediğiniz bir zaman dönüş yapabilirsiniz. Bu dönüş için yeni bir database oluşturulur. Eskisinin üzerine bir kurgu olmaz bu kısım önemli. Bir girdi daha yapalım 2 çeşit back-up alma yöntemi var birincisi manual yöntem, ikincisi otomatik back-up. Manual back-up ile snapshot aldığınız son duruma geri dönüş sağlayabilirsiniz son durumun kopyasıdır. Otomatik&#x27;de ise istediğiniz zamana dönüş sağlayabilirsiniz. Tabiki girdiğiniz 7-35 gün arası değere göre değişir.</p><p id="08bcd1b8-47e7-40c0-8e58-2d59f1510d20" class="">8 &gt; Migrate özelliği ile de farklı bir database engine&#x27;ine geçiş yapabilirsiniz.</p><p id="8336279c-dbdf-4496-a0be-dc6726b8b812" class="">9 &gt; Modify ile kurulum esnasında seçtiğiniz özelliklerinde değişiklik yapabilirsiniz. Yine bu kısımda da yeni bir database oluşturularak modify yapılır eskinin üzerine olmaz.</p><p id="e8f90b88-b3dc-4942-b546-27df9e48237a" class="">10 &gt; S3&#x27;te bulunan bir snapshot üzerinden yeni bir database oluşturabilirsiniz.</p><p id="9d839da1-3646-4c2c-89a7-ac27e17e9269" class="">11 &gt; Sıfırdan database oluşturmak için create database menüsüne girebilirsiniz. RDS ilk yazımızda bu kısmı tüm seçenekleriyle açıklamıştık.</p><hr id="be8b71c0-d822-49fa-afec-ad8388548d39"/><p id="d4e4020b-9fd8-480f-8754-ac084acf8f73" class="">Bu kısımda da database oluşturduğumuz aktif olan database&#x27;i seçelim ve iç menüsüne bakalım.</p><figure id="facfe2b9-809a-4a61-9f4c-88171f113814" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2010.png"><img style="width:810px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2010.png"/></a></figure><p id="8bf0e2bc-fa82-4d50-8a35-5d563bdcf5e1" class="">Summary &gt;&gt; kısmında database&#x27;in cpu kullanımı, kaç bağlantı yapıldığı gibi özet bilgiyi görüyoruz.</p><p id="2f0b6282-48c9-446d-92c8-95c4fd0768d3" class="">Hemen altında menü çubuğu var. <strong>Connectivity &amp; security </strong>ile başlayacağız.</p><p id="c242b360-b17b-4f82-9607-c4779ab972ca" class=""><strong>Connectivity &amp; security &gt;&gt; </strong> Database&#x27;e bağlantı sağlaycağımız endpoint ve port bilgisini, hangi network&#x27;te hangi VPC ve subnetlerin seçildiğini görebiliriz. Yine devamında security grup bilgisi ile inbound ve outbound kurallarını görebilir ihtiyaç halinde ilgili grubu seçerek açılan ayrı sayfada düzenleme  yapabiliriz. Bu menünün en alt kısmında <code>Replication</code> başlığında da tüm replicaları görebilir, hangi AZ&#x27;de olduğunu takip edebiliriz.</p><figure id="7f1f470d-cc21-4c02-9801-62c2d4bbb512" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2011.png"><img style="width:1434px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2011.png"/></a></figure><p id="91c9f803-7bd4-4a8a-a634-d97c033efc50" class="">Monitoring menüsünde de CloudWatch servisinden gelen bilgilerle çalışan DB instance&#x27;ınıza ait cpu, connection sayısı, depolama alanı, okuma-yazma hızları gibi birçok veriyi grafik olarak takip edebiliriz. </p><figure id="07f8c95a-1855-4d32-85f0-b2032cb80206" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2012.png"><img style="width:1749px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2012.png"/></a></figure><p id="c208aaf0-93e7-494e-854b-87843c9daa29" class="">Logs ve events mensünde de cloudwatch alarmı kurabilirsiniz. Event kısmında bu DB ye ait olayları görebilir hemen altındaki resimde gözkükmeyen log kısmından logları indirebilir izleyebilirsiniz. DB instance&#x27;a normal instance gibi bağlanamadığımız için log&#x27;ları kullanarak takip yapabiliriz.</p><figure id="ab020a55-6849-467d-8618-4e08db6fd144" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2013.png"><img style="width:1633px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2013.png"/></a></figure><p id="dff3c622-2765-452b-8a5f-07a7552ddafb" class="">Configuration menüsünden DB instance oluştururken girdiğinin seçenekleri görebilirsiniz. Sadece görüntüleyebiliyorsunuz.</p><figure id="559f0cff-57a9-407b-8180-c90e29a9bbbe" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2014.png"><img style="width:1713px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2014.png"/></a></figure><p id="c525c8d5-c872-4c29-a92b-ab0ce5a21e1e" class="">Maintanance &amp; Backup mesünden yine başlangıçta  bakım ve yedekleme için girdiğiniz bilgileri görebilir. Daha alt kısımda snapshotları görebilir ve take snapshot ile eni bir snapshot oluşturabilirsiniz.</p><hr id="e99e711a-97c8-4897-a71b-d682ced111d4"/><p id="8a8c1321-f75f-4bec-acef-7fe508e98e33" class="">Şimdi uygulamalara başlıyoruz. Önce Snapshot ile ilgili uygulamamızı yapalım.</p><p id="640f4475-c1c9-4eb8-8b76-50b6546ae29d" class="">Bu uygulamayı 3 bölüm halince  yapacağız. Birinci bölümde manuel bir snapshot alacağız ve oluşturduğumuz snapshot&#x27;dan geriye dönüş yani restore yapacağız. İkinci bölümde otomatik snapshot ile spesifik bir zamana geri dönüş yapacağız. Son bölümde ise geri döndüğümüz zamana uygulamamızı entegre etmek için dump işlemi yapıp bitireceğiz. Ama başlamadan önce uygun ayarlar ile bir DB instance oluşturalım. Daha sonra localden  mariadb client uygulması ile database&#x27;e kayıtlar girelim. DB instance oluştururken otomatik back-up seçili olsun bu özelliği kullanacağız.</p><p id="4b1b18d4-c7a3-414f-8ec6-c32dba55e750" class="">DB engine Mysql, 3306 portu any where olacak şekilde bir db instance ayağa kaldırdım. Ben manupüle işlemlerini kendi ubuntu makinem ile yapacağım için portu tamamen açtım. Kendi public ip&#x27;m ile kısıtlayabilirdim veya aws tarafında bir makine ayağa kaldırıp o makinenin security grubuna izin ver şeklinde securty grup tanımlayabilirdim. DB instance identifier: ilk-db adıyla free tier limitleri dahilinde bir database oluşturdum end-pointi kopyalarak aşağıdaki komut ile client uygulamasını kurduğum ubuntu makine ile bağlanacağım. Aşağıda ubuntu makineye database client uygulaması kurmak için gerekli komutları yazıyorum.</p><pre id="a627315b-10d1-4c6b-92b1-1ab06bbf05c2" class="code"><code>sudo apt update -y
+sudo apt-get install mariadb-client -y</code></pre><p id="2b96107a-f4a0-42ec-925e-bdf899036979" class="">Kurulum tamamlandı ise aşağıdaki komut ile bağlantıyı sağlayalım.</p><p id="a3684f70-e6e7-4308-8d23-010c6904a73e" class=""><code>mysql -h ilk-db.cq03xphyigb0.us-east-1.rds.amazonaws.com -u admin -p</code>  </p><figure id="d5dd091d-9343-48fe-b4b0-2aeb1fa8244d" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2015.png"><img style="width:943px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2015.png"/></a></figure><p id="a7ae7813-b24a-4838-8fca-94615f14ad9d" class="">ilk-db ile başlayan kısım endpoint. -u ile username admin&#x27;i girdim -p ile şifre ile gireceğimi belirttim. Şifre sordu ve bağlantımı yaptım.</p><p id="161d832c-b48b-42be-9c51-5ec96c681adf" class=""><code>SHOW DATABASES;</code>  &gt;&gt; komutu ile içierisindeki databaseleri görüyorum. Default db&#x27;ler var ve benim başlangıçta initial db name ile adını koyduğum personel db yi görüyorum.</p><figure id="42711e61-d7f7-45b3-aac0-d2f9999d392b" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2016.png"><img style="width:350px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2016.png"/></a></figure><p id="7a7a5d2a-416e-4867-98e1-ea4c7daa55c5" class=""><code>USE personel;</code>  &gt;&gt; komutu ile personel db&#x27;ye giriyorum.</p><p id="2885dec5-5feb-45de-8443-ece425aaf6e3" class=""><code>SHOW TABLES; </code> &gt;&gt; komutu ile içerisindeki tablolara bakıyorum bişey oluşturmadığımız için boş olacak.</p><figure id="63f6a5e5-9d76-43cd-b1f6-5233cd9e6425" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2017.png"><img style="width:345px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2017.png"/></a></figure><p id="690e6030-97bf-43f2-8072-3f29cd69edbd" class=""><code>CREATE TABLE `muhasebe` (
+  `per-no` int(11) NOT NULL,  `isim` varchar(50) NOT NULL, `maas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;</code></p><p id="5ad2490d-1848-4392-b37e-a5fa61ea9c0a" class="">Yukarıdaki komut ile muhasebe adıyla bir tablo oluşturduk. per-no, isim ve maaş sütunları var. Şimdi içine veri girelim.</p><p id="51cde688-ee7c-4039-8255-ffe747f4cf98" class=""><code>INSERT INTO `muhasebe` VALUES (1,&#x27;ahmet&#x27;,5000);
+INSERT INTO `muhasebe` VALUES (2,&#x27;mehmet&#x27;,7000);
+INSERT INTO `muhasebe` VALUES (3,&#x27;ali&#x27;,9000);
+INSERT INTO `muhasebe` VALUES (4,&#x27;samet&#x27;,20000);</code></p><p id="ef0d8849-9d5b-4469-a05c-218832f08ad0" class="">Tablonun içine baktığımızda 4 tane kayıt göreceğiz.</p><figure id="467ef059-4112-4b9c-9e6e-a55be2900660" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2018.png"><img style="width:457px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2018.png"/></a></figure><p id="909240d8-8a2b-4565-960e-63b62ff2b376" class="">Yanlışlıkla maaşı 10 bin üzerinde olan vatandaşları silelim. Daha sonra bunu düzeltmeye çalışacağız. Sildiğimiz zamanı da not edelim. Silmeden önceki spesifik zamana dönmeye uğraşacağız.</p><p id="cdbb3c81-84b3-48bb-a462-756cc5e17ecc" class=""><code>DELETE FROM muhasebe WHERE maas &gt; 10000;</code> &gt;&gt; aşağıda 3 kayıt kaldığını görelim.</p><figure id="e242d4aa-08f4-45db-9de7-8bdd292f02b7" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2019.png"><img style="width:459px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2019.png"/></a></figure><p id="014d30ed-791f-4aaf-8093-56ddbb617740" class="">Bu haliyle manual snapshot alalım ve otomatik ile manual arasındaki farkı görmeye çalışalım.</p><hr id="d381ccd5-953b-4426-9fcd-dd081c5bf6f5"/><p id="e1f4a142-63c6-429e-b7e2-d56fab285663" class="">Şimdi ilk bölüme başlıyoruz. Manual snapshot. Sol konsoldan snapshot menüsü seçilerek veya database seçili iken action kısmında yapılabilir.</p><p id="fc7ce516-5fb0-4399-af21-d2f070b88d62" class="">Action Menüsünden <strong>Take snapshot</strong> seçtiğimizde aşağıdaki resmi göreceğiz.</p><figure id="bf239c48-9ca5-4fdd-a291-e51c30435437" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2020.png"><img style="width:899px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2020.png"/></a></figure><p id="ed071a8f-33a8-4ecc-b3c2-189e1c030570" class="">İsim girelim ve <strong>Take snapshot</strong>&#x27;a tıklayalım. O anın yedeğini oluşturmuş olacak. Sol menüden Snapshots menüsüne geçiş yapar ve tüm snapshot&#x27;ları görebiliriz.</p><figure id="6fdc187e-66f0-4988-9556-df1ebdd2f540" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2021.png"><img style="width:1836px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2021.png"/></a></figure><p id="808a3c9a-fff2-4559-9b41-a1d3f8364178" class="">Snapshot&#x27;ımız hazır diyelim ve  bir aksilik oldu geriye dönmemiz gerekiyor. Action Menüsünden aşağıdaki resimdeki menüleri göreceğiz. </p><figure id="8957f61a-1cea-48e5-bee3-89ca0531d78d" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2022.png"><img style="width:1833px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2022.png"/></a></figure><p id="f5a49195-5161-4e39-b48f-af9377ec8ab3" class="">Restore Snapshot ile snapshot aldığımız ana ait bir database oluşturabileceğiz. Copy snapshot ile aldığımız snapshotları kopyalayabilir ve kopyalarken şifreleme kısmını aktif edebiliriz. Bu kısma dikkat edelim restore yaparken bu alan seçilemiyor ancak şifreleme seçeneğini copy ile yapabiliyoruz. Bunun benzerini EBS volume anlatırken konuşmuştuk. Onun haricinde başkası ile paylaşabilir, silebilir veya S3&#x27;e aktarabiliriz. S3&#x27;e aktarma olayı önemli çünkü maksimum bir kullanıcı 100 adet snapshot oluşturabilir. Daha fazla istiyorsak bu yöntemi kullanabiliriz. Şimdi restore işlemine geçelim. Yeni bir DB ayağa kaldıralım ve bağlanıp kontrol edelim. Yeni diyorum dikkat edin lütfen üzerine yazma şeklinde değil snapshot&#x27;dan tekrar dönüş yeni bir DB ile oluyor.</p><figure id="6509e7c3-0701-4708-8971-9e56c4fee507" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2023.png"><img style="width:1094px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2023.png"/></a></figure><p id="5609d3ed-8306-464d-908c-b84bce50fea6" class="">Dikkat edelim bu seçenekte belirli bir zaman seçilemiyor. O ana yani snapshot alınan zamana döneceğiz. Bu kısımda yeni bir DB oluşturuyor gibi  tüm özellikleri seçiyoruz. Yine dikkat edelim instance tipi default büyütülüyor dikkat etmezseniz free tier&#x27;dan çıkarsınız. t2.micro&#x27;yu mutlaka seçelim. Sadece engine tipi, volume ve encription seçenekler değiştirilemez. Eğer engine değiştirmek istersek Action menüsünden migration seçmemiz gerekecekti.</p><p id="0f99dda0-44fa-4a9d-af8e-ca01f9fbb88d" class="">Manualden-donuldu DB oluştuğunda endpointi ile bağlanalım ve verimizi kontrol edelim.</p><figure id="3dbc9996-a5ad-46df-9c8a-0e68f8f8668d" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2024.png"><img style="width:1081px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2024.png"/></a></figure><p id="7d10c413-b277-47e7-b36d-50fe00f4d599" class="">mysql ile başlayan komut ile endpointi kullanarak girdik. <code>USE personel;</code> komutu ile personel DB&#x27;ye geçtik son olarak da <code>select * from muhasebe;</code> komutu ile verimize baktık. Gördük ki veri eksik. Çünkü biz manual snapshot&#x27;ı silme olayından sonra yapmıştık.</p><hr id="d5253634-064c-4186-9e4a-7e80301161b3"/><p id="da6c46f1-4c23-42b7-a5ad-3336fcef673c" class="">İkinci bölüme geçiyoruz. Manual snapshot ile istediğimiz ana dönemediğimizi bunu ancak otomatik snapshot ile mümkün olduğunu konuşmuştuk. </p><figure id="fe55face-d44b-43ef-9c5d-3597f213c1f0" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2025.png"><img style="width:1487px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2025.png"/></a></figure><p id="24387d6c-7cdf-4001-bfcd-5287e39596c5" class="">ilk-db&#x27;yi seçelim ve action kısmından Restore to point in time&#x27;ı seçelim.</p><figure id="93ab26c2-c9f4-4f4e-b5da-d20e13a32c57" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2026.png"><img style="width:1088px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2026.png"/></a></figure><p id="b9589c82-07e4-483a-9eff-610112bb6ab3" class="">Lastet seçilse idi snapshot alındığı en son zamana dönüş olacaktı. Custom ile tarih, saat hatta saniyeye kadar seçebiliyoruz. Bunu da transaction loglar sayesinde yapabildiğini daha önce söylemiştik.</p><p id="52a66dd3-3fed-46ed-a3df-d4022abfdc98" class="">Dikkat ederseniz DB engine ilk seçtiğimiz mysql çıkıyor sadece.</p><p id="768c2140-c022-4df9-80bd-97d50e61a2fd" class="">Devamında yeni bir database oluştururken seçtiğimiz tüm özellikleri burada seçiyoruz. Tekrar olmuş olacak ama önemli olduğu için söylüyorum geriye dönüş ancak yeni bir database ile mümkün, eskinin üzerine olmuyor.</p><p id="f771d1c8-d45b-4465-8bbe-e8158dea0101" class="">Şimdi hata yapılmadan önceki zamanı seçmiştik bakalım dönebilecek miyiz? End-pointi kullanarak DB&#x27;ye bağlanalım.</p><figure id="498d4713-1f1b-44f4-b376-0e68d75b41cb" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2027.png"><img style="width:1093px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2027.png"/></a></figure><p id="e2e04044-2540-47da-b5bc-85902be5f994" class="">Silinmeden önceki hale döndük 4 kayıt vardı hepsini görebiliyoruz. Her şey bitti mi? Henüz bitmedi.</p><hr id="7085a8cf-5e59-4f1d-ad21-38fb0f32b741"/><p id="ca919c1f-9497-4183-becb-a1e92a98873f" class="">Biz ne yaptık düzeltilmiş hali ile yeni bir DB oluşturduk ama bizim uygulamamız hala ilk-db&#x27;ye bağlı bunu düzeltmek için de son bölümde dump uygulayacağız. Kabaca anlatayım öncelikle düzeltilmiş halini bir yedek.sql adıyla bir dosyaya bağlayacağız. Daha sonra o dosyayı uygulanın koştuğu ilk-db&#x27;ye aktaracağız. Şuan localdeyiz. Aşağıdaki komut ile yedek.sql dosyasını oluşturalım.</p><figure id="c88bf400-0480-40d6-a6e1-f54cbde7d516" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2028.png"><img style="width:1380px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2028.png"/></a></figure><p id="86c397bf-e31d-4a36-b13b-4bc9ced2d3b9" class="">Şimdi de bu sql dosyasını ilk-db ye geçireceğiz.</p><figure id="56db81a3-377d-4873-a7c2-9e2f42ccceb5" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2029.png"><img style="width:1190px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2029.png"/></a></figure><p id="3bf5149d-2662-479a-be78-ade9f9592c2e" class="">İşimizi bitirdik şimdi kontol edelim. ilk-db&#x27;ye bağlanalım ve verimizi kotrol edelim.</p><figure id="9035e265-35fa-4a20-be1b-18533389a86d" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2030.png"><img style="width:945px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2030.png"/></a></figure><p id="61a82db3-71a3-4062-a36b-cb0524f9175f" class="">Sonunda başardık biraz uğraştırıcı oldu ama veriyi düzelttik.</p><hr id="d83eae26-eda1-48f7-b5b2-8b42ab6a60e1"/><p id="11a5d44e-54cf-4c31-a70c-e0ea4a83c521" class="">Şimdi ikinci uygulamamıza geçelim bu uygulama iki bölüm halinde olacak. İlk bölümde Modify ile Multi-AZ özelliğini açacağız, ikinci bölümde yine create replica ile read replica özelliğine bakacağız.</p><figure id="78755a5f-6709-4ff8-9cd6-19011dd3bbfb" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2031.png"><img style="width:1529px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2031.png"/></a></figure><p id="8ffa9413-26ee-4cec-878c-60d8344fc63e" class="">Database&#x27;i açtıktan sonra Modify kısmına tıklayalım. Yeni bir database oluşturur gibi seçenekleri gireceğiz. Dikkat edin engine tipi seçemiyoruz o kısım migrate oluyor ama engine sürüm değişikliği yapabiliyoruz. Uygulamamızda uyumsuzluk oluşursa bu şekilde eski versiyonlara dönüşü düşünebiliriz. İsmini <code><strong>multi-az-modify</strong></code><code> </code>olarak girdim. Seçeneklere dikkat edelim free tier limitleri dahilinde kalalım. </p><figure id="ad6cf776-f199-4cbd-be81-f5513413e052" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2032.png"><img style="width:764px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2032.png"/></a></figure><p id="3836527e-f5ec-488f-89f6-4511b3cbc4b4" class="">Sadece multi-AZ özelliğini açalım. Continue diyelim</p><figure id="4f200209-37f1-45d9-acf1-56ee10cebfc6" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2033.png"><img style="width:789px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2033.png"/></a></figure><p id="f7a2c35e-f73e-492e-a7e9-28759c79b8fe" class="">Bu kısımda modify işlemi hemen mi yoksa planlı maintenance zamanında mı olsun diye soruyor. Biz hemen olması için apply immediately&#x27;e tıklayalım. Modify db instance ediğimizde işleme başlayacak. </p><figure id="3096a4f7-374d-4e34-b511-566cc8218fcd" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2034.png"><img style="width:1529px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2034.png"/></a></figure><p id="e495cbc5-fcf5-4556-9a40-0053afda7030" class="">Bu işlem biraz zaman alacak yukarıdaki resme dikkat edelim us-east-1f de oluşmuştu bizim db instance. Ben bu makineyi biraz sonra reboot ile tekrar başlatacağım. Kapattığımızda bizim dababase&#x27;imiz ulaşılamayacaktı. Biz Multi-AZ özelliğinin ne işe yaradığını burada göreceğiz. Sanki bir fail olmuş gibi db instance&#x27;ımızı kapattık. Multi-AZ özelliği sayesinde tamamen senkron farklı bir AZ&#x27;de pasif konumda olan db instance oluşturmuştu. Fail olduğunda yeni AZ&#x27;deki db instance&#x27;ın aktif olduğunu göreceğiz. Önce hazır haline bakalım.</p><figure id="dd2e79c6-a037-4112-bf54-76a407d4d21f" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2035.png"><img style="width:1533px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2035.png"/></a></figure><p id="794fc8c3-fd79-4768-906f-dcc146ecf006" class="">Modify yaparken ben ismini değiştirmiştim. Action kısmında reboot seçelim.</p><figure id="a137dedc-508e-433b-9f33-d48493624849" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2036.png"><img style="width:810px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2036.png"/></a></figure><p id="714aea7e-c830-4b0d-9e08-512dc4bb5ab2" class="">Failover ile yeniden başlat seçeneğini tikleyip confirm diyelim. </p><figure id="d4f79561-ee87-42ab-8ad1-4521536b83e3" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2037.png"><img style="width:1742px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2037.png"/></a></figure><p id="ec60f6f7-41d1-497e-b398-482f0eb1f90b" class="">Yukarıda da görebildiğiniz gibi rebooting başladı. AZ us-east-1f &#x27;nin değiştiğini göreceğiz. </p><figure id="7e6cc93c-1caa-4b57-a667-575264bc9594" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2038.png"><img style="width:1773px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2038.png"/></a></figure><p id="1e9d27b9-5076-4e1b-a076-8f52982d857d" class="">Yukarıda gördüğümüz gibi us-east-1a AZ&#x27;sine geçiş yaptı. Multi AZ işte bu işe yarıyor sizin uygulamanız kesintiye uğramasın diye arka planda aynı özellikli, pasif durumda, senkron bir makine daha tutuyor herhangi bir olumsuzluk durumunda pasif durumda olan aktif pozisyona geçiyor.</p><hr id="1caea143-e9d0-446c-b0d8-1c6c788b8031"/><p id="834ecc8c-50e8-46d3-a5c7-86f0574c074d" class="">Son olarak read replica özelliğine bakacağız.</p><figure id="fefe5d26-47da-405e-b23a-20478f187939" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2039.png"><img style="width:1793px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2039.png"/></a></figure><p id="2b2b235f-6bd2-48c9-b8d9-6697b1a4c922" class="">Yeni bir db instance oluşturur gibi seçeneklerle ilerleyelim. </p><figure id="fb3673ff-4e05-4f57-93b0-577a23d95175" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2040.png"><img style="width:781px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2040.png"/></a></figure><p id="2c3dd946-ca80-4df9-bef2-b80ce06714cb" class="">Yukarıda replica&#x27;yı hangi region hangi AZ&#x27;de oluşturmak istediğimizi seçiyoruz. Ben Ohio&#x27;da us-east-2b AZ&#x27;sini seçtim.</p><figure id="81198d0f-7f45-40cf-9928-e9eaf2abb7e0" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2041.png"><img style="width:643px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2041.png"/></a></figure><p id="0c006ac4-a62e-48f6-a02c-f09198888851" class="">Yukarıda neyin replicasını yapmak istiyoruz db seçeceğiz biz de aktif 1 tane olduğu için son olarak ismini multi-az-modify verdiğimiz görülüyor. Yeni oluşacak read replica için de db instance name veriyoruz. Ben read-replica-db verdim. Create diyelim ve oluşmasını bekleyelim. </p><figure id="904e342e-3a3d-4854-9d11-68a19cde0a33" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2042.png"><img style="width:1547px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2042.png"/></a></figure><p id="2f39dcc2-c35c-498e-98e5-1d2ce37ede05" class="">İşlem bitti fakat göremiyoruz çünkü farklı regionda seçmiştik o regiona geçelim Ohai&#x27;yu seçelim. Bir de dikkat ederseniz ilk db de artık primary yazıyor. Asıl olan bu diğerleri kopya anlamına geliyor. </p><figure id="86f56c8f-4c04-42a3-9880-86551254b5d0" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2043.png"><img style="width:1458px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2043.png"/></a></figure><p id="25352567-2314-4276-833b-b8a7a5d009d9" class="">Görüldüğü üzere replica database Ohio da us-east-2a AZ&#x27;sinde oluştu.</p><p id="09e053f0-846c-4aa7-81a3-749a2be05ffa" class="">Oluştuğunda client uygulaması ile içindeki veri değiştirmeye çalışacağız. Bunun için end-point&#x27;i kopyalayalım ve aşağıdaki komutu client kurduğumuz terminalden girelim.</p><p id="0e337b81-1bb8-499b-912f-1091de483ea5" class=""><code>mysql -h </code><code><a href="http://read-replica-db.ciubtbu6zkvc.us-east-2.rds.amazonaws.com/">read-replica-db.ciubtbu6zkvc.us-east-2.rds.amazonaws.com</a></code><code> -u admin -p</code></p><figure id="3ec32be6-64d4-4dff-b001-812886643093" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2044.png"><img style="width:1050px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2044.png"/></a></figure><figure id="5d92f840-eaf2-48ef-a108-2bbaae8b759b" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2045.png"><img style="width:519px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2045.png"/></a></figure><p id="94226c32-7e58-4107-a124-f1e411a6103c" class="">muhasebe tablosunun içindeki verileri görüyoruz şimdi buraya bir satır daha eklemeye çalışalım.</p><figure id="b4b479dd-0c96-449e-9d6d-4427969ce139" class="image"><a href="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2046.png"><img style="width:1121px" src="AWS%20RDS-2%20b851fdf89a9d4e20baa43d7467cdd2f6/Untitled%2046.png"/></a></figure><p id="b791db95-8b80-4bb1-a1a1-b044026e4a32" class="">KAZIM&#x27;ı eklemeye çalıştık ve ekleyemedik aslında muradımız da buydu. Replica lar database e gelen okuma taleplerinden dolayı performansı azaltmasın diye sadece okuma özellikli kullanılır.</p><p id="70e08129-cbc9-4810-ba67-5226bf518e60" class="">Uzun bir yazı oldu bu cümleye kadar geldiyseniz teşekkür ederim 😂 </p></div></article></body></html>
