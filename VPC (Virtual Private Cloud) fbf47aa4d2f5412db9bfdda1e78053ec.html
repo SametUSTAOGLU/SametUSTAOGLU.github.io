@@ -1,0 +1,658 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>VPC (Virtual Private Cloud)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="81f7c17c-05be-49ee-b184-49938d31c64b" class="page sans"><header><h1 class="page-title">VPC (Virtual Private Cloud)</h1></header><div class="page-body"><figure id="fbf47aa4-d2f5-412d-b9bf-dda1e78053ec" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled.png"><img style="width:1131px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled.png"/></a></figure><p id="525a0e18-f199-44eb-9436-ed42e7e80651" class="">VPC en temel servislerden birisidir. Aslında çoğu kaynağı biz VPC içinde kullanırız. Çok fazla kavram olacak o yüzden başlangıçta nelerden bahsedeceğimizi kısaca konuşalım. Önce VPC&#x27;yi anlatmaya çalışacağım. VPC içerisinden internete açılan kapı olan Internet Gateway&#x27;i konuşacağız. Daha sonra VPC içerisinde alt ağlar yani subnet&#x27;lerden bahsedeceğim.  VPC içerisinde kuralları belirlediğimiz Route table&#x27;ları, güvenlik katmanları Security group ve ACL(Accsess Control List) konularını anlattıktan sonra temel seviyede bir VPC kurmuş olacağız. Devamında VPC ile dışarısı arasında bağlantı kurmamıza yarayan NAT Instance / NAT Gateway ve Bastion Host/Jump Box oluşturmayı göreceğiz. Daha sonra birden fazla VPC&#x27;yi bir birine bağlamak için VPC peering kuracağız. Son bölümde de teorik olarak bahsedeceğimiz  VPN ve Direct Connect konularını işleyeceğiz. Daha öncesinde  temel seviyede Network altyapınız olduğunu varsayarak anlatacağım.</p><hr id="0b1abfaf-a65f-4716-a410-bb03b6458c04"/><p id="130ed69d-b155-42bf-835d-f29ce6c9355c" class="">VPC için On-premises sistemlerdeki data center&#x27;ın sanal versiyonu diyebiliriz. İçerisinde kaynaklar(instance, database vs), güvenlik duvarları, bağlantı kabloları gibi tüm sistemin sanal versiyonu. S3 veya IAM gibi global servisler için VPC kullanmayız. VPC Kullanıcı tarafından oluşturulur, kurallar ve içerisine koyulacak kaynaklar da yine kullanıcı tarafından seçilir. İlk hesap oluşturduğunuzda default olarak VPC oluşturulur ve kaynaklarımızı onun içerisinde kullanırız. Default VPC haricinde 5 adet daha VPC oluşturabiliriz. Bu soft limittir istenirse AWS ile iletişime geçilip artırılabilir.</p><figure id="42ee8e0d-3c2f-4250-9fe9-7ef0e7535819" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%201.png"><img style="width:480px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%201.png"/></a></figure><p id="0e0bb132-6352-4549-b282-dd095b3c04bd" class="">Yukarıdaki şekilden VPC içerisinde oluşturabileceğimiz unsurları konuşalım. Her unsuru teorik olarak anlattıktan sonra konsoldan oluşturulmasını anlatacağım. Tabi ki hepsinden önce yukarıda anlatmaya çalıştığımız VPC&#x27;mizi konsoldan oluşturalım.</p><p id="270be621-71d2-4107-9a9a-810dffba53ea" class="">Servislerden VPC&#x27;yi seçelim.</p><figure id="2f3553ef-c6ff-4d18-9a9f-0ca64636a816" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%202.png"><img style="width:480px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%202.png"/></a></figure><p id="7eec2ed1-769e-4a78-b8f7-50fe52790554" class="">1- VPC içerisinde oluşturabileceğimiz unsurları left-hand menü den görebiliriz. </p><p id="52164c1a-1300-49a1-ac96-32071c031b3f" class="">2- Dash board sayesinde oluşturduğunuz unsurların adetlerini tek sayfadan takip edebiliriz.</p><p id="75a47647-1e94-4aa8-a877-fbd27eed1557" class="">3- Launch VPC wizard ile hızlı bir şekilde public, private subnetlerin olduğu ilave VPN seçenekleriyle hızlı VPC oluşturabiliriz.</p><figure id="525c15b3-36a4-4506-9973-11788b4ee52f" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%203.png"><img style="width:480px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%203.png"/></a></figure><p id="00f8e1a2-b11c-4568-a8c8-e11d4d3eac03" class="">Şimdi sol menüden Your VPC&#x27;yi seçelim. Create VPC ile yeni bir VPC oluşturalım.</p><figure id="560683c0-6dd8-45e5-8a26-fe875dd736e9" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%204.png"><img style="width:384px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%204.png"/></a></figure><p id="0a8ce228-34a8-45fa-92cd-b57812744196" class="">Önce bir isim veriyoruz. Takiben ip bloğu belirtiyoruz. Bu ip bloğu üzerinden subnet oluşturacağız. Tenancy kısmına da default bırakalım. Diğer seçenek dedicated idi, özel fiziksel bir alan istemiyoruz ekstra ücret ödememek için. VPC hazır şimdi bir sonraki adıma geçelim.</p><h2 id="50ba7e48-0218-4b6d-a828-dd3962b5235e" class="">Internet Gateway</h2><p id="d39c295b-332f-41dd-abce-9ad29ac30f48" class="">Internet Gateway bizim dışarıya yani internete açılan kapımız. Dış hatlar terminali gibi düşünelim. VPC&#x27;nin dışarıya açıldığı kapı. Çift yönlü içeriden dışarıya ve dışarıdan içeriye geçişi sağlar. Tabi kapı açtık diye VPC tamamen dışarıya açık olmayacak daha sonra o kapıyı kimler kullanabilir tanımlamaları yapacağız. Sol konsoldan Internet Gateways seçelim. Default 1 adet vardı biz yenisini oluşturmak için Create Internet Gateway diyeceğiz. </p><figure id="68361afb-87a2-49c5-abf5-564c6308e237" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%205.png"><img style="width:384px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%205.png"/></a></figure><p id="9a975330-d457-4c38-837b-290142566dd9" class="">Yukarıda görüldüğü gibi çok basit sadece isim veriyoruz. Fakat bir işlem daha yapmalıyız. Bu internet gateway&#x27;i oluşturduğumuz VPC ile ilişkilendirmemiz gerekiyor.</p><figure id="8dd4f01a-f04a-446a-9f34-8df6fa720fe1" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%206.png"><img style="width:576px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%206.png"/></a></figure><p id="03cdce8d-0675-419c-80e9-c2b0c2f8f4f6" class="">Yukarıda görüldüğü gibi detached durumunda yani boşta. Action menüsünden Attach VPC diyerek yeni oluşturduğumuz VPC ile ilişkilendirelim. Bunun için boşta VPC olması gerekiyor. Bir VPC ancak bir internet gateway ile ilişkilendirilebilir. Şimdi subnet&#x27;leri oluşturacağız daha sonra da dışarıya açılmasını istediğimiz subnetler için kurallar koyacağız. Onun için internet gateway&#x27;imizi şimdiden hazırladık.</p><h2 id="b51a67d3-b9ee-4157-bbfd-ea1b6c0c4d7e" class="">Subnet</h2><p id="2a9227e4-f74c-49a2-a0d1-fa7dd275a67c" class="">VPC kurarken bir ip aralığı tanımlamıştık. Private ip olduğu için bazı kısıtlamaları var kafamıza göre veremiyoruz. 10.0.0.0/16 şeklinde aldığımız bir ip bloğunun ilk 16 bittine dokunmadan son 16 biti kadar yani 2^16 adet host tanımlayabiliyoruz. Tek bir ağ için çok yüksek bir sayı. Bizim alt ağlara ihtiyacımız olacak bunun için bu bloğu mantıksal alt ağlara böleceğiz bunlara subnet diyeceğiz. Subnetler için /24 kullandığımızda 8 bit network için diğer 8 biti de host için ayırmış oluyoruz. Bu şu anlama geliyor 256 adet subnet ve her subnet içinde 256 adet host tanımlayabiliriz. Fakat burada AWS 5 ip&#x27;yi kullandırmıyor yani 251 gibi düşünebiliriz. Örneğin 10.0.0.0/24 için Kullanamadığımız ip&#x27;ler;<div class="indented"><p id="1be3d415-8c2e-4d3d-b9eb-8e1e09838a19" class="">10.0.0.0 network adresi için</p><p id="dd869253-2bc7-4ea6-8dd2-4fe29007ca51" class="">10.0.0.1 VPC Router için</p><p id="3e770006-78a7-4483-b1cd-e7244d57ce6c" class="">10.0.0.2 DNS içi</p><p id="faa4d61b-e079-4379-8822-aaffe34ccb82" class="">10.0.0.3 provizyon(daha sonra kullanılır diye)</p><p id="42df8daf-6cce-41fa-9b8a-f01c6f50c780" class="">10.0.0.255 Boradcast için ayrılmıştır.</p></div></p><p id="e7f0467c-9a18-452f-818a-db8fa1013efe" class="">Alt ağ maskesi için seçebileceğimiz aralık /16 ile /28 &#x27;dir. Subnet&#x27;lere ayırmamız sayesinde VPC içerisinde haberleşmesini istediğimiz veya dış dünyaya açık seçenekler üretebiliyoruz.</p><p id="817522f6-31f0-4da0-b53a-e7427ebe2f13" class="">Üstte VPC unsurlarını gördüğümüz resimde 10.0.0.0/16 ip aralığı her AZ de bir public ve bir private olmak üzere 6 adet subnet&#x27;e ayrılmış. Public veya private olmasını oluşturacağımız kurallar ile belirleyeceğiz. Şimdi konsola geçelim 1 public, 1 private subnet yapalım. Siz sayıyı artırabilirsiniz.  Sol konsoldan subnets seçelim. Create subnet&#x27;e tıklayalım.</p><figure id="c4cdaf3d-8462-49d5-a3f7-7630ccebb78e" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%207.png"><img style="width:432px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%207.png"/></a></figure><p id="ea9ab3bb-d69e-4117-bb01-e43a56a090b1" class="">Öncelikle VPC seçiyoruz. Hemen altında seçtiğimiz VPC&#x27;nin ip&#x27;sini görebiliriz. Subnet kısmına geldiğimizde public olduğunu anlayacak şekilde egitim-subnet-public-1A şeklinde bir isim verdim. Hemen altından AZ olarak 1a seçtim. CIDR bloğu olarak da 10.0.20.0 seçtim. En altta add new subnet&#x27;e tıkladığınızda hızlı şekilde altta açılan menüden diğer subneti oluşturabilirsiniz. İsim olarak egitim-subnet-private-1A ve CIDR bloğu olarak da 10.0.30.0 seçtim. Burada public veya private dedik diye public veya private olmayacak daha sonra bunlara atanan kurallarla tamamlayacağız.</p><figure id="dee7a6ec-9786-4260-89d3-9b00a3227f5e" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%208.png"><img style="width:1558px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%208.png"/></a></figure><p id="a3b1caf3-3703-4f29-aec9-35e331ad0964" class="">Yukarıdaki resimden kontrolümüzü yapalım.</p><h2 id="4820a5a8-8003-4dd6-8612-742ea4620c6f" class="">Route Tables</h2><p id="288a5389-d7b7-4e27-8faa-747d86c34b23" class="">Şimdi sıra kuralları tanımlamaya geldi. Route Table&#x27;a  pasaport diyebiliriz. Hangi ip bloğunun nereden nereye gideceğini belirleyen kuralları koyacağız. Burada iki route table tanımlayacağız birisi public diğeri private olacak ve daha sonra subnetler ile ilişkilendireceğiz. Sol konsoldan Route Tables seçelim. Create route table diyelim. </p><figure id="6f2a6b75-0b04-432a-b276-66ad216f36f2" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%209.png"><img style="width:384px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%209.png"/></a></figure><p id="4ee902b4-3afa-4ede-953a-a968e905f871" class="">Bir public için bir de private için yapacağız. İlki public için olacak. Benzerini private için de yapacağız. Create dediğimizde Route tables menüsüne dönelim ve edit route ile kuralları belirleyelim. </p><figure id="0e238cfc-9b58-4798-b6c0-7752196979b8" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2010.png"><img style="width:1525px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2010.png"/></a></figure><p id="3d19041c-60cf-450d-80cb-cf8282559026" class="">İlk route default olarak geliyor. İlk kuralın türkçe meali şu, benim VPC&#x27;me ancak local&#x27;den ulaşılabilinir. Aslında bu kural tek başına private anlamı taşıyor.Yani private için yapacağımız route table sadece bu kural ile kalacak. İkinci kural ise bize şunu diyor ilk kural haricinde hedef her neresi olursa(0.0.0.0/0) tüm trafik internet gateway&#x27;e yönlendirilecek. İkinci kuralı biz edit seçeneği ile yaptık. Şimdi bu kuralı public subnet ile ilişkilendirelim. </p><figure id="5f509d5d-f9b1-4e62-8905-6475c647d6aa" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2011.png"><img style="width:1510px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2011.png"/></a></figure><p id="aa55cba7-80a0-4b2b-969b-c66a317e5d63" class="">Aynı menüde <code>subnet associations</code> kısmına gelip edit&#x27;i tıkladığınızda boşta olan subnet&#x27;ler görülecek işaretleyip eklediğinizde artık işlem tamamlanmış olacak. </p><p id="b89531fc-e1a1-472f-b4a9-e5760b389c4b" class="">Aynı şekilde Private için bir route table yapalım. Kural kısmını default bırakalım ve private ismini verdiğimiz subnet&#x27;i bu kural ile ilişkilendirelim.</p><figure id="7198af40-ef05-428d-b716-6d287f1305ed" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2012.png"><img style="width:1546px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2012.png"/></a></figure><p id="4ba5c08e-ac8f-41ea-8811-f00c87c435ff" class="">Yukarıdaki gibi 3 route table gözükecek. Birisi default kendi yaptı. Biz oluşturduğumuz iki subneti de diğer route table&#x27;lar ile ilişkilendirdiğimiz için default boş kaldı. İlk o oluştuğu için main oldu ama siz action menüsünden herhangi bir table&#x27;ı seçip <code>set main</code> ile değiştirebilirsiniz. Main olan route table silinemez. </p><p id="7bd50966-3e9b-4999-abeb-aadc01621d06" class="">1 VPC başına 200 route table, her route table içinde de 50 route tanımlanabilir. </p><p id="571f1766-473e-4f48-9980-436aaa81df57" class="">AWS&#x27;te oluşturduğumuz EC2&#x27;lara dışarıdan erişilmesini istersek public ip ataması yapılması gerekiyor bunun içinde bir işlem yapmamız gerekiyor. </p><figure id="2154ce34-e9c4-4db8-9096-c0d296a3fb2d" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2013.png"><img style="width:1581px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2013.png"/></a></figure><div id="26683e51-8a33-4a4b-8321-ea2c295e6f42" class="column-list"><div id="fe7ea55e-9305-4bc3-af60-eac76072d0a9" style="width:50%" class="column"><p id="a7341d7f-c84c-46fb-90ec-3d8b219deb67" class="">Subnet menüsünde iken public olanı seçelim ve action kısmından <code>modify-auto-assign ip setting</code> seçeneğini tıklayalım. Açılan sayfada <code>Enable auto-assign public IPv4 address</code> seçeneğini tikleyelim. Artık bu subnette oluşturulan EC2&#x27;lar için otomatik public ip ataması yapılacak</p></div><div id="a5eb4074-45d2-454a-820b-3074317b8ce2" style="width:50%" class="column"><figure id="1c0a2a50-6d33-4f79-84e4-f59097541219" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2014.png"><img style="width:336px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2014.png"/></a></figure></div></div><p id="63b8a0d8-fd7f-491a-acd1-6308d7fd56cb" class="">Ayrıca VPC içerisindeki bazı Load Balancer gibi kaynaklar sadece DNS name kullanır public ip olmaz. Oluşan kaynaklarda DNS name oluşturabilmek için de bir işlem yapmamız gerekiyor.</p><figure id="ee9f71d2-a1e6-4e17-9f94-5fc2d7045561" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2015.png"><img style="width:1597px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2015.png"/></a></figure><p id="0afba8bd-9525-4f01-8a6c-d16f6c5e6d8a" class="">VPC menüsüne gelelim action kısmından <code>Edit DNS hostnames&#x27;</code>e tıklayalım. Enable seçeneğini seçelim ve kaydedelim.</p><p id="23feeae2-a2cd-49c4-a130-e17ca652341e" class="">Birazda security kısmına bakalım.Bu başlıkta iki konumuz var birincisi Network ACLs diğeri security grops. Security Group kısmını daha önce EC2&#x27;da anlattığımız için burada ayrı bahsetmeyeceğim sadece karşılaştırmada kullanacağım.</p><h2 id="7cb0bd81-f2a5-4b46-805d-cad52e358b54" class=""><strong>Network ACLs(NACL)</strong></h2><p id="96e1f3d0-1814-463d-85a8-3f34ef1f22f8" class="">Network ACL için subnet bazında güvenlik bileşeni diyebiliriz. Security grubu EC2&#x27;lar için tanımlıyorduk. NACL ise subnet&#x27;e atanır. Security gruplar instance tabanlıdır RDS ve EC2&#x27;lar için kullanılır. Eğer siz bir subnet içinde EC2 tanımlarsanız ACL&#x27;den geçmeden Security Grup&#x27;a ulaşılamaz. ACL&#x27;ler sadece ip/port kontrolü yapar. Hem giriş için hemde çıkış için ayrı kural belirlememiz gerekir. Yani hangi kaynaktan hangi trafiğin kabul edileceğini ve hangi hedefe hangi trafiğin gönderileceğini belirler. Default ACL bütün giren çıkan trafiğe izin verir. Fakat yeni ilk oluştururken ACL kural eklenene kadar tüm giren çıkan trafiği engeller. Her subnet için ayrı ayrı ACL oluşturulabileceği gibi bir ACL oluşturulup tüm subnetlere atanabilir. Security grup&#x27;larda ise default olan  tüm gelen trafiği engellerken tüm dışarıya giden trafiğe izin verir. 1 EC2 en fazla 5 security grup ile ilişkilendirilebilir.</p><p id="f2440c8a-19d6-446e-a985-d3e4a68f0681" class="">NACL&#x27;larda birden fazla kural konulabilir. Numarası en küçük olan kuralın önceliği vardır. Dışarıdan gelen istek öncelikle Subnet&#x27;e atanan NACL&#x27;ı geçmesi gerekiyor. NACL&#x27;da belirtilen kurallara uyarsa bu sefer kaynakların security grupları tarafından kontrol edilecek. NACL&#x27;lar subnet içindeki kaynakların birbirine erişimi için de geçerlidir. Şimdi sol konsoldan Network ACLs&#x27;e tıklayalım.</p><figure id="26645e6d-4361-43f3-8529-db3d15bdb6c9" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2016.png"><img style="width:1586px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2016.png"/></a></figure><p id="653ed9be-c6c3-4301-bb20-844400129eee" class="">VPC oluşturduğumuzda default bir NACL oluşurur ve değiştirmezseniz VPC içindeki tüm subnetler Bu NACL ile ilişkilendirilir. Default inbound ve outbound kuralları da her yere açıktır.</p><figure id="077b3eee-cb54-4ea0-a49a-ec8fa7a8dae1" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2017.png"><img style="width:1563px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2017.png"/></a></figure><p id="118f7271-4587-4f65-8109-7e4850a98147" class="">Yukarıda 2 kural var. Numarası küçük olanın önceliği var demiştik zaten tek 100 numaralı kural var her yerden bütün portlardan gelen trafiğe izin veriyor. Altta &quot;*&quot; kuralı ise üstteki herhangi bir kurala uymaz ise engelle anlamına gelir. Yeni bir NACL oluşturmak için <code>Create network ACL</code> tıklayın isim verip VPC seçelim.</p><figure id="9845e77c-0b8d-4766-aef6-24d43ec4d04d" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2018.png"><img style="width:815px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2018.png"/></a></figure><p id="b0a6d74d-360a-4775-ac12-9d2fdcad3bce" class="">Daha sonra subnetleri <code>egitim-NACL</code>&#x27;e eklemek için <code>Subnet associations</code> menüsüne gelelim. Edit diyelim ve subnet&#x27;leri ekleyip kaydedelim. </p><figure id="eff551bf-136b-4dc0-849b-329238ebdf2f" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2019.png"><img style="width:1529px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2019.png"/></a></figure><p id="ed5bb688-2701-4414-b791-687aec827daf" class="">Yukarıda gördüğünüz gibi ilk oluşturulan NACL&#x27;da tüm trafik yasakla kuralı var sadece.  <code>Edit inbound rules</code> ile kural ekleyelim.</p><figure id="3b80864c-7a77-4da0-8cf5-36a2bdebb28c" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2020.png"><img style="width:1770px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2020.png"/></a></figure><p id="5a404d28-8116-4b06-8ee8-1373fa12d557" class="">İki kural ekledim rule numarası, tip ve kaynak belirttim. Bu NACL&#x27;a bağlanılan subnet&#x27;ler bu kurallara göre erişimleri ayarlanacak. NACL&#x27;da ayrıca inbound kuralı belirlediğimiz gibi outbound kuralları da tanımlamamız gerekiyor.</p><p id="f6927f49-50d2-4eb2-9da2-2c5bc26dd595" class="">Buraya kadar temel seviyede bir VPC oluşturmuş olduk. Şimdi biraz daha derine inelim </p><hr id="8bb2ac2f-0db8-48fd-a3c4-6da76dd10342"/><h2 id="6115af0b-774b-4034-b2d8-76fedd0a6eb1" class="">NAT Gateway / NAT Instance</h2><p id="f922425b-6aba-4e30-8dc4-cc0696f885da" class="">Private subnet içerisinde bulunan cihazlarımızın da güncelleme gibi konularda internet erişimine ihtiyacı olabilir. Bu durumu çözebilmek için NAT Gateway(NAT GW) kullanıyoruz. NAT GW&#x27;i public subnet&#x27;lerin birisine konumlandırıyoruz. İnternete ulaşmasını istediğimiz paketleri private subnet içindeki kaynaklar NAT GW&#x27;e bırakıyor. Fakat NAT GW bir internet GW olmadığı için dışarıdan erişmek isteyenler erişemiyor. </p><p id="6c09e486-6f37-4b32-aaf1-ead1653fe71b" class="">Bunun için iki adımlı bir işlem yapacağız. Birincisi public subnetlerin birinde bir adet NAT GW oluşturacağız. İkinci adımda da private subnetin route table&#x27;ına bir kural ekleyeceğiz. Herhangi bir adrese ulaşmak isteyenler için hedef olarak oluşturduğumuz NAT GW&#x27;i işaret edeceğiz. Sol konsoldan NAT GW&#x27;e tıklayalım. Sağ üst kısımdan <code>Create NAT gateway</code>&#x27;e tıklayalım. </p><figure id="cca6a6af-7db7-4dda-aa34-b2efcbf2b77d" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2021.png"><img style="width:528px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2021.png"/></a></figure><p id="9e29f092-c567-4361-9dbd-3aa2646e8507" class="">Önce isim girdim sonra hangi public subnet içerisinde oluşturacaksam o subneti seçtim. Son olarak burada elastic ip&#x27;ye ihtiyacımız olacağından ve bizim de şuan olmadığı için <code>Allocate Elastic IP</code> diyerek yeni bir ip oluşturulup bunun için atamasını yapıyoruz. Birinci aşamayı tamamladık. Şimdi route table menüsüne gidelim ve pivate subnetlerin olduğu route table&#x27;i düzenleyelim. </p><figure id="08a1e6ca-c08a-4843-8bf3-cd486019657d" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2022.png"><img style="width:1534px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2022.png"/></a></figure><p id="2b41e77e-5cb2-4b98-a9fb-6d68ed8f0ca6" class="">İlk kuralı oluşturmuştuk ve eğer paket bu VPC içine gidecekse paketler local&#x27;de kalacak demiştik. Şimdi ikinci kuralı oluşturuyoruz. Eğer hedef ilk kural dışında herhangi bir adres ise NAT GW&#x27;e başvuracağız. </p><p id="3f81700c-d8c0-4aef-8c22-562ec6209548" class="">Herşeyi AWS&#x27;e yaptırdık işimizi gördük 😂. Her ne kadar NAT GW hazır bir hizmet olsa da bazı durumlarda manual işlem yapmamıza müsaade etmiyor. İstersek biz bu NAT GW işini bir EC2 üzerinden de halledebilirdik. Bu şekilde NAT GW yerine NAT instance kullanabiliriz ve biz NAT instance kullanırsak ücret anlamında da tasarruf etmiş oluruz. Normal EC2 kurar gibi adımları yapıyoruz fakat AMI olarak arama çubuğuna NAT yazdığınızda çıkan AMI&#x27;lerden bir tanesini seçmeniz gerekiyor.</p><figure id="e1cae078-dd19-458e-afcf-96a17db92c58" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2023.png"><img style="width:1831px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2023.png"/></a></figure><p id="2196d172-b16e-4c65-8dab-dd7d1cf59125" class="">Instance tipini seçerken de kaç makineye hizmet verecekseniz o ölçüde bir makine özelliği seçmelisiniz. Son olarak bu ec2&#x27;yu istediğimiz VPC içerisinde public subnete koyalım ve security grup olarak dışarıya açık bir sec-grup seçelim. </p><figure id="ec1ec593-0486-4e2c-99bc-b4b6365842b6" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2024.png"><img style="width:1459px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2024.png"/></a></figure><p id="59e7dc7a-79dd-4d39-a59f-90a3ee04fc43" class="">EC2 hazır olduktan sonra bir işlem daha yapmamız gerekiyor action menüsünden <code>Networking &gt; change source/dest check</code> &#x27;e girelim ve disable edelim. </p><figure id="2dcaabe0-063e-4ac0-a095-925613547c21" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2025.png"><img style="width:1615px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2025.png"/></a></figure><p id="bfe4a2e7-632f-4fc5-a31a-ab9ae1da7b4f" class="">Bu instance&#x27;ı ortalık malı gibi kullanacağımız için 🙂 kaynak neresi hedef neresi kontrol etmesini istemiyoruz. Şimdi de son işlem olarak NAT GW&#x27;de olduğu gibi route table&#x27;ı ayarlamak. Daha önce yaptığımız gibi 0.0.0.0/0 yani herhangi bir yere gidecek paketler için oluşturduğumuz NAT ınstance&#x27;ı hedef göstereceğiz.</p><figure id="65e78702-b5b1-4b47-8644-4f993a2abd86" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2026.png"><img style="width:1600px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2026.png"/></a></figure><p id="2950e8bf-8c0e-40ab-a422-fc2fe78acb54" class=""> Daha önce NAT GW olarak belirttiğimiz target kısmına artık oluşturduğumuz NAT ınstance&#x27;ı seçtik.</p><h2 id="19c66cc3-10a2-4585-ba98-526fa63e12aa" class="">Bastion Host/Jump Box</h2><p id="797c8792-3563-4061-a3df-13c7e1ede89c" class="">Yukarıda NAT Gateway ile private subnet içerisindeki bir makineden dış dünyaya bağlanmıştık. Şimdi dış dünyadan private subnet içindeki makineye nasıl bağlanacağımızı göreceğiz. İsterseniz bunu görmeden önce private ve public subnet&#x27;lerde birer ec2 oluşturalım ve private subnetteki ec2&#x27;ya bağlanamadığımızı görelim. Çünkü bağlantı sağlayabileceğimiz bir public adresimiz olmayacak. Bunun için Public Subnet içerisinde bir atlama tahtası(jump box) oluşturacağız. Aslında atlama tahtası olarak bir makine kullanacağız. Public subnet&#x27;teki makinemizin security grup olarak 22 portunu dış dünyaya açalım ve bağlanalım. Bu noktada benim pem uzantılı key&#x27;e ihtiyacım olacak. pem dosyamızı local&#x27;de iken not defteri ile açalım ve içeriğini kopyalayalım. Daha sonra public&#x27;deki ec2 içerisinde aynı isimle bir dosya oluşturalım. Herhangi bir text editör ile içine girip kopyaladığımız pem dosyasının içeriğini yapıştıralım. Biz buraya kadar aslında pem dosyamızın aynısını public subnet üzerindeki ec2 içerisinde oluşturmuş olduk. Bu dosyaya chmod 400 xxx.pem ile sadece kullanıcı için okuma izni verelim. Son olarak ssh bağlantısı yapar gibi <code>ssh -i xxx.pem ec2-user@private-ip</code>  ile bağlanmış olacağız. Yani private ip ile public subnetteki ec2&#x27;u kullanarak bağlantı sağlamış olduk. İşte bu public subnet&#x27;teki ec2&#x27;ya jump box veya bastion host deniliyor. Son olarak neden böyle bir ihtiyacımız olabilir onu söylemiş olalım. Monitör etmek veya kontrol etmek için bağlantı sağlamak zorunda kalabiliriz. </p><h2 id="61b99866-3258-457c-bf8b-47fffca6a115" class="">End Point</h2><p id="3337cb5f-7e42-49c6-a650-b3192639cf10" class="">VPC içerisindeki kaynakların S3 servisine veya farklı bir VPC&#x27;deki herhangi bir servise ulaşması internet üzerinden gerçekleşebilir fakat biz bunun daha hızlı bir şekilde AWS altyapısı kullanarak erişebilmesi için end point oluşturuyoruz. Sadece AWS servisleri için değil ayrıca Market Place&#x27;deki 3. parti uygulamalar için veya farklı bir AWS accout&#x27;undaki kaynaklar için de bunu kullanabiliyoruz.</p><figure id="a4df740c-73bb-45cd-8dc1-8d0e4ff27888" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2027.png"><img style="width:891px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2027.png"/></a></figure><p id="0b17981a-8716-423c-a970-628449ce8322" class="">Bunun için VPC&#x27;mizde bir end point oluşturacağız ve ulaşmak istediğimiz kaynakları burada seçeceğiz. Sol konsoldan end point&#x27;i seçelim ve <code>create end point</code> diyelim.</p><figure id="5a52f7a0-d93b-42ca-bf74-21bd81d013d6" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2028.png"><img style="width:480px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2028.png"/></a></figure><figure id="cd3146b7-dfcd-4176-bddb-c981599a883e" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2029.png"><img style="width:480px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2029.png"/></a></figure><p id="bf36a369-8853-4de9-8621-5f224b13059f" class="">AWS servislerinden S3&#x27;ü seçtik. Sonra hangi VPC&#x27;den erişeceğimizi seçtik. Daha sonrada o VPC deki hangi route table&#x27;lar ile erişmek istediğimizi seçtik. Ben burada public ve private ikisini de seçtim. En altta da seçtiğimiz kurallara göre json formatında policy&#x27;sini çıkarttı. İsterseniz bu policy ile kısıtlamalar yapabilirsiniz. Bu işlemi yaptıktan sonra route table&#x27;ı inceleyelim.</p><figure id="2b6fbba2-d288-4c1e-b8bc-c0b61f9e284b" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2030.png"><img style="width:1569px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2030.png"/></a></figure><p id="57cb7b3e-6ecf-4888-8dc0-f92de67868f5" class="">Kendisi route table içerisinde bir kural daha yarattı. S3 servisine ulaşmak için bir gateway&#x27;i target olarak seçen bir kural eklendi. Bu sayede artık public veya private subnet içindeki kaynaklar bu end point ile hızlı ve daha güvenli bir şekilde ulaşabilecekler.</p><h2 id="f8a8d27b-95ac-49a8-90bc-520e39178060" class=""><strong>Elastic IP</strong></h2><p id="0ce8a76d-ef05-4d5e-bb10-c0e420041048" class="">Biz gerekli ayarlamaları yaparak ve public subnet&#x27;de bir EC2 ayağa kaldırdığımızda AWS public ip atar. Fakat biz bu makineyi stop edip tekrar start ettiğimizde public ip değişir. Biz bazı durumlarda bu adresin değişmemesini isteriz. Böyle bir durumda sabit Public ip adresini ücreti mukabil alabiliriz. Sol menüden <code>Elastic IPs</code> &#x27;e gelelim. </p><figure id="92363a02-f246-4720-a9d5-fc7f72cb3021" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2031.png"><img style="width:1575px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2031.png"/></a></figure><p id="1a43da07-f36f-4e84-8193-fa200ef4abad" class="">Daha önce oluşturmadığımız için boş geldi. Sağ üstte <code>Allocate Elastic IP address</code> kısmına tıklayalım. Açılan sayfada isim verelim. Havuzdan bir sabit adres almak için <code>Allocate</code>&#x27;e tıklayalım.</p><p id="7c7846e6-5517-4bbb-b2db-d71f87df9142" class="">Tekrar hatırlatayım bu hizmet ücretlidir. Eğer siz oluşan ip&#x27;yi bir ec2&#x27;da kullanıyorsanız ücret ödemezsiniz. Fakat ilişkilendirmez boşta kalırsa saati 0.01 $&#x27;dan ücretini ödemek zorunda kalırsınız. Bunu kullanmak için ise ip&#x27;ye tıklayın action menüsünden <code>associate Elastic IP</code> seçerek açılan sayfada ilişkilendirmek istediğiniz kaynağı seçebilirsiniz.</p><h2 id="072a494e-f062-4677-80c9-12ff9df405a5" class="">VPC Peering</h2><p id="cec0e0e4-8b6f-46fa-bd73-304d42ed4b7b" class="">Bazen birden fazla VPC arasında iletişim ihtiyacı olabilir. Sizin VPC-A daki makineleriniz VPC-B dekilerle iletişime geçmesi gerekiyor bu durumda bunların hepsi için ayrı ayrı kural tanımlamak oldukça güç olurdu. Bunun için AWS&#x27;in peering çözümüne bakacağız. Birden fazla VPC&#x27;yi birbirine bağlayacağız. </p><figure id="cf743c3a-aab1-400c-bff1-13c3de876286" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2032.png"><img style="width:451px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2032.png"/></a></figure><p id="71311f41-e1ae-4d6b-8b5b-5e927357c43e" class="">Burada bilmemiz gereken bir kural var. Diyelim ki VPC-A ile VPC-B arasında da peering kurdunuz. Bu VPC-A&#x27;nın VPC-C&#x27;ye ulaşabileceği anlamına gelmiyor. Eğer ulaşsın istiyor isek onun için ayrı VPC-A ile VPC-C arasında peering kurmamız gerekiyor. Konsola geçelim left-hand menüden Peering connections&#x27;ı seçelim ve <code>Create peering connection</code> diyelim.</p><figure id="77b4ec39-cc15-4b7d-bffe-9556eef8f0ff" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2033.png"><img style="width:528px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2033.png"/></a></figure><p id="ecef29c8-ee59-491f-8a62-e5d358cb8a77" class="">Önce isim veriyoruz. Sonra peering için ilk VPC&#x27;mizi seçiyoruz ben eğitim için olanı seçtim. Diğer VPC&#x27;yi farklı bir account üzerinden veya farklı bir region&#x27;dan da seçebiliriz. Ben aynı regionda daha önce oluşturduğum VPC-a isimli VPC&#x27;yi seçtim. CIDR bloklarına da dikkat edelim aynı regionda aynı CIDR bloğu ile tanımlamış olsaydık bu işlemi yapamayacaktık. Çünkü paket nereye gideceğini bilemeyecekti. En altta create diyelim. Bu işlem bittikten sonra bir onaya ihtiyacımız var.</p><figure id="d8e2150b-e102-41a7-85dd-9f2bceeac2a5" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2034.png"><img style="width:1611px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2034.png"/></a></figure><p id="a999bc49-2785-40bf-8734-f54975b3f86f" class="">Action menüsünden Accept request&#x27;e tıklayalım. Her iki VPC de benim hesabımda olduğu için kendim talep ettim kendim onayladım. Farklı bir hesapla bu işlemi yapmak isteseydik diğer hesaptan onaylamamız gerekecekti. Bize bildirim şeklinde route table&#x27;ları güncelle şeklinde uyarı çıkacak modify diyelim.</p><figure id="d0782b43-035a-443e-a9bc-8dda7904917b" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2035.png"><img style="width:1605px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2035.png"/></a></figure><p id="77e57dc9-663b-4ac1-a72e-838bb687dbf5" class="">Aşağıdaki tabloda gerekli güncellemeleri yapalım. Önce egitim VPC mizin route table&#x27;ına diğer VPC&#x27;ye gitmek isteyen paketler için bir kural girelim. Diğer VPC&#x27;nin CIDR bloğunu kopyalayalım.</p><figure id="6a02d7b1-630f-43fb-8b05-5f18b651ea30" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2036.png"><img style="width:1598px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2036.png"/></a></figure><p id="6f068db1-38d7-4acc-a9fa-2cac9d4f69a8" class="">Önce public için yaptığımız table&#x27;i seçtim. Routes kısmında edit&#x27;e tıklayarak yukarıda gördüğünüz gibi 10.7.0.0/16 adresine bir paket gidecek ise hedef olarak oluşturduğumuz peering&#x27;i seçtim. Bunu private için ve daha sonra diğer VPC nin route table&#x27;ları için de yapmamız gerekecek.</p><h2 id="832c367e-302f-4709-8410-93929ffaecfd" class="">VPN(Virtual Private Network) &amp; Direct Connect</h2><p id="560d6e30-0a49-46d3-8556-a6243c926d52" class="">VPC&#x27;mizi diğer VPC&#x27;ler ile peering ile bağlamıştık veya herhangi bir servisle End Point ile bağlanabilmiştik. Fakat bağlantı sağlamak istediğimiz konum kendi on-premise data center ise AWS&#x27;in iki çözümü var birisi VPN, diğeri ise Direct Connect. AWS ile data center&#x27;ınız arasında şifreli ve özel bir bağlantı kuruyoruz. Bu sayede data center&#x27;ınızdaki kaynaklara AWS üzerinden ulaşmış oluyoruz. </p><p id="73a34250-26dc-4bc9-adec-33f5a555be84" class="">AWS bunun için iki farklı hizmet sunar. Birincisi <strong>AWS Site-to-Site VPN</strong> diğeri ise <strong>AWS Client VPN</strong>. AWS Site-to-Site VPN ile AWS&#x27;den data center&#x27;ınıza bağlanmayı sağlarken AWS Client VPN ise remote user&#x27;ların AWS&#x27;e veya data centerlarınıza ulaşmasını sağlar.</p><figure id="31654dda-d300-4056-9296-60bc63c9a38d" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2037.png"><img style="width:551px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2037.png"/></a></figure><p id="5bef185e-71c2-4bd0-b849-945670f13e92" class=""><strong>AWS Site-to-Site VPN </strong>ile  AWS tarafında Virtual Private Gateway, kendi veri merkezimizde de customer gateway oluşturuyoruz. Her VPN bağlantısı ile iki tunnel kurulur bu sayede yedeklilik sağlanarak yüksek erişilebilirlik kazandırılmış olur. </p><figure id="d77cc02d-36a1-4a68-98b1-1e50b3cf5428" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2038.png"><img style="width:288px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2038.png"/></a></figure><p id="871989de-5601-4e4d-bddc-6cd94eba0ae8" class=""><strong>AWS Client VPN </strong>ile de uzaktan herhangi bir yerden hem AWS hem de on-premise kaynaklarınıza erişim imkanı kazanırsınız. Bunun için öncelikle VPN Client uygulamasına ihtiyacınız var daha sonra AWS tarafında bir Client VPN Endpoint oluşturmanız gerekecek. Tabi ki gerekli izinleri oluşturabilmek için route table vasıtasıyla kuralları oluşturacağız. Son olarak yeni oluşturduğumuz VPN end point ile subnetleri ilişkilendirdikten sonra konsoldan Client VPN Endpoint konfiigürasyon dosyasını alarak VPN bağlantısını sağlayabilirsiniz. Bağlantıyı kurduktan sonra Internet Gateway ile S3 gibi internet üzerinden ulaşılabilen kaynaklara, Virtual Private Gateway ile on-premise sistemlerinize ve VPC peering sayesinde diğer VPC&#x27;lerinize ulaşabilirsiniz. </p><figure id="aa34e6dc-72cb-4bbc-9970-58e17dded2a5" class="image"><a href="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2039.png"><img style="width:384px" src="VPC%20(Virtual%20Private%20Cloud)%20fbf47aa4d2f5412db9bfdda1e78053ec/Untitled%2039.png"/></a></figure><p id="cb7c3937-c7fd-4aff-afbf-2df4406551c0" class="">Biz VPN ile şifrelenmiş ama internet&#x27;i kullanan bir bağlantı sağladık. Şimdi gelelim son konumuz Direct Connect&#x27;e. Direct Connect ile data center ile AWS kaynakları arasında dedicated bir hat kuruyoruz. Bu sayede internet&#x27;ten tamamen izalasyon sağlıyoruz ve daha yüksek transfer hızlarına ulaşabiliyoruz. Yukarıdaki resimden de görebileceğiniz gibi 3 ana komponent&#x27;i var. Birincisi AWS region VPC içindeki veya dışındaki(S3, DynamoDB vs) kaynakları içerir. İkincisi Direct Connect Location, burada AWS direct connect router ve müşterinin router&#x27;ı bulunur. Üçüncüsü ise müşterinin on-premise sistemi. Bu hizmet henüz her yerde mümkün değil deyip bu bölümü bitirelim.</p><p id="dd95cc5d-b9e5-41d7-a53c-c84b2fabd39c" class="">NOTE: NAT GW ve NAT Instance için elastic ip tanımlamıştık onları silelim yoksa ücret ödemek zorunda kalırsınız. </p><p id="d803f50e-32c1-43be-944a-e6812bcc9950" class="">
+</p><p id="f8d2bf6e-da14-4731-a1cb-efa390ef1c0d" class="">
+</p></div></article></body></html>
