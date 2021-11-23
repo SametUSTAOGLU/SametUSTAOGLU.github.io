@@ -1,0 +1,671 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Route 53</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="60e9e5a6-cd33-4a27-8e80-5c53c80391af" class="page sans"><header><h1 class="page-title">Route 53</h1></header><div class="page-body"><figure id="bd396a9f-075c-43d9-976c-b90d111498f2" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled.png"/></a></figure><p id="91acc3e3-096e-4ea2-953b-b22ff2ce936f" class="">Route53 AWS&#x27;in DNS servisidir. Route53&#x27;e girmeden önce DNS hakkında kısa bilgi verelim. Önce terminolojiye bakalım daha sonra DNS nasıl çalışır onu inceleyelim.</p><h3 id="55c0cb47-d171-4cb6-b542-f9dd5964e0f7" class="">DNS Terminolojisi</h3><p id="8a69a3cf-0fa4-4c1c-a5ce-2bd05e5a1eff" class=""><strong>Domain Register:</strong> Sizin kullanmak istediğiniz web sitesi adresini kontrol edip daha önce kullanılmayan bir adres ise onu alabileceğiniz bir hizmet sağlayıcısıdır.  Route53 ,GoDaddy gibi.</p><p id="5497fcfc-d29a-4f34-ad8a-a8553eb92db0" class=""><strong>DNS Record:</strong> A, AAAA, CNAME, NS, SOA gibi kayıtlardır içeriğine konu içerisinde gireceğiz.</p><p id="5b319fa5-3e33-4408-80e7-f62977fcf939" class=""><strong>Root Domain:</strong> Girdiğimiz web site isimlerinin sonunda görülemeyen kısımdır. Ne işer yaradığı alttaki resim üzerinden anlatılacak.</p><p id="e2db750d-a532-4e4d-85db-77a0dfd96bb5" class=""><strong>Top Level Domain(TLD): </strong>.com, .net, .gov gibi adresin sonunda gördüğümüz kısım</p><p id="1e386f65-5088-49fc-ad54-ae802184f9a3" class=""><strong>Second Level Domain(SLD):</strong> <a href="http://google.com">google.com</a> , <a href="http://example.com">example.com</a> gibi adresin TLD öncesi diyebiliriz.</p><p id="2323cca6-a964-438b-a07e-4e0da744020e" class=""><strong>Name Server(NS):</strong> Gitmek istediğiniz adresin ip adresini tutan server&#x27;lardır. Çözümleme yaparlar.</p><h3 id="9e9fe6ac-6ea5-4e18-803a-488558b36425" class="">DNS&#x27;in Çalışma Mantığı</h3><p id="887fc65d-9545-4aa8-a416-9694cc043244" class="">Biz ulaşmak istediğimiz bir siteye <a href="http://www.google.com">www.google.com</a>  şeklinde ismini girerek ulaşırız ama aslında biz o siteye, sitenin içeriğini saklayan server&#x27;ın bir ip bilgisi ile erişiriz. Fakat insanın doğası gereği her girmek istediği sitenin ip numarasını bilmesi zor olacaktır. Bizim için bu girdiğimiz site isminin ip karşılığını döndüren bir hizmete ihtiyacımız var. Bize bu hizmeti sağlayan servise de Domain Name Server kısaca  DNS diyoruz. Şimdi arka planda bu işlem nasıl yapılıyor onu inceleyelim.</p><figure id="3d45c632-5cbf-4247-be0c-b23cac163a34" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%201.png"><img style="width:860px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%201.png"/></a></figure><p id="e02f5b3d-da0d-4465-a398-41fca1a3ca1a" class="">Yukarıdaki resim üzerinden anlatacağım. Girdiğimiz adreslerin en sonunda görülmeyen bir &quot;.&quot; vardır. Buna root domain denir. Root domainin vazifesi TLD(Top Level Domain) listelerini tutmaktır. yani &quot;.com&quot;, &quot;.net&quot; gibi TLD leri tutan server&#x27;lardır. Sizin girdiğiniz site adresi &quot;.com&quot; ile biterse root domain size &quot;.com&quot; adresilerini tutan server şudur diye cevap döner.  Ben <a href="http://example.com">example.com</a> adresini arıyorum şeklinde bir istek TLD&#x27;ye gider. TLD&#x27;de size example.com adresinin tutulduğu SLD(Sub LevelDomain)  adresini size döndürür. Siz sonunda girmek istediğiniz adresin ip&#x27;sini bilen server&#x27;ı bulmuş oluyorsunuz. Son olarak SLD&#x27;ye ben <a href="http://www.example.com">www.example.com</a> adesinin ip&#x27;sini arıyorum bunun cevabı sizdeymiş dediğinizde size istediğiniz ip dönmüş olur.</p><figure id="dfcfa38a-73e2-4eb1-905b-46892ade7073" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%202.png"><img style="width:1593px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%202.png"/></a></figure><p id="608235e2-6420-4f78-9996-05d8cce0ee78" class="">Yukarıdaki şekilden özetleyecek olursak. Gitmek istenen adres önce sizin host bilgilerini tutan dosyalarınızdan sorgulanır. Eğer yoksa 1 numara ile gösterilen Local DNS server&#x27;a sorulur. Local DNS server&#x27;da yoksa 2 numara ile gösterilen şekilde o da root DNS&#x27;e sorar. Root DNS server&#x27;da ben o adresi bilmem ama .com bilgilerini tutan server adresini vereyim ona sor der. 3 numaralı sorgu ile TLD&#x27;ye sorgu gider. O da aynı şekilde ben bilemem ama bende example.com&#x27;un ip sini tutan server bilgisi var deyip onu döner. Son 4 numaralı sorguyla SLD&#x27;ye sorulur o da istenilen adresin ip bilgisini döner.</p><hr id="1e7791d1-eb33-4e07-aa14-f2c7f4774654"/><p id="2e480f83-e78d-4fec-87e4-c7924e54eea2" class="">Şimdi Route53&#x27;e dönelim. Route53 tamamen amazon tarafından yönetilir. DNS kayıtlarını tutar ve kayıtlar üzerinde işlem yapmanıza olanak sağlar. Ayrıca Domain register&#x27;dır yani domain name satın alabilirsiniz. Kaynaklarınıza health check yapmanıza olanak sağlar bu sayede sağlıksız sunuculara istek göndermez. Ayrıca senaryolarını göreceğimiz türlü şekillerle kaynaklara load balancing yaptırabilirsiniz.</p><h2 id="153c307e-1bdd-48e6-85a7-52d2ef2792de" class="">DNS Records</h2><p id="73611bf1-62ec-4656-8204-17bdbd6d649f" class="">Bir domain&#x27;e trafiği nasıl yönlendireceğinizi tutan kayıtlardır. Her record;<div class="indented"><p id="f8dd85ad-1917-4ae7-abd4-5116c73761f8" class="">Domain Name</p><p id="1a5248db-44b1-4c6b-932b-2285662e7b26" class="">Record Type(A, AAAA, CNAME,  vb.)</p><p id="e5d7e480-b3d8-40a1-b22c-6cf5bf28cf66" class="">Vlaue (132.547.658.21)</p><p id="aa8c52b2-e2e7-4f22-a1a3-54fef766cb42" class="">Routing Policy</p><p id="553b98dc-fab7-462c-867b-3a6db828363d" class="">TTL(Time to Live)  bilgilerini içerir.</p></div></p><p id="ffc5362b-a273-4835-8d12-b3087ff0dc78" class="">Yeri gelmişken TTL değerini burada açıklayalım.</p><p id="0bc96e6c-1d9d-46cc-aa4a-a815eab273c6" class="">TTL(Time to Live): Atılan sorgu sonucu DNS server IP adresi ile birlikte TTL değeri gönderir. Nedir nu TTL? DNS sunucusuna sorgu atıldıktan sonra belirtilen değer süresince tekrar sorgu atılmaz ön bellekten cevap verilir. DNS sunucu aslında şunu demiş oluyor. İstediğin adresin ip adresi şudur ve sen bana bunu TTL süresi boyunca sorma. IP adresi sık sık değişiyorsa bu değer düşük olmalı, statik web siteleri için ip adresi değişimi çok beklenmiyorsa bu değer yüksek olabilir. Ayrıca TTL süresinin fazla olması Route53&#x27;e trafiğin az olmasına bu da düşük ücret anlamına gelir. TTL süresi 60 sn ile 2 gün arasında olabilir.</p><p id="9be0a1b3-9b2b-4bdc-8e9b-7293d632c4c8" class="">Şimdi bazı Record Type&#x27;lara bakalım;<div class="indented"><p id="54da3d87-100c-4690-bcd3-0be84e7654fb" class="">A        : hostname&#x27;in IPv4 adresi</p><p id="b3df657a-3beb-483f-9cb5-93b4c8284fc8" class="">AAAA : hostname&#x27;in IPv6 adresi</p><p id="02ed5084-5850-40ca-87b6-49d25cdee0c1" class="">CNAME: farklı bir hostname&#x27;in hostname&#x27;i. CNAME belirtirken SLD şeklinde yani <a href="http://www.example.com">www.example.com</a> şeklinde girilebilir. example.com şeklinde verilemez.</p><p id="182293a5-1613-4489-a74c-3eca3cf10749" class="">NS(Name Server): Yetkili DNS sunucularının listesini içerir. Sizin domain adresinizi buradaki sunucular tutarlar.</p><p id="2e2b83a6-9e07-4d35-a0ae-41440c7baad5" class="">SOA(Start of Authority): Yönetimsel bilgileri içerir. DNS sunucuları birbirleriyle nasıl haberleşmeli, ne sıklıkla dosya göndermeli gibi temel kayıtlar SOA altında tutulur.</p></div></p><p id="3ae62160-fd3f-41a9-96eb-528c9d9e2599" class="">Şimdi de Hosted Zone tiplerini inceleyelim;<div class="indented"><p id="98192b24-3a32-4d7f-be44-791f9495ccd3" class="">Public Hosted Zone: İnternete açık public domain name&#x27;lerin kayıtlarının tutulduğu alanlar. Her yerden erişilebilen adreslerin kayıtları tutulur.</p><p id="0c17494c-7216-4d28-bf53-40167fd65626" class="">Private Hosted Zone: Kendi local&#x27;inizde çalıştığınız bir domain belirleyeceğinizde bunu private Hosted Zone&#x27;da yapmalısınız. Bir veya daha fazla VPC&#x27;den erişilebilecek şekilde yapılabilir. Neden böyle bir ihtiyacımız olabilir? Bir banka düşünün dışarıdaki müşterilerin gördüğü menülerden daha detaylı ekranları olması gerekebilir veya canlıda olan bir uygulamanızın geliştirme aşamaları aynı isimle kendi iç ağınızda yapmanız gerekecektir.</p></div></p><p id="56d05fed-ea7f-4779-a560-ecdfb5669db3" class="">Her hosted zone için aylık 0.50 $ ücretlendirmesi olacaktır.</p><hr id="2c998359-3acc-404f-9bcd-4b0496d6a907"/><h3 id="a59efddf-4ff0-4650-b950-f2f2486b6b27" class="">Domain Register İşlemleri</h3><p id="8dad970a-e4df-4b88-9d3d-b86eb2f45024" class="">Şimdi konsola geçelim domain satın alma kısmı ile başlayalım. Arama çubuğuna Route53 yazalım.</p><figure id="02c869c3-5d4a-43c6-83cb-e7bec3c3fa16" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%203.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%203.png"/></a></figure><p id="1211f1b8-c4be-4676-bb02-ea65a1ea51fb" class="">
+</p><p id="ad41f7bf-ec92-44b0-88fa-c9ab972f2e9e" class="">Dashboard&#x27;da daha önce domain name almadı iseniz işaretli yerleri 0 olarak göreceksiniz. Sol konsoldan Register Domains kısmına tıklayalım. </p><figure id="9d8bdc8f-0f1e-4ddf-ac97-e6c4630de07d" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%204.png"><img style="width:576px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%204.png"/></a></figure><p id="6f6ec9b8-baf6-47f3-a606-f16d075ca38b" class="">Karşınıza iki seçenek çıkacak. Başka bir domain register&#x27;da bir domain varsa transfer damain ile AWS&#x27;e aktarabilirsiniz. Register Domain ile yeni bir domain alabilirsiniz. Register Domain&#x27;i seçelim. 3 aşamada işlemi tamamlayacaksınız. 1. aşamada istediğiniz TLD uzantısı ile adresinizin müsait olup olmadığını görebilirsiniz. Fiyatları da görülecek. belirlediğinizde add to cart&#x27;a tıklayarak ilerleyelim. 2. aşamada kimlik ve adres bilgilerinizi giriyorsunuz. 3. aşamada kontrol ettikten sonra otomatik her yıl yenilensin mi seçeneği default seçili olduğu için kaldırabilirsiniz. Şartları kabul edip işlemi tamamlayabilirsiniz. Hazır hale gelmesi birkaç saat sürebilir. </p><hr id="d0a842f4-d7e6-48a1-885c-c72ff4fc89a5"/><p id="e141efc9-3a93-409d-8a88-4ffcd75f6b7e" class="">Hazır olduktan sonra sol konsolda bulunan Hosted Zone menüsünden public bir zone oluşturulduğunu ve içerisinde sadece NS ve SOA kaydı olduğunu görebilirsiniz.</p><figure id="756ec433-6781-4d90-815a-e4a184822f7d" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%205.png"><img style="width:1706px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%205.png"/></a></figure><p id="f1a0752b-fec3-473e-9aa6-65e7f513cbe8" class="">Şimdi yeni bir kayıt oluşturalım ve oluşturduğumuz kayıt ile browser&#x27;dan giriş denemesi yapalım. Uygulama şeklinde yapacağım benimle beraber yapabilirsiniz.</p><p id="64235975-0df6-4d07-a4e5-714523b0eb49" class="">1- Öncelikle public subnet&#x27;te SSH ve HTTP portu açık bir EC2 ayağa kaldıralım, SSH ile bağlanıp  apache server kuralım(<code>sudo yum install -y httpd</code>). HTML klasörüne gidelim(cd /var/www/html). Bu klasör içine bir index.html yapıştıralım. Yoksa da sıkıntı değil kendi index.html&#x27;ini görebiliriz. Son olarak apcahe server&#x27;i çalıştıralım(<code>sudo systemctl start httpd </code>   , <code>sudo systemctl enable httpd</code>)</p><p id="3af83943-2b5b-49a0-bfbc-931323f1a203" class="">2- Yukarıdaki Hosted Zone sayfasına gelelim ve <strong>create record</strong>&#x27;a tıklayalım.</p><figure id="afcdc99c-45b3-48ff-bce0-201cbfe24554" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%206.png"><img style="width:1366px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%206.png"/></a></figure><p id="adc5a847-bb26-492c-a138-19d203d1c8ad" class="">Record name olarak <a href="http://test.devopsandclouds.com">test.devopsandclouds.com</a> girdim. Record kaydını A yani value&#x27;sunu ipv4 olarak vercem dedim. Value kısmına da nginx kurulu ec2 public ip sini girdim. TTL değerini anlatmıştım. Routing policy simple olarak kalsın diğerlerine bakacağız.</p><p id="d623c78a-3f41-4266-aba7-8ef902a28583" class="">3- Browser&#x27;a <a href="http://test.devopsandclouds.com">test.devopsandclouds.com</a> adresini girelim ve çıktıyı görelim.</p><figure id="f27eff2a-3a36-4e3b-8edb-88e9bbf59d72" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%207.png"><img style="width:1802px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%207.png"/></a></figure><hr id="22255285-5166-4b04-b8a7-2576da81a436"/><p id="8b4c3325-5713-46e0-a898-8b7eb8c35747" class="">Şimdi uzun bir uygulama yapacağız. Burada  3 ec2 ayağa kaldıracağız. Adım adım yapacağız ve routing policy&#x27;leri uygulamalı olarak göreceğiz.</p><p id="6517e990-3f49-4c4d-abab-b1b56828a466" class="">1- 3 farklı region&#x27;da, aşağıda vereceğim user data&#x27;yı kullanarak, public subnet&#x27;te SSH ve HTTP portu açık 3 EC2 ayağa kaldıralım. User data ile apache web server kuruyoruz. Hangi ip ve Hangi AZ&#x27;den bağlandığımızı görebileceğimiz bir çıktı verecek.<div class="indented"><pre id="2ca5d0b0-47b2-4c77-9d80-667c13a4cc86" class="code"><code>#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+EC2_AVAIL_ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+echo &quot;&lt;h1&gt;Hello World from $(hostname -f) in AZ $EC2_AVAIL_ZONE &lt;/h1&gt;&quot; &gt; /var/www/html/index.html</code></pre></div></p><p id="c848ebf5-59b7-405e-b5d4-edf21a415e55" class="">2- Bir adet load balancer oluşturalım herhangi bir region&#x27;daki ec2&#x27;yu dahil edelim. Load balancer&#x27;ın ve oluşturduğumuz ec2&#x27;ların public ip&#x27;lerini not alalım. Load Balancer&#x27;ı ileride alias kaydı oluştururken kullancağız.</p><p id="185672a2-a89b-49f1-8dcb-d499402c353f" class="">3- Bu adımda TTL için bir uygulama yapacağız. Yeni bir kayıt oluşturalım ve A record tipi ile ilk ec2 muzun adresini girelim TTL değeri de 120 sn olsun.<div class="indented"><figure id="14200b12-1231-4b57-abf5-f861e772b7f1" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%208.png"><img style="width:779px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%208.png"/></a></figure><p id="0d71a17c-fbba-4402-8c6a-50a3f946f793" class=""><a href="http://ttl.devopsandclouds.com">ttl.devopsandclouds.com</a> adresine girdiğimde 120 sn boyunca aynı değeri göreceğim.<div class="indented"><figure id="157b6189-9c39-4204-a9d3-3ccb55160bd1" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%209.png"><img style="width:1155px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%209.png"/></a></figure><p id="0978b34b-3f1f-4091-a1e5-5d6b0d5bae48" class="">120 sn dolmadan kaydı düzenleyelim ve ip adresini diğer ec2 lardan birini seçelim. Sayfayı yenilediğimizde 120 sn dolmadığı için aynı sonuç olduğunu görelim.</p><figure id="81fabb9a-0bfc-4fce-b749-5c33ec5ed6ca" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2010.png"><img style="width:532px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2010.png"/></a></figure><figure id="9d79fc3f-79bd-48bb-9d13-d0063a63abfd" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2011.png"><img style="width:1277px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2011.png"/></a></figure></div></p><p id="f9c6b0fc-acef-4e50-a3b6-138cbba52532" class="">120 sn dolduktan sonra yenilediğimizde değiştiğini görelim.</p><figure id="45109a35-a423-4081-8e70-ddd879644d9e" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2012.png"><img style="width:1376px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2012.png"/></a></figure></div></p><p id="8f5e8002-b527-406b-9609-afad79f330b7" class="">4- Bu adımda CNAME ve ALIAS kayıtları ile ilgili uygulama yapacağız. Öncesinde farklarına kısaca bakalım. CNAME&#x27;den bahsetmiştik value olarak başka bir hostname giriyorduk. Bu hostname herhangi bir hostname olabilirdi. Fakat Alias da sadece AWS kaynaklarının hostname&#x27;ini girebiliriz. Alias&#x27;da TTL değeri girilmez. A ve AAAA her ikisini de destekler. Alias ücretsizdir. Aşağıdaki resimde görülen kaynaklar için Alias kullanılabilir. Son fark olarak CNAME de kayıt bilgisi boş olamaz yani <a href="http://devopsandclouds.com">devopsandclouds.com</a> kaydı CNAME ile oluşturulamaz(önüne www gibi isim girilmeli), fakat alias oluşturulabilir. Note: EC2 dahil olmadığı için EC2&#x27;nun DNS name&#x27;i olmaz.</p><figure id="c94a873f-c4b0-44c6-8be6-eac4297d0fd6" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2013.png"><img style="width:288px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2013.png"/></a></figure><p id="dc9e19d2-9328-4ba7-ab18-a762e9465ad2" class=""><strong>Konsola geçelim ve bir CNAME oluşturalım.</strong></p><figure id="a000aa10-2b83-4e22-965b-7c468128ecf3" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2014.png"><img style="width:1335px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2014.png"/></a></figure><p id="5186be6b-481c-4bb6-985f-307507f3f9ce" class="">Kayıt <a href="http://cname.devopsandclouds.com">cname.devopsandclouds.com</a> girdim. tip CNAME seçtim ve value kısmına daha önce oluşturduğum load balancer&#x27;ın DNS name&#x27;ini girdim.</p><figure id="a02c6d8c-3837-46d4-bea7-2f913cc34bfa" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2015.png"><img style="width:1217px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2015.png"/></a></figure><p id="10f4da15-9359-4ad7-88c1-d92d02b3ba97" class="">CNAME bizim iş yükümüz hafifletecek bir kayıt türü. Onlarca sub-domain  var diyelim ve her birini de xxx.localdevops adresi olan 1.3.5.9 adresine yönlendirdiniz. Oldu da xxx.localdevops adresi değişirse hepsine tek tek ip adresi girmeniz gerekecekti. Bunun yerine xxx.localdevops adresine yönlendirmiş olduğumuzda xxx.localdevops adresi değişse de diğerleri etkilenmeyecek.</p><p id="852a50ca-cc14-43f7-9dc1-0b2c31883585" class=""><strong>Şimdi de alias oluşturalım.</strong><div class="indented"><figure id="10151566-fc29-4fe5-991e-cff531e5f122" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2016.png"><img style="width:624px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2016.png"/></a></figure><p id="0dad9fa1-2acf-42ce-8a5f-34cb451b0ee1" class="">Kayıt adını <a href="http://alias.devopsandclouds.com">alias.devopsandclouds.com</a> girdim. Record tipi A olarak bıraktım. Sağ kısımda alias&#x27;a tıkladım ve alias menüsü açıldı. İlk olarak target olarak AWS kayanğı tipi olarak ALB seçtim. Takiben region seçtim. En son zaten kendisi o region&#x27;da bulunan ALB&#x27;yi çıkarttı. </p><figure id="7e5f950b-035b-4e16-8b90-3d902c87da8d" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2017.png"><img style="width:1218px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2017.png"/></a></figure></div></p><p id="e7fed776-35a9-4b36-ab54-359a50292631" class="">5- Bu bölümde daha önceki bölümlerde default bıraktığımız routing policy&#x27;lere bakacağız. 7 tane policy bulunmakta. Simple, Weighted, Failover, Latency based, Geolocation, Multi-Value Answer ve Geoproximity.<div class="indented"><p id="b6dbbe0c-0cdb-4f99-b8d9-a5711e410829" class=""><strong>a- Routing Policy - Simple </strong></p><p id="d76122ac-d360-432b-82f8-c99f759ad08c" class="">Bir veya birden fazla value girilebilir. Birden fazla girilirse random sonuç döndürür. Health check yapmaz. </p><figure id="b486daf2-804a-46e8-b58a-bf0881e30f2c" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2018.png"><img style="width:624px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2018.png"/></a></figure><p id="562f3ab8-c064-4905-8c7b-6a68f4171ab8" class="">Kayıt adı <a href="http://simple.devopsandclouds.com">simple.devopsandclouds.com</a> girdim. value olarak 3 ec2 nun da ip&#x27;sini girdim. TTL değerini düşük tuttum deneme yapacağım için. Policy olarak da simple seçtim.</p><figure id="0f8025f5-fd20-4ecf-a95d-c78eee3591e5" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2019.png"><img style="width:1380px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2019.png"/></a></figure><p id="c163c2c5-79c3-44a9-9daa-1afdf4c3a638" class="">Bir süre bekledikten sonra sayfayı yenilediğim zaman diğer ec2&#x27;ya bağlandığını gördüm.</p><figure id="f3026ecd-0131-4b50-9837-2fc9a770a042" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2020.png"><img style="width:1176px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2020.png"/></a></figure><p id="448078ad-270a-4ee7-887c-6f640eda383d" class="">Simple&#x27;da bu değişim random oldu. Health check aktif değildir.</p><hr id="94ca17ac-5f5d-4dab-a35d-0ac219e700e0"/><p id="ecf385e0-b00f-41ca-bcef-bf22199b0a0e" class=""><strong>b- Routing Policy - Weighted</strong></p><p id="b432ceca-726f-4836-bafd-c960907e98a5" class="">Bu policy tipinde kaynaklarınızın hangi yoğunlukta kullanılacağını ağırlık vererek belirtiyorsunuz. Burada örneğimizde 3 kaynak var ve birazdan ilk kaynak için weight değerini 60, ikinci kaynak için 30, son kaynak için 10 gireceğim. Bu sayede gelen taleplerin %60 ını ilk kaynak, %30 unu ikinci kaynak, %10 unu son kaynak karşılayacak. Ayrıca bu model de health check özelliğini aktif yapabilirsiniz. Son olarak toplam değer 100 olmak zorunda değil oranı bulurken;</p><p id="d0f176ce-cf15-4394-afbc-604c3c428610" class=""><code>((herhangi bir kaynağa verilen ağırlık) / toplam ağırlık) *100</code> şeklinde trafik yüzdesi bulunabilir. Eğer bir kaynağa trafik gitmesin isterseniz 0 girebilirsiniz. Yeni bir kayıt oluşturalım.</p><p id="9921797c-dff1-458a-bae8-68a5909d6277" class="">record name olarak <a href="http://weight.devopsandclouds.com">weight.devopsandclouds.com</a> girdim. TTL 3 yaptım hızlı deneme yapmak için. policy olarak da Weighted seçtim yukarda belirttiğim oranları verdim.</p><figure id="f1417502-45b3-49ba-814a-8af73bfed469" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2021.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2021.png"/></a></figure><figure id="46501b6c-192b-4b06-9c65-232b0b02edef" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2022.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2022.png"/></a></figure><figure id="6a0dd269-8ee7-4289-8a02-e9976d832bac" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2023.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2023.png"/></a></figure><figure id="f3047266-f01a-42c5-a19e-0921c87a2dcf" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2024.png"><img style="width:997px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2024.png"/></a></figure></div></p><hr id="9eb4718f-6bf2-4e06-8ee2-c5f6428fcb94"/><p id="0bf120d5-15c4-43dc-85e2-6e69da28554e" class=""><strong>c- Routing Policy - Latency-based</strong></p><p id="505bbab5-92e5-4d2e-be81-79006154ae4e" class="">Bu policy tipinde kaynaklarına erişmek isteyen kullanıcılara kendilerine düşük gecikme ile cevap veren kaynak tarafından dönüş yapılır. En düşük gecikme kendilerine en yakın server olmuş olacaktır. Sizin dünya genelinde ulaşılan bir uygulamanız var Avrupa&#x27;da ve Amerika&#x27;da kaynakları belirttiniz. Bu durumda Amerika&#x27;dan erişmek isteyen müşterilere Amerika&#x27;daki server&#x27;lar cevap vermiş olacak. Konsoldan girdileri yapalım. 2 kayıt gireceğim record name <a href="http://latency.devopsandclouds.com">latency.devopsandclouds.com</a>, birisi us-east-1&#x27;da diğeri eu-central-1 de. Ben Türkiye&#x27;den istek yaptığımda hangisi cevap verecek göreceğim.</p><figure id="4b470f92-ac62-4bc0-ac09-76a391e58476" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2025.png"><img style="width:1075px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2025.png"/></a></figure><p id="1f59edef-a241-426f-8eb1-685b3b664161" class="">Bana avrupa region&#x27;undaki makine cevap verdi. Diyelim ki avrupa&#x27;daki makine arızalı ulaşılamıyor bu durumda ne olacak? Health check özelliği sayesinde bu sıkıntıdan kurtulabilirsiniz. Şimdi yeri geldiği için Health check konusunu anlatalım.</p><figure id="151928f6-1538-4d59-85ce-f5737211814b" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2026.png"><img style="width:1515px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2026.png"/></a></figure><hr id="f60a29e0-35f0-4cf2-a8b8-68c732cdaf0e"/><p id="6665deb1-bd02-4a00-a1ac-5e50cad4abef" class=""><strong>Health Check(HC):</strong></p><p id="37d852c1-1fd4-48a7-93a8-5f12c7c72dd3" class="">Bir kaydınıza ait birden fazla kaynak olduğunda policy&#x27;e en uygun kaynak cevap verir. Bu özelliği aktif hale getirdiğinizde en uygun kaynakta bir sıkıntı varsa diğer kaynaklar da cevap verebilir olmuş oluyor. </p><p id="50b9afdd-a451-4171-88e4-12546cd28a96" class="">Sadece public kaynaklar için uygulanabilir. Private Hosted Zone&#x27;larda uygulanamaz. Health check tüm endpointleri sürekli izler. Ayrıca Health check CloudWatch servisi ile entegredir. Yaklaşık 15 tane Health checker ürekli end pointleri takip eder. Health ve Unhealty threshold değeri 3, interval 30 saniye, HTTP, HTTPs ve TCP protokollerini kapsayacak şekilde ayarlanmıştır. Health check&#x27;lerin üzerinde bir parent health check tanımlayabilirsiniz. parent HC 256 taneye kadar child HC&#x27;i monitor edebilir ve aralarındaki ilişkiyi  OR, AND veya NOT olarak ayarlayabilirsiniz. </p><div id="b43da15a-5fac-47f0-8951-9777d2440e5e" class="column-list"><div id="c68ea82a-f9b6-403c-97b8-5b2580ede041" style="width:50%" class="column"><figure id="0bc98820-c4b5-41d5-9a73-87add061e51e" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2027.png"><img style="width:288px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2027.png"/></a></figure></div><div id="d7635bc2-d652-46b5-a0f1-68c8a7c1f8ad" style="width:50%" class="column"><figure id="936013a2-fd2f-4fcd-80e1-feb6f933a295" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2028.png"><img style="width:384px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2028.png"/></a></figure></div></div><p id="7c6a2bc5-6210-4600-a5ec-89a43c5a8c6a" class="">Eğer health checker %18&#x27;den fazla healthy alırsa kaynak sağlıklı kabul edilir. Health checker&#x27;lar için gelen trafiğe izin verilmiş olunması gerekir. Private kaynaklar için health check uygulayamadığımız için bu işi cloudWatch alarm ile sağlayabiliriz. Konsola geçelim left hand menüden Health checks&#x27;i seçelim. Create health check ile her ec2 için ayrı HC oluşturalım.</p><figure id="c0b33a8e-0b5f-49a6-8700-21912519c6d4" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2029.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2029.png"/></a></figure><p id="b69ac68f-f301-4664-9092-e46d541024bd" class="">IP ile sağlık kontrolü yapacağız. 80 portunu kullanacak ve root sayfası içinde yapacak. İleri ayarlarla interval aralıklarını, threshold sayılarını vb. ayaları özelleştirebiliriz. Sonraki sayfada create alarm seçeneğini no olarak bıraktık. bir süre bekledikten sonra statuslerini healty olarak görebiliriz. Ben eu-central-1 region&#x27;undaki ec2 nun security grubunu 80 portuna kapatacağım ve un healty olmasını bekleyeceğim.</p><figure id="743d2c82-d3d8-45e3-9b2c-da20dc1f8bab" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2030.png"><img style="width:1797px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2030.png"/></a></figure><p id="6c19d7de-5b4f-460c-a9e1-e2f5887fb307" class="">Şimdi de parent health check oluşturup diğer HC&#x27;leri kontrol etmesini sağlayabiliriz. Bu şekilde or ile herhangi biri veya and ile tümün veyahut da herhangi sayı kadar healty durumunu ayarlayabiliriz.</p><figure id="9749e5b6-93db-412e-a934-ec1496e52a91" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2031.png"><img style="width:1123px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2031.png"/></a></figure><p id="fb3cd34c-21f3-48c1-8d51-048a8dd26ffa" class="">Monitor olarak ip değil de bu kez diğer HC&#x27;leri yapmasını istedim. AND ile hepsi sağlıklı ise parent HC sağlıklı kabul edilsin diye ayarladım.</p><figure id="1aa742f6-5e19-4b8c-8cb7-4d35fbe7bac3" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2032.png"><img style="width:1797px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2032.png"/></a></figure><p id="c08a1269-2243-4c42-9920-443c7100b6b7" class="">eu-central-1 unhealty olduğu için ve AND kulladığım için parent HC de unhealty verdi.</p><hr id="9de3ed18-5a95-49b0-84ea-8f0376294b0c"/><p id="315f4522-0717-4f3b-b3a2-5e5f9076cde0" class=""><strong>d- Routing Policy - Failover </strong></p><p id="b0a95286-f993-4b05-ab4a-85e3e97a37ce" class="">Bu senaryoda iki kaynağımız var. Birincisi Primary, diğeri ise Secondary. Primary instance Health check ile kontrol ediliyor, sonuç healty ise istek primary instance&#x27;a yönlendirilir, eğer fail alınırsa istek Secondary instance&#x27;a gidiyor. Secondary için health check yapılabilir optional&#x27;dır. Şimdi konsola gidelim ve uygulamasını yapalım. <a href="http://failover.devopsandclouds.com">failover.devopsandclouds.com</a> kayıt adıyla 2 adet kayıt yapacağım. Policy tipi failover seçeceğim. İlk kayıt için us-east-1 ec2 olacak, ayrıca primary ve health check enable seçeceğim. Diğer kayıt için eu-central-1 ec2 olacak ve sadece secondary seçeceğim. </p><figure id="6516424c-e74b-421c-b30a-64a3348eba4c" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2033.png"><img style="width:576px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2033.png"/></a></figure><figure id="c1270b29-d947-4cf1-be1f-c67b27309a46" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2034.png"><img style="width:1298px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2034.png"/></a></figure><figure id="80f3c2b1-7952-4506-b05c-6d50014f02f3" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2035.png"><img style="width:1323px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2035.png"/></a></figure><p id="e4dbb40f-423f-4e2b-9fe7-bda62c50f4ca" class="">Sağlık kontrolü başarılı olduğu için us-east-1 daki ec2 dan istek cevaplandı. Bu kez de us-east-1 daki ec2&#x27;yu stop edelim o şekilde HC fail verdirelim. Bir süre bekledikten sonra HC menüsünü kontrol edelim ve sayfayı yenileyelim.</p><figure id="a35bb60c-03be-4578-8b44-506cf0dcf8c8" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2036.png"><img style="width:1380px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2036.png"/></a></figure><figure id="f8c3a2d6-aa5c-42a8-967c-93a71f546199" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2037.png"><img style="width:1492px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2037.png"/></a></figure><p id="7de41a19-67a5-4c97-9fc9-aa07b38756aa" class="">Unhealty olduktan sonra trafik eu-central-1&#x27;a yönlendirildi.</p><p id="289d1ec9-40ec-43d9-ab7b-2b7ba6c75500" class=""><strong>e- Routing Policy - Geolocation</strong></p><p id="970921a8-2c9a-40b9-a98e-f31ecc9263a3" class="">Latency-based policy&#x27;e benzerdir ama kullanımı daha farklı olabilir. Diyelim sizin bir web isteniz var ve belirlediğiniz ülkelerde kendi dillerinde isteklere cevap veriyor. Yani Almanya&#x27;dan gelen trafiklere Almanya&#x27;da bulunan server cevap veriyor, Amerika&#x27;dan gelen isteklere farklı bir server cevap veriyor. Bu arada server aynı ülkede olmak zorunda değil hepsi aynı yerde de olabilir ama içerikleri farklı. Bu senaryoda siz kullanıcıların bölgelerini ülke veya kıta olarak seçebileceksiniz. Burada ayrıca belirlenen yerler harici istek gelirse diye default kayıt yaratmak gerekiyor. Konsola geçelim <a href="http://geo.devopsandclouds.com">geo.devopsandclouds.com</a> ismiyle 3 kayıt yaratacağım. Tip olarak hepsinde Geolocation seçeceğim. Avrupa kıtası için eu-central-1 dönüş yapsın, Amerika için us-east-1, geri kalan tüm yerler için us-east-2 cevap versin şeklinde kayıtları gireceğim. Takiben ben Türkiye&#x27;den istek göndereceğim ve Avrupa&#x27;daki ec2&#x27;dan cevap bekleyeceğim.</p><figure id="a2a054ee-eb9d-420b-a2d3-ec1ee6cca8fa" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2038.png"><img style="width:931px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2038.png"/></a></figure><figure id="2988f353-bc12-4577-aa64-26194b5e3f30" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2039.png"><img style="width:1540px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2039.png"/></a></figure><p id="ea802675-b4cb-49af-8766-8c8689a10a55" class="">Yukarıda istediğimiz sonucu almış olduk. Diğerlerini VPN kullanarak deneyebilirsiniz.</p><hr id="d36ae2d8-3b5a-4091-b6a8-8e0345cffe06"/><p id="94f65668-b095-422b-a471-ace3a6ee616d" class=""><strong>f- Routing Policy - Geoproximity</strong></p><p id="df37a4d4-0a94-451e-b943-9960de8e08d5" class="">Bu modelde trafik kullanıcıların bulunduğu bölgeye ve kaynakların bulunduğu bölgeye göre yönlendirilir. Bias değeri sayesinde trafiğin yoğunluk oranlarını değiştirebilirsiniz. Bias değeri (1 to 99) arasında ise kaynaklar fazla trafik, (-1 to -99) arasında ise az trafik yönlendirilir. Diğer bir özelliği kaynaklar AWS dışında da olabilir. Koordinatları belirli on-premise kaynakları da kullanabilirsiniz. Bu modeli kullanabilmek için Traffic Flow kullanmak gereklidir. </p><figure id="83b78c57-6de2-48c2-b18f-44a634a53bf5" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2040.png"><img style="width:384px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2040.png"/></a></figure><p id="d9fcc501-468e-4184-90bf-84693269ed1e" class="">
+</p><figure id="cf12a7e7-41a4-4fd9-8bfc-952c21bb1153" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2041.png"><img style="width:384px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2041.png"/></a></figure><p id="ca4b0783-e887-459b-87f7-f240f621f441" class="">Traffic Flow sayesinde çok karmaşık policy yapılarını görsel arayüz üzerinden kolayca yapabiliriz. Sol konsoldan Traffic Flow menüsünden Traffic Policy&#x27;i açalım ve Create Traffic Policy diyelim. İsim verelim. </p><figure id="6f549458-f562-4af6-9059-62ea63834743" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2042.png"><img style="width:336px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2042.png"/></a></figure><p id="b12b430f-3608-443a-b2a4-e48d48582a48" class="">Daha önce hazırladığınız bir policy&#x27;i import edebilirsiniz. İlk açıldığında start point ile gelir. DNS type&#x27;ını seçerek başlayacağız.</p><figure id="0395cf1e-2f56-4ff0-bdff-8f1071be9611" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2043.png"><img style="width:1421px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2043.png"/></a></figure><p id="06cc1897-912d-4979-9173-1194661dde4f" class="">Yukarıdaki resimde Geoproximity kural ekledim. Avrupa ve Amerika&#x27;da 2 region ekledim. Bias değerleri 0 olduğu için ortadan ikiye ayrılmış şekli sağ tarafta görebiliyoruz. Amerka&#x27;daki end point&#x27;in bias değerini eksili değerlere düşürdüğümüzde aşağıdaki gibi trafik akışının Avrupa&#x27;ya daha fazla yönlendirildiğini görebiliriz.</p><figure id="e29857f0-d370-41a4-90b6-3537325dbe44" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2044.png"><img style="width:624px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2044.png"/></a></figure><p id="d8783cbd-d019-46d3-b8cb-2f5ca6bc0978" class="">Create traffic policy diyelim ve 2 noktayı daha gösterip bu modeli bitireceğim. İlk olarak burada versiyonlama yapılabiliyor editlediğiniz zaman versiyon değişir. Geldik en önemli kısma bu hizmetin tabi bir karşılığı var adamlar o kadar uğraşmış aylık 50$ bir ücreti var bizim cürmümüz yetmez deyip burada sonlandıralım 😂</p><figure id="6e06f9b1-dd1f-4e99-826a-4d8cf90a5d8f" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2045.png"><img style="width:1364px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2045.png"/></a></figure><hr id="76867e80-bf75-4c82-be96-fcab956a978e"/><p id="3d22b925-605b-4765-a088-24543a1e453d" class=""><strong>g- Routing Policy - Multi Value</strong></p><p id="20000925-969d-4cc4-a2b1-a4e23bf3521f" class="">Simple policy&#x27;e benzer ama burada health check yapılabiliyor. 8 adete kadar sağlıklı kaynaklarınıza trafiği yönlendirebilme imkanı veriyor. </p><figure id="5ecbb8c1-f8cc-457c-ada2-5f5bc6ceead3" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2046.png"><img style="width:901px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2046.png"/></a></figure><p id="5a6171c0-6712-461b-81ef-0c8049d4370f" class="">Burada da health check fail vermesi için farklı bir yöntem izleyeceğim. eu-cental-1 deki EC2&#x27;nun HC kontolünü editleyelim ve<strong> Advanced configuration</strong> ayarlarından <strong>Invert health check status </strong>tiklediğimizde tam tersine çalışacak. Local bilgisayarımızda terminal açalım ve                             <code>dig </code><code><a href="http://multi.devopsandclouds.com/">multi.devopsandclouds.com</a></code>  komutunu girdiğimizde hangi bilgisayarlardan dönüş alabildiğimize bakalım.</p><figure id="a59d60e9-b87e-4175-ba18-e7a36845b875" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2047.png"><img style="width:480px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2047.png"/></a></figure><p id="d4b5cf76-6397-4b69-93ff-1f5b30134086" class="">eu-cental-1 deki 3.127.235.75 &#x27;den dönüş alamadık.</p><hr id="2f8dd969-130f-41f8-9038-df78985c63d0"/><p id="5d8a4207-8ee4-4d2b-bba2-bb3a115fe7e3" class="">Son bir uygulama yapıp konuyu tamamen bitiriyoruz. Bu uygulamada private hosted zone oluşturacağız. Public ve privated hosted zone&#x27;lar da aynı isimle kayıt oluşturacağız. Eğer talep VPC içerisinden geliyorsa istek private kaynaklara düşecek, diğer durumda public hosted zone&#x27;a istek gelecek. Biraz daha renklendirmek amacıyla public hosted zone için end point&#x27;i s3 bucket vereceğim. Hazırlık için web sitesi host edecek şekilde S3 bucket ayarlarını yapalım(Hatırlamak için S3 yazıma bakabilirsiniz). Ayrıca oluşturduğumuz VPC&#x27;de de bir linux makine kaldıralım. Bu makinenin içinde apache çalışıp bir sayfa host edecek. Hiç değişiklik yapmanıza gerek yok kendi tanıtım sayfası kalabilir(kendi index.html dosyası kalsın). Ayrıca aynı VPC&#x27;de bir adet de windows makine kaldıracağız sadece RDP portu açık olması yeterli.  Amacımız windows makine aynı VPC&#x27;de olduğu için oradan bir istek gönderdiğimizde apache sayfası açılacak. Kendi local bilgisayarımızdan istek gönderdiğimizde S3 içerisimdeki sayfa cevap verecek. Hazırlıkları yapalım;</p><ul id="d7a697f8-48a0-4535-9164-0d0ac7cf7ddd" class="bulleted-list"><li style="list-style-type:disc">Create hosted zone diyerek private hosted zone oluşturalım. Kendi oluşturduğum VPC&#x27;yi seçtim. Kendi domain name&#x27;i girdim.<figure id="205916c3-424b-44a1-8698-2166f36faaac" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2048.png"><img style="width:528px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2048.png"/></a></figure></li></ul><ul id="0d5d979d-d6ed-4bf6-b365-50ce13f98b36" class="bulleted-list"><li style="list-style-type:disc">Apache kurulu kendi VPC mizde public subnet de aşağıdaki user data ile bir EC2 ayağa kaldıralım.<pre id="fc7cfed1-7997-48e6-a81e-9cbb800e0fd3" class="code"><code>#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd</code></pre></li></ul><ul id="d5976547-d643-4cde-9882-b06b0ab8aa9d" class="bulleted-list"><li style="list-style-type:disc">S3 de <a href="http://www.devopsandclouds.com">www.devopsandclouds.com</a> adıyla bir bucket oluşturacağım. Gerekli izinleri verip web sitesi host edeceğim.</li></ul><ul id="90b1b4b2-7016-4263-9ebc-f03ee4f126ef" class="bulleted-list"><li style="list-style-type:disc">Private hosted zone&#x27;da www.devopsandclouds.com adıyla bir kayıt oluşturalım. end point olarak apache kurulu ec2&#x27;yu verelim.</li></ul><ul id="81b2612c-61c3-42b0-9d23-0d4853eced27" class="bulleted-list"><li style="list-style-type:disc">Public hosted zone&#x27;da da aynı isimle end point s3 bucket olacak şekilde bir alias oluşturalım.</li></ul><ul id="de604d51-44c5-4cf6-8db6-420d99af1e9e" class="bulleted-list"><li style="list-style-type:disc">Şimdi de kontrol etmek için kendi VPC mizde 1 adet windows instance ayağa kaldıralım. </li></ul><ul id="ed22a84f-fe43-4585-acd6-ec5da93710f5" class="bulleted-list"><li style="list-style-type:disc">Localde kendi bilgisayarımızdan ve AWS içinde oluşturduğumuz windows bilgisayardan <p id="cdbe4181-0c4e-40dc-999a-1f4ac8e5e48b" class=""><a href="http://www.devopsandclouds.com">www.devopsandclouds.com</a> a girelim.</p><figure id="23c38473-3a65-40d4-8152-ece067da054d" class="image"><a href="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2049.png"><img style="width:1814px" src="Route%2053%20bd396a9f075c43d9976cb90d111498f2/Untitled%2049.png"/></a></figure></li></ul><p id="977fe330-1554-4de0-96bc-4f875a809528" class="">Private Hosted zone çalışmamızı da bitirmiş olduk.</p><p id="839b2f52-4b49-4151-b5a7-a4fcfc10a079" class="">Çok yakında <a href="http://www.devopsandclouds.com/">http://www.devopsandclouds.com/</a> adresinden görüşmek üzere yeni web sitemizi yakında hazır hale getireceğiz.</p><p id="ea19c97d-51e4-4cbd-8237-937b5a4efe46" class="">Route53&#x27;ün ne işe yaradığını özetleyecek olursak;</p><ul id="27d6032b-85d9-4e29-8559-a5ca20137a77" class="bulleted-list"><li style="list-style-type:disc">Domain Name registration</li></ul><ul id="be30f82e-b5e1-4d54-a46e-8f45dd3bcd09" class="bulleted-list"><li style="list-style-type:disc">Routing</li></ul><ul id="d6f7d3e4-719b-4d3b-9e90-3923b8610530" class="bulleted-list"><li style="list-style-type:disc">DNS Health Check</li></ul><hr id="504f4cbe-bf55-42e2-904c-c0d4d4862aa9"/><p id="24293f24-4c74-40d8-8e75-2fa697c77bf2" class="">Note: Farklı bir domain register&#x27;dan domain satın aldıysanız bunu route53&#x27;te kullanabilmek için önce public hosted zone oluşturun ve diğer register&#x27;ın NS kayıtlarını oluşturduğunuz public hosted Zone&#x27;a yapıştırın. </p><p id="61b3817b-e83c-406a-9313-e11a8ee46bcb" class="">
+</p><p id="a74104ec-933e-44d5-bf5a-d6768696e3f2" class="">
+</p><p id="ac63172f-6e7e-4dc4-92c3-da6558f7c2fe" class="">
+</p></div></article></body></html>
