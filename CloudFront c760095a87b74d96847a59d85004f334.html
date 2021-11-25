@@ -1,0 +1,659 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CloudFront</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1ec4c9ed-2564-4be2-8579-7cac995acd3f" class="page sans"><header><h1 class="page-title">CloudFront</h1></header><div class="page-body"><figure id="c760095a-87b7-4d96-847a-59d85004f334" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled.png"><img style="width:1200px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled.png"/></a></figure><p id="625241e5-a693-4408-a3c1-a5b2eb38966e" class="">CloudFront AWS&#x27;in CDN(Content Delivery Network) hizmetidir. Dinamik veya statik içerikli web sitelerine daha hızlı erişebilmek için Dünya&#x27;nın değişik bölgelerinde bulunan Edge Location denilen bölgelerde içeriğin ön belleklenmesidir. AWS tarafında S3 ve EC2 veya on premises sistemleriniz için kullanılabilir. En önemli özelliklerinden birisi de güvenliktir. Veri kaynaktan uç noktalara hareketi TLS ile veya kendi sertifikanızla şifrelenerek olmaktadır. Ayrıca AWS shield sayesinde default olarak DDOS saldırılarına karşı korumalıdır.</p><p id="aeb2441a-1454-47bd-beaa-a09c5007587f" class="">AWS bu hizmeti sayısı 275&#x27;in üzerinde olan fiziksel server&#x27;ları sayesinde yapmaktadır. Bunların 13 tanesi Regional Edge Caches&#x27;dir. Diğer Edge Locationlardan daha büyüktür. 47 ülkede 90&#x27;dan fazla şehirde dağılmıştır.</p><figure id="cc8d7070-1963-46b2-9e20-8f5ec4ec385d" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%201.png"><img style="width:1236px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%201.png"/></a></figure><h3 id="7f9cc25d-24a8-4fe5-88e9-89a6bc400418" class="">CloudFront Nasıl Çalışır?</h3><figure id="ef19e3f3-4bf0-4aef-958b-7bcea69762f6" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%202.png"><img style="width:528px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%202.png"/></a></figure><p id="6c98abbd-6e82-4d85-9dfc-81d369fabeea" class="">Normal durumda son kullanıcının yaptığı istek sonrası her defasında içerik kaynaktan(S3 veya HTTP server) gelir. Bu da gereksiz trafik, içeriğin zarar görme ihtimali ve gecikmeye sebep olmaktadır. Bu sebeple kullanıcını ilk isteği sonrası içerik önce Edge Location&#x27;da ön belleklenir. O bölgedeki tüm kullanıcıların artık sonraki tüm istekleri kendilerine en yakın olan Edge Location&#x27;dan karşılanır. </p><p id="b7bbabbf-6b3a-48fb-8e3b-a61eae926ef0" class="">Bu hizmete AWS konsol, CLI, SDK, API vasıtası ile ulaşılabilir.</p><hr id="a78321d9-4012-4d5d-a47d-3d5a0c86158e"/><h3 id="891ce1fd-70a0-49c0-986f-eaa15a82903d" class="">Ücretlendirme</h3><figure id="248e8f21-ef5c-46af-84cb-a2dfda65bd03" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%203.png"><img style="width:955px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%203.png"/></a></figure><p id="19f7361f-7fd3-44c2-9f49-c1460292c242" class="">Ücretlendirme iki kalem olarak gerçekleşir. Birincisi GB başına transfer edilen data ikincisi ise yapılan istek sayısıdır. </p><figure id="1eb58aac-feca-40ce-b78b-433979ac4a97" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%204.png"><img style="width:1274px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%204.png"/></a></figure><figure id="e4f8a0c7-6403-4aeb-a488-903f7b631e45" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%205.png"><img style="width:1479px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%205.png"/></a></figure><p id="191a3842-cb76-4d74-8a56-fff7a0cb0f9a" class="">Free Tier kapsamında her ay için transfer olarak 50 GB ve istek olarak da 2 milyona kadar ücretsizdir. Transfer ücretleri ülkelere göre değişmektedir. Amerika kıtasında kullanım ucuzken Hindistan da pahalıdır. Ayrıca güvenlik anlamında Shield kullanılması durumunda da istek başına ilave ücret ödenmektedir.</p><figure id="37856a46-d207-4888-8af6-949840fc7fe1" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%206.png"><img style="width:1512px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%206.png"/></a></figure><p id="f1d5daf4-a202-4ea2-8d48-452895e23d68" class="">Lambda@edge fiyatlandırması ise 3 kalemde olur. Birincisi 1 milyon çağrı başına 0.6$, ikincisi kodun yürütülmesi süresince GB/saniye olarak 0.00005$, son olarak işlevin çağrı başına her 128 MB/sn için 0.000006$ olur</p><p id="b6b10235-b1ba-4401-84a5-23b5b693adef" class="">Ayrıca önceden en az ayda 10 TB veri kullanımı taahhüdü verilmesi durumunda indirimli fiyat uygulanır.</p><p id="2b5c75ea-0d96-4ad0-920b-3d11d6e9ccdf" class="">Onun haricinde son olarak fiyat sınıfları vardır. 3&#x27;e ayrılır. 100, 200 ve tüm fiyat sınıfları şeklinde. 100 en düşüktür ve bu hizmet avrupa-amerika gibi kısıtlı alanda kullanılır.</p><figure id="b4281f64-42f0-454a-813a-10fb86b6add5" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%207.png"><img style="width:1501px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%207.png"/></a></figure><figure id="4b5fd9db-471e-40af-87fa-ccd14f02f6fd" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%208.png"><img style="width:480px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%208.png"/></a></figure><hr id="d5b71821-6695-4bc8-a357-ded400db7f68"/><h3 id="48481ef3-e0f7-474a-b177-13e7a48cfc51" class="">CloudFront Kaynak Olarak Neler Kullanılabilir?</h3><p id="4b9f203e-6a07-481c-9cef-d15af5777a32" class="">1- S3 Bucket : Bucket içindeki verilerinize ulaşmak isteyenler edge locationlardan hızlıca erişebilir. OAI(Origin Accsess Identity) sayesinde daha güvenli hale getirebiliriz. Uygulamda nasıl kullanıldığını anlatacağım. S3&#x27;e dosya yüklenmesi için de CloudFront kullanılabilir.</p><p id="e033259e-e95f-4497-82c3-0679e80bb116" class="">2- Custom Origin(HTTP) : EC2, Aplication Load Balancer veya S3 website kaynak olarak belirtilebilir. Ayrıca on-premise&#x27;de bulunan HTTP kaynaklarımızı da kullanabiliriz.</p><figure id="f77b3c20-33aa-4ddc-a17b-acfd8f61fb0d" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%209.png"><img style="width:811px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%209.png"/></a></figure><p id="77fb4aaa-895c-4bfb-895d-35310b3881a8" class="">Eğer kaynak EC2 ise, EC2 mutlaka public subnet&#x27;te olmalı. Fakat ALB kullanılacaksa EC2&#x27;lar private&#x27;da olabilir. Çünkü bu durumda ALB public&#x27;de olma zorunda olacak.</p><figure id="c58072b5-dcb5-4999-8e36-6f1e9efaa912" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2010.png"><img style="width:1589px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2010.png"/></a></figure><hr id="ee532529-5857-42c4-8eae-afe9dd00e001"/><h3 id="d7c1eb2c-db56-4583-820b-f8a4446960a2" class="">Geo Restriction</h3><p id="771558e6-c608-467f-8e1d-d8e53b59cf44" class="">
+</p><p id="1d49e870-0d18-45f9-9237-7fb144fe2efc" class="">İçeriğinize bazı ülkelerin erişebilmesini veya erişememesini Blocklist ve allowlist seçenekleriyle belirleyebileceğiz. Ülkeler belirlenirken 3. parti Geo-IP kullanılır. Uygulamada bu konuya bakacağız.</p><h3 id="30a27722-d0e8-4a14-8d78-34aace0b5a80" class="">CloudFront ve S3 Cross Region Replication Farkı</h3><p id="0c957e1a-3bbc-4e3a-ba2e-5e23866a6f71" class="">CloudFront&#x27;da tüm edge locationlarda cache&#x27;leme lurken S3 replika&#x27;da sizin seçtiğiniz regionlarda olur. CloudFront&#x27;da TTL değeri boyunca değer değişmez ve bu değer 1 gün dahi olabilir. S3 replika&#x27;da gerçek zamana yakın güncelleme olur. CloudFront statik içerikler için uygunken S3 replika düşük gecikme sebebiyle dinamik içerikler için daha uygundur.</p><p id="311ee3d4-accf-41ad-b5c9-932091fa77d7" class="">Şimdi S3 üzerinden bir uygulama yapacağız yaparken menüyü de kurcalayacağız. </p><p id="0d1e0715-6b9d-413c-88e7-665242ad1f36" class="">S3 bucket&#x27;ı web sitesi host için ayarlayalım. Farklı olarak public accsess kapalı olsun ve policy kısmı boş kalsın. İçerisine index.html dosyası atalım varsa bağlantılı fotoğrafları da atabilirsiniz. denemek için url&#x27;ini kopyalayıp açmaya çalıştığınızda açamadığımızı görelim. Public&#x27;e açmadık. Yukarıda bahsettiğimiz OAI(Origin Accsess Identity) ile sadece edge location lara açılış otomatik olacak.</p><p id="f558a1b4-fe6a-4a5d-9292-8d683c63af5b" class="">CloudFront servisine gelelim. Create a CloudFront Distribution&#x27; a basarak ilk dağıtımımızı oluşturmaya başlayalım. Origin,  Default cache behavior,  Function associations, Settings bölümlerinden oluşmaktadır.</p><figure id="a68d1072-805a-4898-927c-26e44fee0afb" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2011.png"><img style="width:1802px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2011.png"/></a></figure><p id="d4e590a9-ae66-46c5-8820-e4c055d6ab9d" class="">Öncelikle sağ üst kısma bakarsanız bu servisin global bir servis olduğunu region bağımsız olduğunu görebiliriz.</p><p id="7c82fb94-f43e-4047-bc68-a14c70a59258" class=""><strong>Origin Domain : </strong>Bu bölümde iki seçeneğimiz var ya custom olarak web sitesi URL&#x27;si şeklinde gireceğiz veya AWS&#x27;in servisleri olan S3, Load Balance, mediastore, mediapackage olarak seçebiliriz.  Ben S3 seçtim ve bu konu için oluşturduğum demo-cloudfront-samet bucket&#x27;ı seçtim. Alt bölümde setting kısmında default root object kısmına /index.html olarak gireceğiz. Bu sayede siteye ulaşmak istediğimizde CloudFront URL ile girmiş olacağız. Diğer türlü ulaşmak isteğimizde CloudFront URL/index.html şeklinde girmemiz gerekecekti. Bizim örneğimiz custom  değil S3 bucket üzerinden devam edecek. Bunun yerine S3 bucket public access&#x27;i açıp hosting enable yaptıktan sonra Hosting URL&#x27;i ile custom olarak da yapabilirdik. Arada küçük farklılıklar var.</p><p id="28d91fe2-0888-4e12-b9a1-24c1a3cc58ed" class=""><strong>S3 bucket access : </strong>Bu bölüm S3&#x27;e özeldir.<strong> Yes use OAI</strong> seçtiğimizde sadece CloudFront erişebilecek. <strong>Origin access identity </strong>burada<strong> Create new OAI</strong> seçelim ve açılan sayfada <strong>create</strong> diyelim. <strong>Bucket policy </strong>kısmında <strong>yes</strong> seçtiğimizde bucket policy&#x27;i kendisi oluşturacak bittiğinde S3 sayfasında kontrol edebilirsiniz.</p><figure id="151ef8b8-7326-4856-8a8c-190d58693fd3" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2012.png"><img style="width:660px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2012.png"/></a></figure><p id="0e26429c-0de3-45b8-8be4-ebd3a7b69fe0" class=""><strong>Enable Origin Shield :  </strong>Bu özellik yes seçilirse ek bir ön bellekleme yaparak yükü azaltmaya yardımcı olur ve extra güvenlik oluşturur. İlave ücreti vardır pricing bölümünden kontrol edebilirsiniz.</p><p id="14dd3e2c-687c-4af1-88d7-3bb274489582" class=""><strong>Additional settings: </strong>Bu ayarlarda cloudfront origin ile kaç defa bağlantı denemesi yapacak ve zaman aşımı süresi ne olacak bu değerleri giriyoruz. Altta 2 tane aktif olmayan seçenek var. Response timeout ve Keep-alive timeout bu seçenekler orgin custom seçilirse aktif olacak.</p><hr id="f76251d5-3fba-40a0-bce7-bb912c2ae5c7"/><figure id="f30cd0c0-34c2-451a-a3e0-a307a1380fc7" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2013.png"><img style="width:798px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2013.png"/></a></figure><p id="197b074e-b4d2-47b2-b969-14efc6484b24" class=""><strong>Path pattern:</strong> * seçildiği için içerisindeki herşey anlamına gelir. Siz bir path belirtip sadece belli dosyaların önbelleklenmesini isteyebilirsiniz.</p><p id="d08b0060-5e8c-413a-8be0-2571d2f53e9f" class=""><strong>Compress objects automatically: </strong>Daha az yer kaplaması için otomatik sıkıştırma uygulansın mı?</p><p id="4c7f933d-14cc-4ef8-afa6-7334371ac43f" class=""><strong>Viewer protocol policy: </strong>Hangi protokol&#x27;ler kullanılsın. Hem HTTP hem de HTTPs, sadece HTTPs veya HTTP gelen istekleri HTTPs&#x27;e çevir seçenekleri</p><p id="59bd0580-24d9-4f6b-a70f-6b3f1957562e" class=""><strong>Allowed HTTP methods:</strong> HTTP methodlarının hangileri kullanılabilsin. Sadece okuma yapılcaksa ilk seçenek yeterli olacaktır.</p><p id="c7ee90f7-d1ed-4a18-98d3-618d3e53d888" class=""><strong>Restrict viewer access:</strong> Erişimi belirli key gruplarına karşı engelleyebilirsiniz. Ücretli uygulamanız var belirli kullanıcılar ulaşsın dediğinizde kullanıyoruz. </p><p id="60f75483-d97a-4cd1-987e-43a944085d1b" class="">Field-level encryption: Bu bölüm resimde gözükmüyor. Bu özellik sayesinde kredi kartı bilgileri gibi özel bilgiler edge location ile origin&#x27;deki server arasında şifrelenmiş olarak gider. Aşağıdaki resimden inceleyebilirsiniz.</p><figure id="85daadf5-d6ea-4845-8439-9b43d4f5f4d7" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2014.png"><img style="width:1623px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2014.png"/></a></figure><p id="afb266b3-2447-4fe1-9a38-ffcd6f125408" class="">Bu bölümün altında <strong>Function associations </strong>kısmı var. Burada dışarıdan gelen veya kaynaktan gelen istek ve cevaplarda önceden hazırlanmış cloudfront function veya lambda@edge tanımlanabilir. Cloudfrond function edge location için lambda@edge ise region caches da çalışır. Function hazırlanması left-hand-menü&#x27;de function bölümünden yapılıyor.</p><figure id="fc163ccf-b3dc-4673-8f31-71a0cf9e2843" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2015.png"><img style="width:696px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2015.png"/></a></figure><p id="3ef20d09-37a7-445d-aad3-a51423e79357" class=""><strong>Price class : </strong>Yukarıda bahsetmiştim 100, 200 ve tüm edge locationlar şeklinde 3&#x27;e ayrılıyor. Fiyatı düşürmek için belirli bölgelerle kısıtlama yapabilirsiniz.</p><p id="cf16064f-376c-42d8-8906-c6e806b92d76" class=""><strong>Amazon WAF web ACL: </strong>Güvenliği artırmak için AWS WAF servisi ile ilişilendirebiliriz.</p><p id="afb9df19-ddab-4a03-a8fc-0acd41b92ab5" class="">Alternate domain name (CNAME): Bu özellik sayesinde kendi domain name&#x27;inizi kullanarak sitenize ulaşabilirsiniz. Normalde Cloudfront&#x27;un size verdiği URL ile girmeniz gerekirken artık kendi domain adresiniz ile girebilirsiniz.</p><p id="3f4bc26a-0074-4691-83a4-719d5251f150" class=""><strong>Custom SSL certificate: </strong>Kendi sertifikanızı seçebilirsiniz. HTTPs&#x27;i kullanabilmek için SSL/TSL sertifikası gerekiyor. Eğer sertifikanız yoksa <a href="https://console.aws.amazon.com/acm/home?region=us-east-1#/welcome">AWS Certificate Manager</a> ile oluşturabilirsiniz. Kendi domain name&#x27;iniz olması koşuluyla ücretsiz oluşturabilirsiniz.</p><p id="297ae672-1f34-4e30-8a65-621d120e5551" class=""><strong>Default root object:</strong> Yapılan isteklerde hangi sayfa yönlendirilecek default buradan belirleyebilirsiniz. Bizde index.html olacak</p><p id="ad409917-3dc6-43a5-aa6d-67236276159a" class=""><strong>Standard logging:</strong> İsteklerin logları S3 bucket&#x27;a aktarılsın mı? Açılırsa bucket seçmeniz gerekecek ve isterseniz prefix verebiliyorsunuz. Ayrıca cookie&#x27;lerin de log&#x27;larını alabiliyoruz.</p><p id="b22d01f5-7074-4e80-b462-a0b5898bcf9d" class=""><strong>IPv6: </strong> IPv6 desteklensin mi?</p><p id="542e3b71-fae4-499e-87ec-f230773aea57" class="">Create dediğimizde <a href="https://console.aws.amazon.com/cloudfront/v3/home?#/distributions">Distributions</a> oluşması bir süre alacak. Önce deploying olarak görülecek daha sonra in progress olarak göreceğiz.</p><figure id="5446cc84-ce80-473e-89ee-50aca3c46e00" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2016.png"><img style="width:1259px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2016.png"/></a></figure><p id="a76d5c50-32c2-4ee0-a142-f64b81c0c3fe" class="">Domain Name ile ulaşılabilir olacak. Buradaki URL ile ulaştığınızda isteğinize cevap direk origin&#x27;den olmaz önce edge location&#x27;a daha sonra size gelir. Sonraki tüm istekler artık edge location&#x27;dan karşılanır.</p><p id="e9ff42dc-6f47-41fd-a775-08435e5617ca" class="">Bucket policy&#x27;e baktığımızda public accsess ve policy kısmını aşağıdaki gibi göreceğiz.</p><figure id="ce75af4e-a5e0-40cd-a801-a73f917c3abb" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2017.png"><img style="width:1591px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2017.png"/></a></figure><hr id="358dc388-db96-48b3-bb20-b926cc623f9d"/><figure id="503be762-0b30-4660-bb03-2135a48ff2cd" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2018.png"><img style="width:1134px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2018.png"/></a></figure><h3 id="c00ff56a-8195-4229-82e8-b4914b81ee34" class=""><strong>Multiple Origin </strong></h3><p id="2cd83c83-5a9f-42c4-8867-d87ef1a7c111" class="">Bu özelliği aktif edebilmek için oluşturduğunuz distribution&#x27;a tıklayın. Origin menüsünden create origin ile yeni bir kaynak seçin. Aşağıdaki resimde ikinci kaynağı ekledim o da S3 bucket. </p><figure id="041367d9-689a-4629-83fe-af17560b62d7" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2019.png"><img style="width:1268px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2019.png"/></a></figure><p id="d19a72ac-8ab7-4876-ae9b-bcb4cdf269cc" class="">Daha sonra behaviors menüsüne gelerek create behavior seçip yeni bir path ile yeni origin&#x27;i seçin.</p><figure id="52c37919-0fa5-4410-aec0-802e8cb88e8a" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2020.png"><img style="width:1298px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2020.png"/></a></figure><hr id="68ce11c3-1805-4c45-b6e7-28e33b2cc8a8"/><figure id="792f68ed-8f8a-4df1-9ffc-e74cbd5631ee" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2021.png"><img style="width:1633px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2021.png"/></a></figure><h3 id="1998cf2f-3aaa-4858-b1d2-f9e91af4250d" class="">Origin Groups</h3><p id="c14d098b-276d-4459-99dc-96a2fbbad986" class="">Bu özellik sayesinde eklediğimiz ikinci origin&#x27;i  secondary olarak seçebiliyoruz. Primary origin&#x27;e istek ulaşamaz ise secondary origin cevap üretecek. </p><figure id="56a93175-46c0-41fb-a5b6-b8ce8ccb103f" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2022.png"><img style="width:688px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2022.png"/></a></figure><p id="685cb3c1-b3ba-41ee-8444-55f066b5a74c" class="">Öncelikle Create origin grup diyoruz. Primary ve secondary orginleri yukarıdaki gibi ayarladıktan sonra hangi hatalarda secondary&#x27;e yönlendirilsin diye hata kodlarını seçiyoruz bir isim verip oluşturuyoruz.</p><figure id="dafde4ed-313e-4461-a7d2-7f75a131dc69" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2023.png"><img style="width:1281px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2023.png"/></a></figure><hr id="6e9087bc-0ef0-47db-abcc-538cec440f92"/><h3 id="854dbbb8-b81b-450d-970d-c62da4327f17" class=""><strong>Geographic restrictions</strong></h3><p id="63837f5e-3b68-4f46-b6c0-83ff2b9fef6c" class="">Sitenizin içeriğine belirli ülkeler erişebilsin veya belirli ülkeler erişemesin seçimi yaptığımız menü.</p><figure id="2a8ebf6d-4bee-4dc4-92df-2c5cb2023a9b" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2024.png"><img style="width:1278px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2024.png"/></a></figure><p id="31baae10-7fbd-4cf2-bcbd-77ede555f34f" class="">Edit deyip girdiğimizde ;</p><figure id="7bc5bf7d-c587-4cb5-b93d-873e407f46a7" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2025.png"><img style="width:708px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2025.png"/></a></figure><p id="e7d4f063-cbcf-4f44-901e-fc3fdbf11329" class="">Allow veya Block seçeneğini seçtikten sonra Countries kısmından istediğiniz bir veya birden fazla ülkeyi seçebilirsiniz.</p><hr id="fa36bf56-f4a6-4624-9318-bba41eb928c2"/><h3 id="9270d2a2-7b1b-4497-9c61-b624078aa31b" class=""><strong>Invalidations</strong></h3><p id="ae7ef2b7-6917-4ea4-b035-2e4e36356fd2" class="">Default TTL değeri 1 gündür. Yani siz içerik değişikliği yaparsanız değişikliğin edge locationlarda update olması için beklemeniz gerekmektedir. Invalidation menüsü sayesinde belirli dosyaları veya tamamını değiştirirseniz kısa süre içerisinde update olmuş olacak.</p><figure id="85d95ca8-1a09-41f3-9bdf-bee10671d907" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2026.png"><img style="width:1274px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2026.png"/></a></figure><p id="743f2650-ac56-47d7-9bf5-d814c84d93f5" class="">Aşağıdaki gibi /* seçtiğimizde tüm değişiklikleri update edecek.</p><figure id="7558d9a3-910b-4030-a7dc-3960c3a552f3" class="image"><a href="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2027.png"><img style="width:775px" src="CloudFront%20c760095a87b74d96847a59d85004f334/Untitled%2027.png"/></a></figure><hr id="f67e7feb-7ba7-4235-bbc5-10d35ee8a472"/><p id="60179398-707f-4fb5-ba56-6dfc245423f7" class="">Bu servisi de burada bitiriyoruz. </p><p id="200559d3-b053-4981-8026-0ba0faaab5fd" class="">KALIN SAĞLICAKLA.....</p><p id="f73abd0c-06ed-49b0-8125-fb6fc2aa8d4b" class="">
+</p><p id="ec2c3f5a-5ed6-404b-b7e6-8a38e2def5c5" class="">
+</p></div></article></body></html>
