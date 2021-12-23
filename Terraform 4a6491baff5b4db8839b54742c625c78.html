@@ -1,0 +1,741 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Terraform </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="9e556616-6fe3-4fd3-8da0-3c896bb34e6c" class="page sans"><header><h1 class="page-title"><strong>Terraform </strong></h1></header><div class="page-body"><p id="79f1db85-9556-46d0-9e97-499bcf640237" class="">Terraform, HashiCorp tarafından piyasaya sürülen bir açık kaynak &quot;infrastructure as a code&quot; (IaC) tool&#x27;udur. Yani kod yazarak sistemimizde bir takım değişiklikler yapabiliyoruz. Bu değişiklikler kaynak ekleme, çıkartma veya kaynak yönetimi olabilir. Bu şekilde manual yaptığımız işlemleri otomatize etmiş oluyoruz. IaC olarak kullanılan bir çok araç vardır. Aşağıdaki resimde bu anlamda kullanılan araçları görebilirsiniz. </p><figure id="4a6491ba-ff5b-4db8-839b-54742c625c78" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled.png"><img style="width:1272px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled.png"/></a></figure><p id="6d7c5621-6a0e-40fa-bbf0-f4474948a163" class="">Biz bu ve devamındaki bir kaç yazıda Provisioning Tool’u olan Terraformu konu alacağız. Yukarıdaki resimde görüldüğü gibi benzer işleri yapan tool’lar ayrılmış provisioning anlamında da 2 tool görülüyor. CloudFormation sadece Amazon Web Service Provider’ında kullanılırken Terraform ise platform agnostic’tir. Yani birçok cloud provider’ında ve ayrıca on-premises sistemlerde de kullanılmaktadır. </p><h1 id="ce7ad469-6ef0-4cee-ad24-ca741734a384" class="">Terraform Yükleme İşlemi</h1><p id="0f9cc22e-8911-423d-9db6-dcffec2d2e95" class="">Bu adımda 2 farklı linux dağıtımında yükleme işlemini gösteriyor olacağım. </p><p id="2abc7be7-bbcc-4bfd-be3d-107a93af41a7" class=""><strong>Ubuntu</strong> için, önce wget ile zip klasörünü indiriyoruz. Zipten çıkarttıktan sonra klasörü /bin altına taşıyoruz ve bitiyor.</p><pre id="bd7fb2ca-5822-4a28-9d3c-7c24a9a599fd" class="code"><code>wget https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip](https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+
+unzip terraform_1.0.11_linux_amd64.zip
+
+sudo mv ./terraform /bin</code></pre><p id="0230b30b-4e87-4d58-ac8d-973b5ebb5ee0" class="">AWS içinde Amazon Linux 2 AMI’si için, aşağıdaki komutları uyguluyoruz.</p><pre id="f11c271b-feca-4fe1-9165-569a80c8f7b9" class="code"><code>sudo yum update -y
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform</code></pre><p id="f9ec9fc9-8141-4aa2-94be-9c019d94018b" class="">İşlem bittikten sonra, aşağıdaki kod ile yüklenip yüklenmediğini kontrol ediniz.</p><pre id="1067b32a-f328-4b35-bd90-e706f2bfd527" class="code"><code>terraform --version</code></pre><p id="e6861c5b-16f0-48c5-af96-2df7213c26af" class="">Başarılı bir kurulum sonrasında aşağıdaki komutu da çalıştırdığınızda otomatik doldurma özelliği sayesinde hızlı kod yazımı mümkün olabiliyor.</p><pre id="6faff323-2aea-48af-81af-6c0b733c5f34" class="code"><code>terraform -install-autocomplete</code></pre><p id="d956e5cd-532d-4ad6-90d8-055492236e73" class="">Terraform platform bağımsız demiştik onun dışında avantaj olarak sayabileceğimiz iki özelliği daha var. Birincisi durum yönetimi, yani  state file içerisinde oluşturulan tüm kaynakların son durumunu takip edebiliyoruz. İkincisi ise kullanıcı hatalarına karşı yanlış yapılmasını önlüyor. Hatalı işlem yapıldığında sizi uyarıp bunu mu demek istediniz gibi yardımcı olabiliyor. </p><p id="36d853e2-6da0-4ec5-a5f2-56b12d1c1e92" class="">Bu yazı dizisinde neler yapacağız biraz bahsedelim. Öncelikle basit kodlar ile AWS tarafında kaynaklar oluşturacağız. Takiben değişkenlerin farklı kullanımlarına bakıp conditionals ve loops kullanımını işleyeceğiz. Daha sonra Data resource tanımlaması, Remote backend ve Provisioner konularına değineceğiz. Son olarak module ve import konularını işleyip bitireceğiz.</p><hr id="057beccf-0257-488e-9903-a4f715955db0"/><p id="422e5a0e-b5d4-4a70-b2b4-c39c540c7fab" class="">Şimdi yavaştan kod yazmaya başlayalım.</p><p id="2200b670-9508-4cfc-9a12-a18508747164" class="">Human readable bir dili ve çok güzel dokümantasyonu var. Aşağıdaki resimden aynı işlemleri yapan shell scripti ve terraform arasındaki farkı görebiliriz.</p><figure id="39208c4b-2203-468c-9890-66282aae77dc" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%201.png"><img style="width:528px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%201.png"/></a></figure><p id="a66f6fe2-d017-4cbf-8167-b67624b11c93" class="">Öncelikle çalışacağımız provider’ı tanımlamamız gerekiyor. Baştan söyleyelim ezberden ziyade terraform’un resmi sitesi <a href="https://registry.terraform.io/">https://registry.terraform.io/</a> adresini kullanacağız. Provider’ın kaynaklarına erişmek ve işlem yapmak için de authonticate yapmamız gerekiyor. Bunun için 3 farklı yöntem belirteceğim.</p><ol type="1" id="5a801e4d-34d6-4c89-b05d-1830ec38c6dc" class="numbered-list" start="1"><li>Eğer AWS üzerinden bir Instance ile işlem yapacaksanız IAM Role ile EC2’nuza erişmek istediğiniz kaynaklar için rol tanımlaması yapabilirsiniz.</li></ol><ol type="1" id="dd2a971f-613e-4274-826b-9f83515b4406" class="numbered-list" start="2"><li>Aşağıdaki gibi oluşturacağımız provider bloğunun içerisine gömebiliriz. Uygun bir yöntem değildir. Şifrenin bu şekilde açıkta olmaması gerekir. <pre id="67ce4e36-2b24-4a11-a949-4c91890c1099" class="code"><code>provider &quot;aws&quot; {
+  region  = &quot;us-east-1&quot;
+  # access_key = &quot;my-access-key&quot;
+  # secret_key = &quot;my-secret-key&quot;
+  ## profile = &quot;my-profile&quot;
+}</code></pre></li></ol><p id="9b664fb0-d5d4-4847-9470-35a07afb3d27" class="">Yeri gelmişken provider bloğundan kısaca bahsedelim. aws ile amazon cloud provider olduğunu belirttik. Region ekleyerek her kaynak oluşturmada bize region sormasının önüne geçtik. profile ile de birden çok aws hesabını yönetiyorsanız farklı profiller tanımlaması yapabiliyoruz.</p><ol type="1" id="4128156b-7b84-4a6f-9a63-e13c7a97c210" class="numbered-list" start="3"><li>AWC CLI kullanıyorsanız CLI configuration yaptığınızda herhangi bir işlem yapmanıza gerek kalmaz. Terraform .aws klasörü içindeki config dosyasıdan bilgileri alır. En uygun yöntem budur.</li></ol><p id="b85254d8-da0d-4b5f-a07b-ca99ec7d4950" class="">Terraform kullanırken farklı kod blokları kullanacağız. Örneğin provider, resource, terraform, module, data gibi. Bu araç nasıl çalışıyor önce onu görelim.</p><figure id="8eaf7852-f918-466d-80e2-7cc4ed852bd0" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%202.png"><img style="width:1679px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%202.png"/></a></figure><p id="d6f62399-4781-4195-8646-d1c206378d7a" class="">Yukarıdaki resme bakacak olursak sağ taraftaki kaynakları oluşturmak için sol taraftaki .tf uzantılı dosya içerisine kodu yazıyoruz. Bu örnekte 3 adet kaynak oluşturulacak. Bunun için de 3 komutumuz var. Birincisi <code>terraform init</code> . Bu komutu .tf uzantılı dosyanın olduğu klasörde çalıştırıyoruz. Yaptığı işlem, çalışılan klasör içerisinde provider’ın API’ı ile iletişime geçebilmek için provider’ı tespit edip gerekli plug-in ve konfigurasyon dosyaları indirilir. Bu işlem initialize adımı oluyor. Takiben <code>terraform plan</code> komutunu uyguluyoruz. Bu komut zorunlu değildir. Bize ön izleme yapmamızı sağlar yani sen bir sonraki adımda apply komutu çalıştırırsan şu kaynaklar oluşacak şunlar silinecek şunlar değişecek gibi detaylı bir sonuç çıkartacak. Aşağıda işaretler ve anlamlarını görebilirsiniz.</p><p id="c615bdb7-9104-4f65-93df-ef849e7f1965" class="">&quot;+&quot; —&gt; oluşturulacak</p><p id="72a6b99e-e93a-4c67-97ed-e99631516993" class="">&quot;-&quot; —&gt; silinecek</p><p id="cf71b21c-c6e7-44a3-8975-a65ac90ef077" class="">&quot;~&quot; —&gt; değiştirilecek</p><p id="e8e7b8db-9312-4165-be00-d9afbb176771" class="">Son adımda ise <code>terraform apply </code> uyguluyoruz burada da artık kaynaklar oluşacak bu komutu takiben tamamlanmadan bizden onay isteyecek “yes” denildiğinde kaynaklar oluşturulacak. Eğer onay için sormasın istersek <code>terraform apply -auto-approve</code>  apply komutunu bu şekilde kullanabiliriz. 3 komut gördük yavaş yavaş diğer komutları da kullanımlarıyla göreceğiz.</p><p id="df899f28-cd58-4d73-bebf-a8473d04b2de" class="">Öncelikle terraform bloğuna bakalım.</p><pre id="1e573fff-6205-46ff-b561-cca9411e20e3" class="code"><code>terraform {
+  required_providers {
+    aws = {
+      source  = &quot;hashicorp/aws&quot;
+      version = &quot;~&gt; 3.70.0&quot;
+    }
+  }
+}</code></pre><p id="1f3811a1-a28f-4473-9e36-8c3ee43965a8" class="">Terraform bloğu ile plug-in’lerini indireceğimiz provider’ın versiyonunu görebiliyoruz. Ayrıca ileride göreceğimiz backend konusunda backend bloğunu da bu blok içinde yanımlayacağız. terraform init komutu ile buradaki versiyon bilgileri alınacak. Offical provider’lar için zorunlu bir blok değil terraform bu blok olmasa da aws’i tanıyıp plug-in’leri buluyor. Bu blok bilgilerine <a href="https://registry.terraform.io/providers/hashicorp/aws/latest">https://registry.terraform.io/providers/hashicorp/aws/latest</a> adresinden ulaşabilirsiniz.</p><p id="063b7b64-d412-4077-906d-8e178c7e58ee" class="">Provider bloğunu üst kısımda anlatmıştık. Şimdi resource üzerinden kod bloğunu anlamaya çalışalım.</p><figure id="d847b058-db00-469b-b2f3-4398ec216b47" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%203.png"><img style="width:618px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%203.png"/></a></figure><p id="1d052920-bfbd-4f0d-8a94-db53cca80407" class="">Resme bakacak olursak ilk satırda kod bloğu türü burada resource bloğu, devamında local ile provider ismi, file ile de local provider’ında bir kaynak tipini yazmış oluyoruz. Aynı satırın sonundaki pet o kaynağa verilen isim. Bu değeri istediğimizi verebiliriz daha sonra terraform içinde o kaynağa ulaşmak için local_file.pet şeklinde ulaşacağız. <strong>Harf veya alt çizgi ile başlamalıdır ve yalnızca harf, rakam, alt çizgi ve tire içerebilir.</strong></p><p id="c9c85330-ecd5-4ccc-a77b-bf2c1ff0d0f2" class="">Bir tane de AWS’de bir resource tanımlayalım.</p><pre id="e4ac95ae-cde2-480f-911d-54311832ef5e" class="code"><code>resource &quot;aws_instance&quot; &quot;my_ec2&quot; {
+  ami           = &quot;ami-061ac2e015473fbe2&quot;
+  instance_type = &quot;t2.micro&quot;
+}</code></pre><p id="b4fc6546-a945-4c7c-8ae9-98bb3def2c1f" class="">aws_instance             &gt;&gt; aws provider’ında instance tipinde bir kaynak</p><p id="5a9ee3cf-d7d0-4296-99b2-758a6f4802b1" class="">my_ec2                      &gt;&gt; resource’a verdiğimiz isim.</p><p id="684028d6-0016-4e4c-979c-96af419748aa" class="">ami ve instance_type &gt;&gt; Ayağa kaldıracağımız makinenin imaj ve tipi</p><p id="99ce217c-7efb-4855-951e-dd2677e24676" class="">Resource oluştuktan sonra aynı klasörde bazı dosyalar oluşacak. Bunlardan bir tanesi <strong>terraform.tfstate</strong> dosyası. Apply komutu sonrasında son durum bilgilerinin tutulduğu dosyadır. Oluşan kaynakların tüm detayları bu dosyadadır. İkincisi <strong>terraform.tfstate.backup </strong>dosyası bu dosya da bir önceki durum bilgilerini tutar. En az 2 apply yapılması lazım bunun oluşması için. Üçüncü dosya .<strong>terraform.lock.hcl </strong>dosyası. Bu dosya sayesinde provider versiyon kilitlemesi yapılır. Karışıklık çıkmaması için versiyonun değişmemesi gerekir. </p><h2 id="790eb867-c3a8-416a-84d6-8240fa2e7f12" class="">Kaynakları İzleme</h2><p id="650e6df9-e68a-4f25-a41e-4814515d2245" class="">Şimdi sırayla 3 komut göstereceğim. Bu komutlar oluşturduğumuz kaynaklar hakkında bilgi almak için kullanılacak. Birincisi terraform state list. Bu komut ile hangi kaynaklar oluşmuş özet şeklinde görebiliriz. </p><figure id="b36ed26d-117e-44a8-9716-56e0eacef24f" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%204.png"><img style="width:571px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%204.png"/></a></figure><p id="b9af87fd-2d1a-4126-a527-aa32c73301ea" class="">İkinci komut ise terraform show. Bu komut ile de her kaynağın önemli özellikleri gayet okunaklı bir çıktı ile gösterilir.</p><figure id="eabf203e-0f0c-4055-b467-e0d9ef4f3b36" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%205.png"><img style="width:576px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%205.png"/></a></figure><p id="9b7dce29-0d1e-42bb-8bba-81a3e6598af2" class="">Üçüncü komut <code>terraform graph</code>. Bu komutla oluşan kaynakları görsel olarak izleyebiliyoruz. Önce komutu çalıştırıyoruz. Çıkan sonucu kopyalayıp  <a href="https://dreampuf.github.io/GraphvizOnline">https://dreampuf.github.io/GraphvizOnline</a> bu sayfayı açtıktan sonra sol kısma kopyalıyoruz.</p><figure id="fd9ed1c5-f425-4482-8399-1f5414bf91c5" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%206.png"><img style="width:1353px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%206.png"/></a></figure><h2 id="3392b7d0-cc8a-4786-9204-d9f3b91b7534" class="">Hata Kontrolü ve Görünüm Düzeltme</h2><p id="0d2257e7-2ad1-4c21-a369-ec2a24433d60" class="">Şimdi de yazım formatında hata var mı diye <code>terraform validate</code> komutunu ve komutun daha düzgün okunaklı olmasın için kullanılan <code>terraform fmt</code> komutunu göstereceğim.</p><figure id="d944ff68-a67f-4728-9157-f07e6cfeb79e" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%207.png"><img style="width:766px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%207.png"/></a></figure><p id="01566a58-17f2-42d0-a020-418a97d5cc03" class="">validate sentax hatasını kontrol eder. Yukarıdaki örnekte bilerek resource yerine resourse yazdım. Hatayı gösterdi ve bunu mu demek istediniz şeklinde öneri verdi.</p><p id="ac366754-7618-4cf2-b6f0-346de6356392" class="">Şimdi de .tf dosyamızın içini biraz bozdum aşağıdaki gibi. ve daha sonra fmt komutunu uyguladım farkına bakalım. </p><figure id="de7c494f-9f61-41d5-a25f-1af26848e894" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%208.png"><img style="width:478px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%208.png"/></a></figure><figure id="746d9583-0b36-4463-8a5b-3c381b32093a" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%209.png"><img style="width:336px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%209.png"/></a></figure><p id="d1df6f03-fac4-46cb-be63-efd8a8ad6608" class="">Okunaklı hale getirdi.</p><p id="77e21731-bd79-4970-8a62-b7751a089f00" class="">Oluşturduğumuz kaynakları temizlemek içinde <code>terraform destroy</code> komutunu uyguluyoruz. Onay istedikten sonra hepsini temizlemiş oluyor.</p><figure id="3caa50b4-0191-4c92-9d7d-2f41a79d64a2" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2010.png"><img style="width:743px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2010.png"/></a></figure><p id="b3ad5489-efdf-4ac4-8b3c-32f3d27eea8e" class="">2 resource’um silinecek. Ayrıca spesifik bir resource’u silmek istersek parametre ile destroy komutunu aşağıdaki gibi kullanabiliriz.</p><pre id="ceb804a2-9b1f-4aa4-863c-b72a7d55b188" class="code"><code>terraform destroy -target=aws_s3_bucket.b</code></pre><figure id="f8865066-b6c9-4cb5-ba1f-3b4a84516498" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2011.png"><img style="width:717px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2011.png"/></a></figure><p id="4e2a362c-cd6d-41fc-a317-0106e6af0e4d" class="">Sıradaki komutumuz <code>terraform console</code>.  Bu komut ile interaktif bir komut penceresi açılır. Built-in fonfsiyonları veya herhangi bir değeri görmek için kullanılabilir. Oluşturduğumuz instance’ın public ip sine bakalım.</p><figure id="ebb994f1-b327-4cc6-a1ec-3b367c47afce" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2012.png"><img style="width:538px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2012.png"/></a></figure><h2 id="840fdfb6-1992-4a34-aa88-319545639b15" class="">Output</h2><p id="3d17896c-640a-4731-9600-f079124740b5" class="">Bu kısımda output bloğu oluşturmayı göreceğiz. Öncelikle şunu ifade edelim. Terraform çalıştırılan klasördeki tüm .tf uzantılı dosyaları sanki tek file’mış gibi değerlendirir. Biz kodumuz daha okunaklı olsun diye output, variable gibi blokları ayrı file’lara yazarız. Demek istediğim ister ana çalıştığınız resource oluşturduğunuz sayfaya ekleyin ister ayrı file yapın farketmez. Ama best-pratice ayrı file olmasıdır. Kullanım şekli aşağıdaki gibidir.</p><figure id="bb479a9c-72d3-44a0-b2c0-a43a1436bb48" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2013.png"><img style="width:382px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2013.png"/></a></figure><p id="61b16cb1-047c-4c62-92a9-572eaa014e3a" class="">Şimdi oluşturduğumuz ec2’nun public_ip’sini ve s3 bucket’ının ismini çıktı olarak alalım. Bunun 2 yolu var birincisi her apply veya plan komutu ile bu değerleri gösterir.</p><figure id="e3cabee9-5370-4651-be4a-4b085824f700" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2014.png"><img style="width:485px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2014.png"/></a></figure><p id="5aef31e4-aaa3-4d40-9526-b39548bf7cc0" class=""> İkincisi ise sadece output ları göstermesi için. <code>terraform output</code> komutunu kullanabiliriz. Ayrıca parametre verip filtreleme yapabiliriz.</p><figure id="9baa1b37-8ceb-4b7a-9591-7fbb35082f39" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2015.png"><img style="width:588px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2015.png"/></a></figure><h2 id="aac9ecf3-14e4-454a-8c19-42e9f806265a" class="">Refresh</h2><p id="03244414-04be-411f-80e3-7fe3d20ae03c" class="">Daha önce belirttiğimiz gibi terraform state file’ı ile halihazırdaki tüm kaynakların durum bilgileri tutulur. Terraform ile oluşturduğumuz kaynakları konsol üzerinden değiştirirsek eğer buradaki state file’ı içindeki bilgiler ile gerçek durum arasında uyumsuzluklar olur. Bunu gidermek için <code>terraform refresh</code> komutu uyguluyoruz. </p><figure id="da845c00-9d5b-449c-9e45-64453fc9e35f" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2016.png"><img style="width:517px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2016.png"/></a></figure><p id="9840d365-70ef-497c-af61-7e0ba18dd68c" class="">Şuan 2 kaynağımız var. Şimdi konsoldan S3 bucket’ını sileceğim ve tekrar aynı komutu çalıştıracağım.</p><figure id="05537f74-ff01-4903-9859-f2b16eeeea46" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2017.png"><img style="width:489px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2017.png"/></a></figure><p id="6b01bb17-609b-4696-8ef3-2168d25983d5" class="">Yine aynı sonucu aldım. Çünkü terraform bunu bilmiyor. Bunun için terraform refresh komutunu çalıştırdıktan sonra tekrar bakalım.</p><figure id="1e81468d-52bf-4cae-b65d-83eefedd78bd" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2018.png"><img style="width:632px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2018.png"/></a></figure><p id="bdb83bc9-0f3f-4220-b01b-c3f3ebc46dd7" class="">Şimdi burada bir sıkıntı daha var. state file’ı güncellendi ama bizim <a href="http://main.tf">main.tf</a> aynı kaldı. Yani bir sonraki apply komutu ile sildiğimiz bucket tekrar oluşacak. Bunun için <a href="http://maint.tf">maint.tf</a> de oluşturduğumuz bucket için olan resource bloğunu da kaldırmamız gerekecek. </p><p id="fe3781bf-b0e2-4c74-8341-bf3798181d4a" class=""><code>terraform apply -refresh=false</code> apply komutunu bu parametre ile kullanırsak da şu anlama geliyor. Sen apply yaparken state file ile gerçek durumu kontrol etme yani konsoldan yapılan değişiklikleri dikkate alma. Biraz önceki senaryoyu burada uygularsak. S3 bucket’ı sildim ve apply komutunu tekrar yukarıdaki parametre ile uyguladım.</p><figure id="b114ca38-124c-43bb-aaaf-0337e755d7df" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2019.png"><img style="width:886px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2019.png"/></a></figure><p id="b6624a62-bfa9-4865-bfe6-f3b977fb60af" class="">refresh ile güncelleme yapmadığı için state file da bucket hala var gözüküyor. apply yapıldığında yeni kaynak yokmuş gibi değerlendirecek. Aslında bunu şu şekilde kullanıyoruz. Eğer konsoldan değişiklik yapamadığımıza emin isek vakit kaybı olmasın işlem hızlı gerçekleşsin kontrol yapmasın amacıyla kullanıyoruz.</p><h2 id="83db173f-cbf2-4669-9fa0-344078866b21" class=""><strong>Variables</strong></h2><p id="cfd04341-ee15-4152-8e58-05fe3007f5df" class="">Variable&#x27;lar neden kullanılır? Başlıca sebepleri şunlardır:</p><ul id="bc9c8639-5aa9-44fb-8ea7-5b4d271e2ce3" class="bulleted-list"><li style="list-style-type:disc">Gizli olması gereken bilgileri saklamak (AWS credentials gibi).</li></ul><ul id="2d226020-49a3-4c55-8e1c-de3d013ca4d5" class="bulleted-list"><li style="list-style-type:disc">Değişme ihtimali olan bilgileri rahat kullanmak (AMI&#x27;ler region&#x27;a göre değişiklik gösterir).</li></ul><ul id="a45260e5-0f91-41d8-b105-d9dc3d5e99bc" class="bulleted-list"><li style="list-style-type:disc">Hazır variable&#x27;ları tekrar ve kolayca kullanmak.</li></ul><p id="01651b3b-3330-48cc-a4ee-c24f9bbecd3c" class="">Farklı şekillerde kullanılabilir. </p><ol type="1" id="a7b6c4ac-aded-4d08-92cf-bb3690924c68" class="numbered-list" start="1"><li>Yaygın kullanım variable blokları halinde farklı bir <a href="http://variable.tf">variable.tf</a> file’ı içinde kullanılabilir. </li></ol><figure id="e75b8e8a-bfa3-4a96-8138-9549df6ff196" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2020.png"><img style="width:1096px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2020.png"/></a></figure><p id="8baddc08-ffe6-4888-921e-f2e108200736" class="">Aynı klasör içinde farklı bir <a href="http://variable.tf">variable.tf</a> içerisinde değişkenler hazırlandı. Aynı <a href="http://main.tf">main.tf</a> içinde de olabilirdi bu şekilde daha okunaklı olmuş oldu. Bu kullanımda artık herhangi bir değer değiştirmek istenirse ana dosyaya hiç dokunmamıza gerek kalmayacak. Variable içinde optional olan 2 değer daha eklenebilir. Birincisi type, ikincisi description. Description kullanımı best practice’dir. Type olarak, string, number, bool, list, map, object, tuple destekler.</p><figure id="23db693e-c90e-4574-a75c-dc1d861412f9" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2021.png"><img style="width:558px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2021.png"/></a></figure><figure id="fa8838b7-14f7-4b44-8433-450878aac81a" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2022.png"><img style="width:1193px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2022.png"/></a></figure><figure id="563165c6-6659-43d3-83f5-960b9f636b9c" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2023.png"><img style="width:1190px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2023.png"/></a></figure><figure id="16997478-100c-4b18-9981-c79321bf4b7b" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2024.png"><img style="width:240px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2024.png"/></a></figure><p id="574ad1bd-8dd6-438d-9075-8c5ef7c8f5b7" class="">variable bloğu içerisinde default parametresi de aslında optional’dır. default tanımlandıktan sonra içeriği boş bırakılırsa terraform apply yapıldığında interaktif şekilde ilgili değişkenleri girmememiz gerekir.</p><ol type="1" id="238db9bd-c1e9-4507-815e-3de17b1725ae" class="numbered-list" start="2"><li>.tfvars dosyası ile değişken atama. Kişiler kendine özgü değişken dosyası oluşturabilir samet.tfvars gibi. Bu uzantılı dosyalarda öncelik sırası vardır. terraform.tfvars önceliklidir. Ama kendi dosyanızın daha öncelikli olmasını isterseniz samet.auto.tfvars şeklinde auto ilave etmek gerekir.</li></ol><figure id="0576ee90-acfe-4180-990e-d8348312e672" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2025.png"><img style="width:484px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2025.png"/></a></figure><p id="021d41a6-a997-40e4-8dfb-4db21f32eef0" class="">Herhangi bir isimle .tfvars dosyası oluşturduk ve buradakiler geçerli olsun istersek apply veya plan komutunu aşağıdaki gibi çalıştırmamız gerekecek.</p><pre id="ae4baff4-2e25-4efc-ad9c-9b2dc49b9e66" class="code"><code>terraform apply -var-file=&quot;samet.tfvars”</code></pre><figure id="e839b742-871e-405a-8cf0-77bdf497fe99" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2026.png"><img style="width:528px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2026.png"/></a></figure><p id="75fbe457-b63b-4c8a-a273-70de2be80048" class="">samet.tfvars dosyasını değiştirmeden terraform.tfvars dosyasını da yapalım.</p><figure id="4821651c-f002-4491-b62c-2df816890960" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2027.png"><img style="width:452px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2027.png"/></a></figure><figure id="bd6a8a2c-fecf-4dab-8e25-860061f085c9" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2028.png"><img style="width:575px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2028.png"/></a></figure><p id="7bd837e7-1361-4923-9cf5-6204ccfcbb6a" class="">Eğer terraform.tfvars dosyası yaptıysak bunu -var-file=”terraform.tfvars” şeklinde belirtmemize gerek yok terraform apply yaptığımızda değişkeni alır.</p><ol type="1" id="04ac6c03-14af-4add-a274-ec49884259d9" class="numbered-list" start="3"><li>Diğer bir kullanım plan veya apply komutuyla birlikte -var parametresi kullanmak.</li></ol><pre id="bf113cc8-d12e-4d74-8a1c-8403f7fb73d8" class="code"><code>terraform plan -var=&quot;ec2_name=ec2-degisken-parametre”</code></pre><figure id="ced2d570-8715-40de-bd9d-b2dde43e73d6" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2029.png"><img style="width:643px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2029.png"/></a></figure><ol type="1" id="6e3ebd85-7e46-4bb4-8379-46bffa305aa9" class="numbered-list" start="4"><li>Diğer bir kullanım environment variable ile aşağıdaki gibi tanımlama yapabiliriz.</li></ol><pre id="ab9a5056-17c7-4f5f-8fe9-80b0602c9dff" class="code"><code>export TF_VAR_ec2_name= env-den-geldi</code></pre><figure id="0623b902-5aa1-43d7-992f-15dfe32f9a8d" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2030.png"><img style="width:568px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2030.png"/></a></figure><p id="a512f314-4695-4655-8bc6-1cf0cf43594a" class="">Yukarıda 4 farklı değişken tanımlamayı gösterdim. Bunların da kendi aralarında öncelik sırası var;</p><ol type="1" id="aaf2b13d-d76b-424c-8e96-dc23df8a42c9" class="numbered-list" start="1"><li><code>-var</code> veya <code>-var-file</code>  parametreleri ile apply komutu çalıştırılırsa önce bunu değerlendirir.</li></ol><ol type="1" id="20ba6087-82e5-4e7e-a01b-05cd13954094" class="numbered-list" start="2"><li>.tfvars dosyası hazırlandı ise sırada bu gelir. Burada da kendi içinde <strong>*.auto.tfvars</strong> sonra <strong>terraform.tfvars</strong> en son <strong>*.tfvars</strong> dosyası değerlendirilir.</li></ol><ol type="1" id="250740fc-b940-4bc7-b7ce-64e93d86f133" class="numbered-list" start="3"><li>Environment variables</li></ol><ol type="1" id="315c9daa-e0aa-4a94-8809-239cf5aacd57" class="numbered-list" start="4"><li>Default variables</li></ol><figure id="521d4daa-9a6e-486d-9529-10c3b8bf2f7a" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2031.png"><img style="width:480px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2031.png"/></a></figure><h2 id="7d3d0ff8-e56c-49c3-b44f-311cc9702087" class="">count &amp;&amp; for_each</h2><p id="3b801376-e7db-44df-b5f8-a090315917b2" class="">Şu ana dek teker teker kaynak oluşturduk peki bir seferde birden fazla kaynak nasıl oluşturacağız? Burada terraform da count veya for_each ifadelerini kullanacağız. Aynı örneği her iki kullanımla da yapacağım. 3 adet iam user oluşturalım. Önce count ile başlayalım.</p><figure id="2c87acfd-2744-4559-8759-ec2eb5219f0d" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2032.png"><img style="width:1049px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2032.png"/></a></figure><p id="d2b12b93-3add-480e-8c57-b61f35d8836c" class="">Aynı örneği for_each ile yapalım. Fakat burada bir ayrıntı var for_each de variable set veya map tipinde olmalı bu değişikliği variable file ında veya <a href="http://main.tf">main.tf</a> de yapabiliriz.</p><figure id="9d0aa20c-f825-4172-8113-372b1767ef7e" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2033.png"><img style="width:1030px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2033.png"/></a></figure><h2 id="c9e70a51-cd5b-4da9-a5c1-e5e87e9eac83" class=""><strong>Conditionals</strong></h2><p id="1c38380d-cc66-4185-9dc8-2748d359b6ad" class="">Yapı aşağıdaki gibi kurulur.</p><p id="92eed275-7b93-4ead-8f6e-6c808fc9b5d5" class="">KOŞUL     ?    KOŞUL-DOĞRU-İSE ÇALIŞACAK     :     KOŞUL-YANLIŞ-İSE ÇALIŞACAK</p><p id="6b644c26-a288-4fdf-a486-21486f74052c" class=""><strong>count = var.num_of_buckets &gt; 0 ? 5 : 3</strong></p><p id="c35b7765-e33c-45ba-b124-1a308e505556" class="">Yukarıdaki örnek üzerinden bakacak olursak var.num_of_bucket değeri 0’dan büyükse count=5 olacak eğer 0 ise count=3 olacak.</p><p id="2b5e7df3-4ac5-4b35-a2e1-679f761ee6cf" class="">Farklı bir örnek yapalım oluşturduğumuz iam_user’ların isimlerinin uzunlukları 4 karakterden büyükse user isimlerini büyük harfe çevirerek output olarak alalım.</p><figure id="40d82fc3-dc14-439c-aa5c-b5534e704619" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2034.png"><img style="width:595px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2034.png"/></a></figure><h2 id="e8b812f9-176c-4419-8c52-fe25f98bdfe4" class="">Faydalı VSCode eklenti önerileri:</h2><p id="4a982d26-38b8-41e7-b034-7a71621db44b" class=""><strong>IntelliJ IDEA Keybindings</strong></p><p id="19979004-5373-4de0-a9ac-57aefcbc3af7" class=""><strong>HashiCorp Terraform</strong></p><p id="f2ead7d1-b691-4967-af14-f0e24b3b79a9" class=""><strong>Terraform doc snippets</strong></p><h2 id="2d0f28f8-3202-4653-9d57-5cc889fbbe52" class="">Resource Dependencies</h2><pre id="88f9015b-283f-4e3d-9c61-f0c218afd2d7" class="code code-wrap"><code>resource &quot;aws_instance&quot; &quot;example&quot; {
+  ami           = &quot;ami-2757f631&quot;
+  instance_type = &quot;t2.micro&quot;
+}
+
+resource &quot;aws_eip&quot; &quot;ip&quot; {
+    vpc = true
+    instance = aws_instance.example.id
+}</code></pre><p id="f38019a2-6a2a-49a8-a6bf-3ca9131eef5d" class="">Bir resource un diğer resource dan önce oluşturulması gerekebilir.</p><p id="1e1dc788-3af3-4706-bad3-777e64055a50" class=""><strong>Implicit and Explicit Dependencies:</strong></p><p id="3818594f-4fce-415f-aa4b-76383c894d52" class="">Yukarıdaki örnekte implicit bir bağlılık var kaynakların bağımlılığını terraform kendisi çıkartır. Önce instance daha sonra eip oluşturulur.</p><p id="799b51ab-6cdb-4de4-9f78-ce6e8786e66c" class="">Örneğin EC2 içindeki bir uygulama S3 bucket ını kullanacaksa bunu explicit bağımlılık olarak depends_on argümanı ile belirtmeliyiz.</p><pre id="269ec85a-1f49-44a4-bfbd-eaf16075ca78" class="code code-wrap"><code>
+resource &quot;aws_s3_bucket&quot; &quot;example&quot; {
+  bucket = &quot;clarusway-terraform-guide&quot;
+  acl    = &quot;private&quot;
+}
+
+resource &quot;aws_instance&quot; &quot;example&quot; {
+  ami           = &quot;ami-2757f631&quot;
+  instance_type = &quot;t2.micro&quot;
+  depends_on = [aws_s3_bucket.example]
+}</code></pre><h2 id="54b28def-62c3-436e-b6e1-da2c5073c92a" class="">Mutable &amp;&amp; Immutable Infrastructure</h2><p id="11082e26-e28b-4c6a-aff8-1f0ac921f98b" class="">Kaynaklarda değişiklik veya güncelleme yapmanın 2 yolu vardır. Birincisi mutable yani kaynak aynı kalır sadece değişiklik yaparız. İkincisi ise immutable yani yeni istenen özelliklerle yeni bir kaynak oluşturulur ve eskisi destroy edilir. Terraform güncellemeleri immutable olarak gerçekleştirir. Bu işlemi yaparken de önce eski kaynağı destroy eder daha sonra yenisini oluşturur. </p><p id="26e93d79-c316-4778-a202-5894842c0146" class="">Bu yaklaşım kullanıma göre sıkıntılar oluşturabilir. Yani önce yenisi oluşturulsun eskisi daha sonra silinsin isteyebilirsiniz. Bu durumda resource bloğu içine lifecycle bloğu oluşturmak gerekmektedir. Bu blokla ayrıca istenmeden database gibi kaynakların destroy edilmesini de önleyebiliyoruz. Aşağıda örneğini görebilirsiniz.</p><pre id="f0d01769-49c9-44dc-9f78-58dfd577e254" class="code"><code>lifecycle {
+	create_before_destroy = true
+}</code></pre><pre id="77321bae-d6bf-45fe-b561-a55d4b7a1a2e" class="code"><code>lifecycle {
+	prevent_destroy = true
+}</code></pre><h2 id="86884cf4-27cf-4eaf-a1b6-79fa39304fdc" class="">Data Source</h2><p id="5cb4c5ea-60e2-4660-b7eb-0f25d859e24e" class="">Provider’lar tarafından hazırlanan resource oluştururken kullanılan bloklardır.  Offical siteyi incelediğimizde her kaynağın altında onunla ilgili data blokları da yer alır. Amazon tarafından yayınlanan ubuntu imajı ihtiyacımız olduğunu varsayalım. Bu bilgiyi çekmek için data bloklarını kullanabiliyoruz. Aşağıdaki örnekte data bloğunu görebilirsiniz. Dikkat ederseniz filter bloklarıyla kısıtlamalar yapabiliyoruz.</p><figure id="5f1cd9c0-bdce-43d9-bfba-a738b5b087aa" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2035.png"><img style="width:374px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2035.png"/></a></figure><p id="bdf74d83-6667-4a61-b2db-f0615a49c85f" class="">Daha sonra bu bilgiyi ec2 oluştururken aşağıdaki gibi kullanacağız. </p><figure id="f826f6f3-3ad2-4c15-8dec-b78289b35475" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2036.png"><img style="width:279px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2036.png"/></a></figure><p id="e743b8aa-c75b-4825-beb5-2603b78cd0a2" class="">Hesabımızda kendi oluşturduğumuz imajımız olsaydı ve bunu kullanmak istese idik bu durumda owner kısmına [”self”] yazmamız gerekecekti.</p><p id="bd0e9a37-0dae-4d59-82fe-e72d5a282630" class="">Aşağıda tablodan resource ve data source arasındaki farkı inceleyebilirsiniz.</p><figure id="d5f45ef2-d415-47c5-afbf-b8b97e1ace1c" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2037.png"><img style="width:727px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2037.png"/></a></figure><h2 id="4beb6ec0-d7af-48c8-82e6-0791cfe866cb" class=""><strong>Remote State</strong></h2><p id="773af199-8f67-4135-9f0e-99e3fe256fee" class="">Öncelikle bu özelliğin ne işe yaradığından bahsedelim. Daha önce öğrenmiştik terraform oluşturduğu kaynakları state file’ında tutar. Bir değişiklik yapıldığında state file da değişir. Bir grubunuz var aynı hesap üzerinde çalıştığınızı varsayalım. Birinci kişi 2 adet ec2 3 tane de bucket oluşturdu. Bu kişinin çalıştığı bilgisayarda state file’ında bu kaynaklar oluştu. İkinci kişi de 1 ec2 ve 2 tane de bucket oluşturmak istedi ve kodu çalıştırdı. Sonuç ne olacak? En son çalıştıran kişinin state file’ında da 1 ec2 ve 2 bucket olacak. Toplamda 2 ec2 ve 5 bucket’ımız oldu ama bunlar farklı state file’larda tutuluyor. Bu sıkıntıyı gidermek için yapılmış bir çözümdür remote state. </p><p id="b15c8835-c98b-4945-8e67-7aa8118b12ad" class="">Burada bir backend tanımlıyoruz.  AWS S3 veya terraform Cloud backend örnekleridir. Bu şekilde çalıştığımızda state file’lar S3 gibi uzakta bir yerde muhafaza edilir. Her değişikliği yapan işlemi bitince burdaki state file’a son durum yazılmış olur ve herkes aynı durumu görmüş olur. Bir detay daha var aslında .tf dosyaları da herkeste aynı olması gerekiyor bunun için de github gibi VCS kullanılabilir. Aşağıdaki resim çok güzel özetliyor aslında.</p><figure id="653bb1ee-9bf6-4216-9a5c-a8ee623ce33e" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2038.png"><img style="width:1426px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2038.png"/></a></figure><p id="8a4eb7b8-7a76-492f-9c9a-7fbfe3e3bfb0" class="">
+</p><p id="d0011309-c5de-4e73-9a7e-f3f49626a97f" class="">Bu özelliği kullanmak için bir s3 bucket ve bir de dynamodb tablosuna ihtiyacımız var. S3 bucket’ı state file ı tutmak için kullanacağız. Şifreleme ve versiyonlama özelliğini kullanacağız. Dynamodb tablosunu ise lock özelliği için kullanacağız. Eğer aynı anda 2 farklı kişi işlem yapmaya çalışırsa problem çıkacaktır. Bunu önlemek için bir kişi işlem başlattığında diğerlerinin ulaşmasını önlemek için dosya kilitlenir. </p><p id="5b785389-b4c6-4790-b80a-6ef4e7f19ca5" class="">Öncelikle <strong>farklı</strong> bir klasörde <a href="http://backend.tf">backend.tf</a> dosyası oluşturalım. İçeriği aşağıdaki gibi olacak bir adet s3 bucket ve dynamodb tablosu oluşturmuş olacağız.</p><pre id="4693c305-6be0-4823-9208-dfb56d495237" class="code"><code>resource &quot;aws_s3_bucket&quot; &quot;remote-state&quot; {
+  bucket = &quot;bucket-remote-state&quot;
+  versioning {
+    enabled = true
+  }
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = &quot;AES256&quot;
+      }
+    }
+  }
+}
+
+resource &quot;aws_dynamodb_table&quot; &quot;tf-remote-state-lock&quot; {
+  hash_key = &quot;LockID&quot;
+  name = &quot;tf-s3-app-lock&quot;
+  attribute {
+    name = &quot;LockID&quot;
+    type = &quot;S&quot;
+  }
+}</code></pre><p id="fafa79bf-4194-4edd-bcb4-239b47e2fe13" class="">S3 bucket için <strong>versiyonlama</strong> özeliğini açtık ve <strong>AES256</strong> şifrelemeyi aktif ettik.  Dynamodb de ise <strong>hash_key = &quot;LockID&quot;</strong> özelliği ile aynı anda birden fazla erişim olmaması için kilitleme özelliğini kullandık. Kaynakları oluşturduktan sonra <code>terraform init</code> ve<code> terraform apply</code> komutlarını uygulayalım.</p><p id="c6acc9fa-0124-4507-a462-5ac897dae57e" class="">Daha sonra kendi çalıştığımız klasöre dönelim ve <a href="http://main.tf">main.tf</a> dosyamızda terraform bloğu içerisine aşağıdaki kodu yapıştıralım.</p><pre id="66d9166d-1857-406f-9785-59eb5eab9b03" class="code"><code>terraform {
+  required_providers {
+    aws = {
+      source  = &quot;hashicorp/aws&quot;
+      version = &quot;3.70.0&quot;
+    }
+  }
+  backend &quot;s3&quot; {
+    bucket = &quot;tf-remote-s3-bucket-oliver-changehere&quot;
+    key = &quot;env/dev/tf-remote-backend.tfstate&quot;
+    region = &quot;us-east-1&quot;
+    dynamodb_table = &quot;tf-s3-app-lock&quot;
+    encrypt = true
+  }
+}</code></pre><p id="35651fd8-5795-488e-a799-caf7c0e5bce6" class="">Bu işlemden sonra terraform init komutu tekrar çalıştırılmalıdır. state file’a baktığınızda boş oluğunu göreceksiniz. Artık State file’lar s3 içerisinde env/dev/  klasörü altında olmuş olacak.</p><h2 id="584dfb3f-6e72-458a-b57d-615da826db9a" class=""><strong>Provisioners</strong></h2><p id="40b41665-0962-4b82-8c56-935b5b607b92" class="">AWS servisi olan EC2 ayağa kaldırırken user data girme özelliği vardı. Daha EC2 ayağa kalkarken script yazarak bazı programların kurulmasını, dosyaların oluşturulmasını sağlayabiliyorduk. Provisioner da aslında bu işi yapıyor kaynak oluşurken aşağıda göstereceğim şekilde bir <strong>connection</strong> kurup <strong>security grubu</strong> ayarladıktan sonra bazı işlemleri yaptırabiliyoruz. Bu işlemler kaynakta olacaksa <strong>remote-exec provisioner</strong>, eğer çalıştığımız klasörde olacaksa da <strong>local-exec provisioner</strong> diyoruz. ‘ şart vardı tekrar hatırlatayım security grubun ssh portuna izin vermesi ve connection bloğunun hazırlanması. Diğer bir husus provisioner ve connection bloğunun resource bloğu içinde olması gerekiyor.</p><figure id="b5032750-dd97-4542-9745-f63afc982232" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2039.png"><img style="width:599px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2039.png"/></a></figure><figure id="c003fa24-27df-4d0e-9a81-4755864a187f" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2040.png"><img style="width:240px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2040.png"/></a></figure><figure id="de5aaba6-5ee7-4a57-83c7-06efe44bbea6" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2041.png"><img style="width:1525px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2041.png"/></a></figure><p id="488af625-61a8-475e-829d-350a32e3c9f8" class="">İlk büyük bloğu biliyoruz instance oluşturma bloğu ve sayfanın sonunda bitiyor. İkinci blok remote-exec provisioner bloğu. Birden fazla işlem olduğu için dizi içerisine aralara ”,” koyarak apache web server kurup başlatıyoruz ve HTML klasörü içine bir yazı yazdıran index.html atıyoruz.</p><p id="035a5491-1776-41ca-951c-fdd18d98bb54" class="">Son blok connection bloğu. Dikkat ederseniz ssh bağlantısında kullandığımız parametreleri giriyoruz.  “ssh -i key.pem ec2-user@public_ip “ buradaki değerleri girmiş oluyoruz. Security grubu da yandaki gibi ayarladıktan sonra apply dediğimizde public_ip ile istediğimiz sonucu web browser’dan görebiliriz.</p><p id="3c4363e8-5a95-4676-8a0b-443a9bc62455" class="">Şimdi de local-exec ten basedelim. local-exec provisioner, remote-exec in aksine local terraform binary dosyalarının olduğu makinede işlem yapar. EC2 oluştuktan sonra atanan public ve private ip’yi çalıştığımız makinede bir txt file’ında tutmak istiyoruz. Bu durumda aşağıdaki gibi local exec kullanmamız gerekiyor.</p><figure id="c51d6015-e96a-40b4-ae79-b72c287b22ed" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2042.png"><img style="width:1031px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2042.png"/></a></figure><p id="b8663d49-43a9-4416-874d-3d84c83cdaa3" class="">Son olarak provisioner’larda behavior belirtebiliyoruz. Yani destroy edildiğinde arklı komut çalıştırmasını istiyorsak;</p><figure id="aa8147e2-d182-4e38-bd9d-25444642883a" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2043.png"><img style="width:1415px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2043.png"/></a></figure><p id="bc20433a-464d-4f42-adaa-08e224539fc6" class="">veya bir hata olması durumunda görmezden gel demek istersek aşağıdaki gibi behavior girmemiz gerekir. temp klasörü olmadığı için bu hata almayı bekleriz.</p><figure id="e907f7da-43e9-4833-80c7-16a125540567" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2044.png"><img style="width:1423px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2044.png"/></a></figure><p id="8f44ba7b-15d4-4511-82aa-a9c4bacadc4b" class="">Tam burada bir detay daha vermem gerekecek. Eğer <code>on_failure = continue</code>  demesek bile Terraform aslında kaynağı oluşturur sadece local-exec’i uygulamaz. Bu durumda terraform bu kaynağı taint yani lekeli kabul eder ve bir sonraki apply da bu kaynağı destroy edip tekrar kurar. Bu özelliği biz kullanmak da isteyebiliriz. Diyelim yeni versiyon kurmak istedik biz remote-exec bloğunu değiştirsek de bir değişiklik görmeyecek. Ama aşağıdaki komutla kaynağı lekeli ilan edip sonraki apply da kaynağı destroy edip daha sonra create etmesini isteyebiliriz.</p><pre id="a25f1f73-0f6c-45c3-a0ea-de49356659a8" class="code"><code>terraform taint aws_instance.ec2
+terraform untaint aws_instance.ec2</code></pre><p id="9da43d3a-9214-4f60-8f1e-d7d07c65cdec" class="">Bu kadar anlattık ama terraform provisioner kullanmayı son çare olarak kullanın der. Herhangi yetki hatası veya bağlantı hatası durumunda işleminiz gerçekleşmeyecektir. Bunun yerine user data kullanılması daha sağlıklı olacak. AWS deki user data’nın diğer provider’larda da karşılığı mevcuttur.</p><figure id="1a6dcd70-8f0c-4e52-a529-1f3e08cb6d91" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2045.png"><img style="width:1613px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2045.png"/></a></figure><p id="53e02357-959e-4be2-bfd6-2bcc95e5a31d" class="">Aslında en sağlıklısı da  nginx yüklü bir ami seçip o şekilde instance ayağa kaldırmaktır.</p><hr id="c93a9f62-ddc7-4c1d-90f5-eca8152e15c1"/><h2 id="abc37714-e191-45a1-ac1c-5b493919cbd3" class="">Import</h2><p id="848845b1-3bd1-4e5d-a571-33c7bc7eca7e" class="">Şimdiye kadar kaynakları terraform kullanarak oluşturduk daha sonra kaldırdık gibi bir takım işlemler yaptık. Ya dışarıda bir kaynağınız daha var bunu da terraform ile kontrol etmek istersek ne yapacağız? Aşağıdaki resimde 3 farklı yöntemle oluşturulmuş resource’ları terraform içine almak istiyoruz. Terraform bu kaynakları import etme şansı veriyor bize. </p><figure id="a68f1735-b8de-4a26-8cef-12f6bb712ed7" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2046.png"><img style="width:1476px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2046.png"/></a></figure><p id="d93fb1cd-c168-4fca-b5bd-2d807ced8358" class=""> Öncelikle .tf dosyamıza o kaynağı boş da olsa oluşturmamız gerekiyor. İsterseniz bilinen özeliklerini instance_type, ami vs girebiliriz. Daha sonra da import komutunu çalıştırdığımızda sanki apply yapmış gibi resource terraform tarafından kontrol edilebilir oluyor. </p><p id="79ba3850-5ca8-4818-bb32-61ab43cb9644" class="">Şimdi AWS konsol’dan bir EC2 oluşturalım ve instance id’sini kopyalayalım. Daha sonra çalıştığımız klasörde bir aws_instance kaynağı oluşturalım, terminalden de import komutumuzu yazalım.</p><figure id="a35eb5a1-8503-4a65-a04d-09b3d9a7229b" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2047.png"><img style="width:1055px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2047.png"/></a></figure><p id="6e2956d3-4b88-4913-87c4-278a2a929444" class="">İçeri aldık ama işlem bitmiyor. Kendisi state file oluşturdu ve tüm özellikleri çekildi. Biz bazı bilgileri <a href="http://main.tf">main.tf</a>’e eklememiz gerekecek. Aşağıdaki gibi bilgileri eklediğimizde sonrasında plan komutunu çalıştırdığımızda no changes yani değişiklik yok almış olacağız. Burada main.tf dosyasını manual olarak hazırlamak zorunda kalıyoruz. Terraform’da bunun farkında ve bu konuda çalıştığını dokümanda belirtmiş.</p><figure id="a0471572-2f2c-41fb-ae91-8409c5868911" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2048.png"><img style="width:830px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2048.png"/></a></figure><p id="fb154deb-0a6d-4b92-9a80-7aa089d06a3b" class="">Burada şöyle bir soru gelebilir. EC2’nun dünya kadar özelliği var ben hangilerini girsem yeterli olur? Eğer bilmiyorsak <code>terraform show</code> komutunu çalıştıralım ve çıkan sonucu <a href="http://main.tf">main.tf</a> e yapıştıralım garanti olmuş olur.</p><hr id="13905dc3-4bba-4b5e-821a-fe30fec6eece"/><h2 id="81e4c45c-293a-4122-956a-6f189242f626" class="">Modules</h2><p id="52bc13e8-94bc-4e4c-bc57-02de7dc94202" class="">Bu da son konumuz olmuş olacak. Sürekli farklı birimler için aynı resource’lara ihtiyacımız olacaksa burada module devreye giriyor. Bir templete hazırlıyoruz gibi düşünebiliriz daha sonra hazırladığımız templete’in yolunu göstererek aynı cins yeni kaynakları çok kolay şekilde oluşturabiliyoruz. Temel mantığı anladıysak bir örnek yapalım. Aşağıdaki yapıyı farklı regionlarda kurmamız isterse bunu module ile kolayca yapabiliriz. Bir instance, bir s3 Bucket ve bir de dynamodb table’a ihtiyacımız var.</p><figure id="92ffd198-055a-4b25-964a-be311fd1a9b8" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2049.png"><img style="width:1452px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2049.png"/></a></figure><p id="920b1e61-bd18-4c37-b6c4-a4c4aee66d5d" class="">Önce tüm bu resource’ların oluşturulduğu bir modules klasörü içinde .tf dosyalarımızı oluşturalım.</p><figure id="bfd51855-c118-4aaf-97ea-56d8e9913962" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2050.png"><img style="width:1306px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2050.png"/></a></figure><p id="9068a41f-e6fe-41cf-b997-914a1af6c070" class="">depends_on ile instance’ın S3 bucket ve dynamodb_table’dan sonra oluşturulmasını sağlıyoruz. Diğer kısımlar bu zamana kadar yaptığımız resource oluşturma kısmı. Bu yapıyı bir defa kurduktan sonra aşağıdaki module yapısını kullanarak istediğimiz kadar farklı yerde kullanabileceğiz.</p><figure id="4b0a3689-fe85-463a-9344-90930ba5331c" class="image"><a href="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2051.png"><img style="width:472px" src="Terraform%204a6491baff5b4db8839b54742c625c78/Untitled%2051.png"/></a></figure><p id="ab311372-d15e-4703-b2ce-0c6f612df7e0" class="">module bloğu oluşturduk. Source olarak bir önceki klasörde bulunan daha önce yukarıda yaptığımız dosyaları gösterdik. variable’ları da tanımladık. Bundan sonra yapacağımız terminaden ilgili klasöre gelip <code>terraform init</code> ve <code>terraform apply</code> komutu vermek.</p><p id="b845d9c7-70bd-4b8f-aa5a-cfce59ce7c6b" class="">Çok önemli görmediğim kavram olarak da root child module kavramlarını ayıralım. En son hazırladığımız module blogu alan klasörümüz root module, özellikler aldığımız yani kaynakları oluşturduğumuz kısım ise child module olmuş oluyor. Programlama dillerinde olan package’lere benzetilebilir. Child module de terraform komutları çalıştırılmasına gerek yoktur. Root module de komutlar çalıştığında gerekli kaynak bilgilerini child module’den almış olacak.</p><p id="d344256b-94d9-43cd-ba86-fc3d92ab1d7d" class="">Biz bu işlemi local’de hazırladık ve kullandık. Ayrıca offical sitede bulunan daha önce hazırlanan module’leri de kullanabiliriz.</p><pre id="9769cdba-03b4-439e-b63a-c3f0b6e39d79" class="code code-wrap"><code> module &quot;security-group&quot; {
+  source  = &quot;terraform-aws-modules/security-group/aws&quot;
+  version = &quot;4.7.0&quot;
+  # insert the 3 required variables here
+}</code></pre><p id="cfa519b5-f128-4e1b-b376-7cd2285a9efc" class="">Yukarıdaki .tf dosyasını kaydettikten sonra terraform get komutunu çalıştırdığımızda aynı klasörde .terraform klasörü altında içeriği görebiliriz.</p></div></article></body></html>
